@@ -1,0 +1,326 @@
+{
+  "packId": "colegio",
+  "language": "es",
+  "pairs": [
+    {
+      "id": "colegio-001",
+      "a": "Clase sobre examen sorpresa",
+      "b": "Regaño del director por examen sorpresa",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-002",
+      "a": "Clase sobre tarea perdida",
+      "b": "Regaño del director por tarea perdida",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-003",
+      "a": "Clase sobre cambio de profesor",
+      "b": "Regaño del director por cambio de profesor",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-004",
+      "a": "Clase sobre recreo",
+      "b": "Regaño del director por recreo",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-005",
+      "a": "Clase sobre disfraz",
+      "b": "Regaño del director por disfraz",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-006",
+      "a": "Clase sobre nota final",
+      "b": "Regaño del director por nota final",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-007",
+      "a": "Clase sobre proyecto grupal",
+      "b": "Regaño del director por proyecto grupal",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-008",
+      "a": "Clase sobre excursión",
+      "b": "Regaño del director por excursión",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-009",
+      "a": "Clase sobre expulsión",
+      "b": "Regaño del director por expulsión",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-010",
+      "a": "Clase sobre acto cívico",
+      "b": "Regaño del director por acto cívico",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-011",
+      "a": "Clase sobre uniforme",
+      "b": "Regaño del director por uniforme",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-012",
+      "a": "Clase sobre feria de ciencias",
+      "b": "Regaño del director por feria de ciencias",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-013",
+      "a": "Clase sobre tutoría",
+      "b": "Regaño del director por tutoría",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-014",
+      "a": "Clase sobre bullying",
+      "b": "Regaño del director por bullying",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-015",
+      "a": "Clase sobre hoja de vida",
+      "b": "Regaño del director por hoja de vida",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-016",
+      "a": "Consejo estudiantil sobre examen sorpresa",
+      "b": "Comité disciplinario sobre examen sorpresa",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-017",
+      "a": "Consejo estudiantil sobre tarea perdida",
+      "b": "Comité disciplinario sobre tarea perdida",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-018",
+      "a": "Consejo estudiantil sobre cambio de profesor",
+      "b": "Comité disciplinario sobre cambio de profesor",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-019",
+      "a": "Consejo estudiantil sobre recreo",
+      "b": "Comité disciplinario sobre recreo",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-020",
+      "a": "Consejo estudiantil sobre disfraz",
+      "b": "Comité disciplinario sobre disfraz",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-021",
+      "a": "Consejo estudiantil sobre nota final",
+      "b": "Comité disciplinario sobre nota final",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-022",
+      "a": "Consejo estudiantil sobre proyecto grupal",
+      "b": "Comité disciplinario sobre proyecto grupal",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-023",
+      "a": "Consejo estudiantil sobre excursión",
+      "b": "Comité disciplinario sobre excursión",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-024",
+      "a": "Consejo estudiantil sobre expulsión",
+      "b": "Comité disciplinario sobre expulsión",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-025",
+      "a": "Consejo estudiantil sobre acto cívico",
+      "b": "Comité disciplinario sobre acto cívico",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-026",
+      "a": "Consejo estudiantil sobre uniforme",
+      "b": "Comité disciplinario sobre uniforme",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-027",
+      "a": "Consejo estudiantil sobre feria de ciencias",
+      "b": "Comité disciplinario sobre feria de ciencias",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-028",
+      "a": "Consejo estudiantil sobre tutoría",
+      "b": "Comité disciplinario sobre tutoría",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-029",
+      "a": "Consejo estudiantil sobre bullying",
+      "b": "Comité disciplinario sobre bullying",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-030",
+      "a": "Consejo estudiantil sobre hoja de vida",
+      "b": "Comité disciplinario sobre hoja de vida",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-031",
+      "a": "Reunión de padres por examen sorpresa",
+      "b": "Juicio escolar por examen sorpresa",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-032",
+      "a": "Reunión de padres por tarea perdida",
+      "b": "Juicio escolar por tarea perdida",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-033",
+      "a": "Reunión de padres por cambio de profesor",
+      "b": "Juicio escolar por cambio de profesor",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-034",
+      "a": "Reunión de padres por recreo",
+      "b": "Juicio escolar por recreo",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-035",
+      "a": "Reunión de padres por disfraz",
+      "b": "Juicio escolar por disfraz",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-036",
+      "a": "Reunión de padres por nota final",
+      "b": "Juicio escolar por nota final",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-037",
+      "a": "Reunión de padres por proyecto grupal",
+      "b": "Juicio escolar por proyecto grupal",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-038",
+      "a": "Reunión de padres por excursión",
+      "b": "Juicio escolar por excursión",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-039",
+      "a": "Reunión de padres por expulsión",
+      "b": "Juicio escolar por expulsión",
+      "tags": [
+        "colegio"
+      ]
+    },
+    {
+      "id": "colegio-040",
+      "a": "Reunión de padres por acto cívico",
+      "b": "Juicio escolar por acto cívico",
+      "tags": [
+        "colegio"
+      ]
+    }
+  ]
+}

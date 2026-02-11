@@ -1,0 +1,131 @@
+{
+  "packId": "familia",
+  "language": "es",
+  "prompts": [
+    {
+      "id": "familia-p-001",
+      "text": "Di una frase que dirías en familia",
+      "tone": "serio"
+    },
+    {
+      "id": "familia-p-002",
+      "text": "Menciona un objeto típico de familia",
+      "tone": "absurdo"
+    },
+    {
+      "id": "familia-p-003",
+      "text": "Describe el ambiente de familia en 4 palabras",
+      "tone": "sarcástico"
+    },
+    {
+      "id": "familia-p-004",
+      "text": "Una excusa rápida relacionada con familia",
+      "tone": "rápido"
+    },
+    {
+      "id": "familia-p-005",
+      "text": "Una palabra prohibida en familia",
+      "tone": "dramático"
+    },
+    {
+      "id": "familia-p-006",
+      "text": "Un consejo útil en familia",
+      "tone": "calmado"
+    },
+    {
+      "id": "familia-p-007",
+      "text": "Un sonido que se escucha en familia",
+      "tone": "misterioso"
+    },
+    {
+      "id": "familia-p-008",
+      "text": "Una acción que harías en familia",
+      "tone": "tenso"
+    },
+    {
+      "id": "familia-p-009",
+      "text": "Una frase cliché de familia",
+      "tone": "serio"
+    },
+    {
+      "id": "familia-p-010",
+      "text": "Un problema típico de familia",
+      "tone": "absurdo"
+    },
+    {
+      "id": "familia-p-011",
+      "text": "Una reacción exagerada de familia",
+      "tone": "sarcástico"
+    },
+    {
+      "id": "familia-p-012",
+      "text": "Algo que NO deberías hacer en familia",
+      "tone": "rápido"
+    },
+    {
+      "id": "familia-p-013",
+      "text": "Un gesto común en familia",
+      "tone": "dramático"
+    },
+    {
+      "id": "familia-p-014",
+      "text": "Una palabra técnica de familia",
+      "tone": "calmado"
+    },
+    {
+      "id": "familia-p-015",
+      "text": "Un rumor sobre familia",
+      "tone": "misterioso"
+    },
+    {
+      "id": "familia-p-016",
+      "text": "Una queja corta sobre familia",
+      "tone": "tenso"
+    },
+    {
+      "id": "familia-p-017",
+      "text": "Un secreto de familia",
+      "tone": "serio"
+    },
+    {
+      "id": "familia-p-018",
+      "text": "Un objetivo urgente en familia",
+      "tone": "absurdo"
+    },
+    {
+      "id": "familia-p-019",
+      "text": "Una frase en voz baja en familia",
+      "tone": "sarcástico"
+    },
+    {
+      "id": "familia-p-020",
+      "text": "Una pregunta incómoda de familia",
+      "tone": "rápido"
+    },
+    {
+      "id": "familia-p-021",
+      "text": "Un chiste interno de familia",
+      "tone": "dramático"
+    },
+    {
+      "id": "familia-p-022",
+      "text": "Una advertencia breve en familia",
+      "tone": "calmado"
+    },
+    {
+      "id": "familia-p-023",
+      "text": "Una promesa en familia",
+      "tone": "misterioso"
+    },
+    {
+      "id": "familia-p-024",
+      "text": "Una frase motivacional de familia",
+      "tone": "tenso"
+    },
+    {
+      "id": "familia-p-025",
+      "text": "Una frase de despedida de familia",
+      "tone": "serio"
+    }
+  ]
+}

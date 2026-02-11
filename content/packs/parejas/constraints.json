@@ -1,0 +1,106 @@
+{
+  "packId": "parejas",
+  "language": "es",
+  "constraints": [
+    {
+      "id": "parejas-c-001",
+      "text": "Habla como si fueras un robot",
+      "severity": "medium"
+    },
+    {
+      "id": "parejas-c-002",
+      "text": "No uses la letra 'e'",
+      "severity": "medium"
+    },
+    {
+      "id": "parejas-c-003",
+      "text": "Incluye una palabra de comida",
+      "severity": "medium"
+    },
+    {
+      "id": "parejas-c-004",
+      "text": "Termina con un signo de interrogación",
+      "severity": "medium"
+    },
+    {
+      "id": "parejas-c-005",
+      "text": "Usa exactamente 5 palabras",
+      "severity": "medium"
+    },
+    {
+      "id": "parejas-c-006",
+      "text": "Responde con una frase muy corta",
+      "severity": "medium"
+    },
+    {
+      "id": "parejas-c-007",
+      "text": "Incluye la palabra 'plan'",
+      "severity": "medium"
+    },
+    {
+      "id": "parejas-c-008",
+      "text": "No uses la letra 'o'",
+      "severity": "medium"
+    },
+    {
+      "id": "parejas-c-009",
+      "text": "Incluye una dirección (arriba, abajo, izquierda, derecha)",
+      "severity": "medium"
+    },
+    {
+      "id": "parejas-c-010",
+      "text": "Habla como si estuvieras muy cansado",
+      "severity": "medium"
+    },
+    {
+      "id": "parejas-c-011",
+      "text": "Incluye una palabra de tiempo (hoy, ayer, mañana)",
+      "severity": "medium"
+    },
+    {
+      "id": "parejas-c-012",
+      "text": "Usa un hashtag",
+      "severity": "medium"
+    },
+    {
+      "id": "parejas-c-013",
+      "text": "No uses la letra 'i'",
+      "severity": "medium"
+    },
+    {
+      "id": "parejas-c-014",
+      "text": "Incluye una emoción en texto (feliz, triste, etc.)",
+      "severity": "medium"
+    },
+    {
+      "id": "parejas-c-015",
+      "text": "Usa un diminutivo",
+      "severity": "medium"
+    },
+    {
+      "id": "parejas-c-016",
+      "text": "Empieza con 'Mira,'",
+      "severity": "medium"
+    },
+    {
+      "id": "parejas-c-017",
+      "text": "Responde con una frase sarcástica",
+      "severity": "medium"
+    },
+    {
+      "id": "parejas-c-018",
+      "text": "Incluye la palabra 'claro'",
+      "severity": "medium"
+    },
+    {
+      "id": "parejas-c-019",
+      "text": "No uses la letra 'u'",
+      "severity": "medium"
+    },
+    {
+      "id": "parejas-c-020",
+      "text": "Habla como si fueras una noticia",
+      "severity": "medium"
+    }
+  ]
+}

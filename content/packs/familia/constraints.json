@@ -1,0 +1,106 @@
+{
+  "packId": "familia",
+  "language": "es",
+  "constraints": [
+    {
+      "id": "familia-c-001",
+      "text": "Habla como si fueras un DJ",
+      "severity": "medium"
+    },
+    {
+      "id": "familia-c-002",
+      "text": "Habla como si fueras un detective",
+      "severity": "medium"
+    },
+    {
+      "id": "familia-c-003",
+      "text": "Habla como si fueras un influencer",
+      "severity": "medium"
+    },
+    {
+      "id": "familia-c-004",
+      "text": "Habla como si fueras un chef",
+      "severity": "medium"
+    },
+    {
+      "id": "familia-c-005",
+      "text": "Habla como si fueras un profesor",
+      "severity": "medium"
+    },
+    {
+      "id": "familia-c-006",
+      "text": "Incluye un nombre propio",
+      "severity": "medium"
+    },
+    {
+      "id": "familia-c-007",
+      "text": "Incluye una palabra de lugar",
+      "severity": "medium"
+    },
+    {
+      "id": "familia-c-008",
+      "text": "Usa dos adjetivos",
+      "severity": "medium"
+    },
+    {
+      "id": "familia-c-009",
+      "text": "No uses la letra 'k'",
+      "severity": "medium"
+    },
+    {
+      "id": "familia-c-010",
+      "text": "No uses la letra 'y'",
+      "severity": "medium"
+    },
+    {
+      "id": "familia-c-011",
+      "text": "Incluye la palabra 'ahora'",
+      "severity": "medium"
+    },
+    {
+      "id": "familia-c-012",
+      "text": "Empieza con 'Ok,'",
+      "severity": "medium"
+    },
+    {
+      "id": "familia-c-013",
+      "text": "Empieza con 'Entonces,'",
+      "severity": "medium"
+    },
+    {
+      "id": "familia-c-014",
+      "text": "Incluye la palabra 'urgente'",
+      "severity": "medium"
+    },
+    {
+      "id": "familia-c-015",
+      "text": "Habla como si estuvieras en radio",
+      "severity": "medium"
+    },
+    {
+      "id": "familia-c-016",
+      "text": "Incluye una palabra de clima",
+      "severity": "medium"
+    },
+    {
+      "id": "familia-c-017",
+      "text": "Termina con un emoji",
+      "severity": "medium"
+    },
+    {
+      "id": "familia-c-018",
+      "text": "No uses signos de interrogación",
+      "severity": "medium"
+    },
+    {
+      "id": "familia-c-019",
+      "text": "Incluye una comparación (como, igual que)",
+      "severity": "medium"
+    },
+    {
+      "id": "familia-c-020",
+      "text": "Usa una frase con 'si'",
+      "severity": "medium"
+    }
+  ]
+}

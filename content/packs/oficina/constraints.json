@@ -1,0 +1,106 @@
+{
+  "packId": "oficina",
+  "language": "es",
+  "constraints": [
+    {
+      "id": "oficina-c-001",
+      "text": "No puedes usar la palabra 'yo'",
+      "severity": "medium"
+    },
+    {
+      "id": "oficina-c-002",
+      "text": "Responde solo con preguntas",
+      "severity": "medium"
+    },
+    {
+      "id": "oficina-c-003",
+      "text": "Incluye exactamente 1 emoji",
+      "severity": "medium"
+    },
+    {
+      "id": "oficina-c-004",
+      "text": "Máximo 6 palabras",
+      "severity": "medium"
+    },
+    {
+      "id": "oficina-c-005",
+      "text": "Habla como si fueras muy formal",
+      "severity": "medium"
+    },
+    {
+      "id": "oficina-c-006",
+      "text": "No uses la letra 'a'",
+      "severity": "medium"
+    },
+    {
+      "id": "oficina-c-007",
+      "text": "Termina con '...'",
+      "severity": "medium"
+    },
+    {
+      "id": "oficina-c-008",
+      "text": "Incluye la palabra 'exactamente'",
+      "severity": "medium"
+    },
+    {
+      "id": "oficina-c-009",
+      "text": "Habla en pasado",
+      "severity": "medium"
+    },
+    {
+      "id": "oficina-c-010",
+      "text": "Usa una onomatopeya",
+      "severity": "medium"
+    },
+    {
+      "id": "oficina-c-011",
+      "text": "Responde con una metáfora",
+      "severity": "medium"
+    },
+    {
+      "id": "oficina-c-012",
+      "text": "No uses la palabra 'no'",
+      "severity": "medium"
+    },
+    {
+      "id": "oficina-c-013",
+      "text": "Empieza con 'Bueno,'",
+      "severity": "medium"
+    },
+    {
+      "id": "oficina-c-014",
+      "text": "Incluye un número",
+      "severity": "medium"
+    },
+    {
+      "id": "oficina-c-015",
+      "text": "Usa una palabra en inglés",
+      "severity": "medium"
+    },
+    {
+      "id": "oficina-c-016",
+      "text": "No uses signos de exclamación",
+      "severity": "medium"
+    },
+    {
+      "id": "oficina-c-017",
+      "text": "Incluye un color",
+      "severity": "medium"
+    },
+    {
+      "id": "oficina-c-018",
+      "text": "Habla como si estuvieras apurado",
+      "severity": "medium"
+    },
+    {
+      "id": "oficina-c-019",
+      "text": "Responde con dos frases",
+      "severity": "medium"
+    },
+    {
+      "id": "oficina-c-020",
+      "text": "Usa tono dramático",
+      "severity": "medium"
+    }
+  ]
+}

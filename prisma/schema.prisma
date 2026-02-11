@@ -1,0 +1,201 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String       @id @default(cuid())
+  email     String?      @unique
+  name      String?
+  createdAt DateTime     @default(now())
+  accounts  Account[]
+  sessions  Session[]
+  rooms     Room[]       @relation("RoomHostUser")
+  members   RoomMember[]
+}
+
+model GuestSession {
+  id          String       @id @default(cuid())
+  createdAt   DateTime     @default(now())
+  lastSeenAt  DateTime     @default(now())
+  bannedUntil DateTime?
+  members     RoomMember[]
+  rooms       Room[]       @relation("RoomHostGuest")
+}
+
+model Room {
+  id          String        @id @default(cuid())
+  code        String        @unique
+  hostUserId  String?
+  hostGuestId String?
+  config      Json
+  createdAt   DateTime      @default(now())
+  status      String        @default("LOBBY")
+  members     RoomMember[]
+  messages    Message[]
+  games       Game[]
+  hostUser    User?         @relation("RoomHostUser", fields: [hostUserId], references: [id])
+  hostGuest   GuestSession? @relation("RoomHostGuest", fields: [hostGuestId], references: [id])
+}
+
+model RoomMember {
+  id          String        @id @default(cuid())
+  roomId      String
+  userId      String?
+  guestId     String?
+  nickname    String
+  avatar      String
+  joinedAt    DateTime      @default(now())
+  isConnected Boolean       @default(true)
+  room        Room          @relation(fields: [roomId], references: [id])
+  user        User?         @relation(fields: [userId], references: [id])
+  guest       GuestSession? @relation(fields: [guestId], references: [id])
+  gamePlayers GamePlayer[]
+  messages    Message[]
+  votes       Vote[]        @relation("Voter")
+}
+
+model Game {
+  id         String       @id @default(cuid())
+  roomId     String
+  startedAt  DateTime     @default(now())
+  endedAt    DateTime?
+  mode       String
+  packId     String?
+  winnerSide String?
+  room       Room         @relation(fields: [roomId], references: [id])
+  rounds     Round[]
+  highlights Highlight[]
+  players    GamePlayer[]
+}
+
+model GamePlayer {
+  id           String     @id @default(cuid())
+  gameId       String
+  roomMemberId String
+  userId       String?
+  guestId      String?
+  score        Int
+  role         String
+  createdAt    DateTime   @default(now())
+  game         Game       @relation(fields: [gameId], references: [id])
+  roomMember   RoomMember @relation(fields: [roomMemberId], references: [id])
+}
+
+model Round {
+  id           String      @id @default(cuid())
+  gameId       String
+  number       Int
+  contextAId   String
+  contextBId   String
+  infiltrators Json
+  startedAt    DateTime    @default(now())
+  endedAt      DateTime?
+  game         Game        @relation(fields: [gameId], references: [id])
+  votes        Vote[]
+  highlights   Highlight[]
+}
+
+model Message {
+  id        String      @id @default(cuid())
+  roomId    String
+  authorId  String
+  text      String
+  createdAt DateTime    @default(now())
+  flags     Json?
+  room      Room        @relation(fields: [roomId], references: [id])
+  author    RoomMember? @relation(fields: [authorId], references: [id])
+}
+
+model Vote {
+  id        String     @id @default(cuid())
+  roundId   String
+  voterId   String
+  targetId  String
+  createdAt DateTime   @default(now())
+  round     Round      @relation(fields: [roundId], references: [id])
+  voter     RoomMember @relation("Voter", fields: [voterId], references: [id])
+}
+
+model Highlight {
+  id         String   @id @default(cuid())
+  gameId     String
+  roundId    String?
+  title      String
+  quote      String
+  ogImageUrl String?
+  publicSlug String   @unique
+  createdAt  DateTime @default(now())
+  metadata   Json?
+  game       Game     @relation(fields: [gameId], references: [id])
+  round      Round?   @relation(fields: [roundId], references: [id])
+}
+
+model DailyChallenge {
+  date      String   @id
+  seed      String
+  packId    String?
+  createdAt DateTime @default(now())
+}
+
+model PackSetting {
+  id        String   @id @default(cuid())
+  packId    String   @unique
+  enabled   Boolean  @default(true)
+  updatedAt DateTime @updatedAt
+}
+
+model Report {
+  id         String   @id @default(cuid())
+  reporterId String
+  targetId   String
+  reason     String
+  createdAt  DateTime @default(now())
+  status     String   @default("OPEN")
+}
+
+model Ban {
+  id        String   @id @default(cuid())
+  targetId  String
+  until     DateTime
+  reason    String
+  createdAt DateTime @default(now())
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}

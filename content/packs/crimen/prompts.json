@@ -1,0 +1,131 @@
+{
+  "packId": "crimen",
+  "language": "es",
+  "prompts": [
+    {
+      "id": "crimen-p-001",
+      "text": "Di una frase que dirías en crimen",
+      "tone": "serio"
+    },
+    {
+      "id": "crimen-p-002",
+      "text": "Menciona un objeto típico de crimen",
+      "tone": "absurdo"
+    },
+    {
+      "id": "crimen-p-003",
+      "text": "Describe el ambiente de crimen en 4 palabras",
+      "tone": "sarcástico"
+    },
+    {
+      "id": "crimen-p-004",
+      "text": "Una excusa rápida relacionada con crimen",
+      "tone": "rápido"
+    },
+    {
+      "id": "crimen-p-005",
+      "text": "Una palabra prohibida en crimen",
+      "tone": "dramático"
+    },
+    {
+      "id": "crimen-p-006",
+      "text": "Un consejo útil en crimen",
+      "tone": "calmado"
+    },
+    {
+      "id": "crimen-p-007",
+      "text": "Un sonido que se escucha en crimen",
+      "tone": "misterioso"
+    },
+    {
+      "id": "crimen-p-008",
+      "text": "Una acción que harías en crimen",
+      "tone": "tenso"
+    },
+    {
+      "id": "crimen-p-009",
+      "text": "Una frase cliché de crimen",
+      "tone": "serio"
+    },
+    {
+      "id": "crimen-p-010",
+      "text": "Un problema típico de crimen",
+      "tone": "absurdo"
+    },
+    {
+      "id": "crimen-p-011",
+      "text": "Una reacción exagerada de crimen",
+      "tone": "sarcástico"
+    },
+    {
+      "id": "crimen-p-012",
+      "text": "Algo que NO deberías hacer en crimen",
+      "tone": "rápido"
+    },
+    {
+      "id": "crimen-p-013",
+      "text": "Un gesto común en crimen",
+      "tone": "dramático"
+    },
+    {
+      "id": "crimen-p-014",
+      "text": "Una palabra técnica de crimen",
+      "tone": "calmado"
+    },
+    {
+      "id": "crimen-p-015",
+      "text": "Un rumor sobre crimen",
+      "tone": "misterioso"
+    },
+    {
+      "id": "crimen-p-016",
+      "text": "Una queja corta sobre crimen",
+      "tone": "tenso"
+    },
+    {
+      "id": "crimen-p-017",
+      "text": "Un secreto de crimen",
+      "tone": "serio"
+    },
+    {
+      "id": "crimen-p-018",
+      "text": "Un objetivo urgente en crimen",
+      "tone": "absurdo"
+    },
+    {
+      "id": "crimen-p-019",
+      "text": "Una frase en voz baja en crimen",
+      "tone": "sarcástico"
+    },
+    {
+      "id": "crimen-p-020",
+      "text": "Una pregunta incómoda de crimen",
+      "tone": "rápido"
+    },
+    {
+      "id": "crimen-p-021",
+      "text": "Un chiste interno de crimen",
+      "tone": "dramático"
+    },
+    {
+      "id": "crimen-p-022",
+      "text": "Una advertencia breve en crimen",
+      "tone": "calmado"
+    },
+    {
+      "id": "crimen-p-023",
+      "text": "Una promesa en crimen",
+      "tone": "misterioso"
+    },
+    {
+      "id": "crimen-p-024",
+      "text": "Una frase motivacional de crimen",
+      "tone": "tenso"
+    },
+    {
+      "id": "crimen-p-025",
+      "text": "Una frase de despedida de crimen",
+      "tone": "serio"
+    }
+  ]
+}

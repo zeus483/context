@@ -1,0 +1,131 @@
+{
+  "packId": "hospital",
+  "language": "es",
+  "prompts": [
+    {
+      "id": "hospital-p-001",
+      "text": "Di una frase que dirías en hospital",
+      "tone": "serio"
+    },
+    {
+      "id": "hospital-p-002",
+      "text": "Menciona un objeto típico de hospital",
+      "tone": "absurdo"
+    },
+    {
+      "id": "hospital-p-003",
+      "text": "Describe el ambiente de hospital en 4 palabras",
+      "tone": "sarcástico"
+    },
+    {
+      "id": "hospital-p-004",
+      "text": "Una excusa rápida relacionada con hospital",
+      "tone": "rápido"
+    },
+    {
+      "id": "hospital-p-005",
+      "text": "Una palabra prohibida en hospital",
+      "tone": "dramático"
+    },
+    {
+      "id": "hospital-p-006",
+      "text": "Un consejo útil en hospital",
+      "tone": "calmado"
+    },
+    {
+      "id": "hospital-p-007",
+      "text": "Un sonido que se escucha en hospital",
+      "tone": "misterioso"
+    },
+    {
+      "id": "hospital-p-008",
+      "text": "Una acción que harías en hospital",
+      "tone": "tenso"
+    },
+    {
+      "id": "hospital-p-009",
+      "text": "Una frase cliché de hospital",
+      "tone": "serio"
+    },
+    {
+      "id": "hospital-p-010",
+      "text": "Un problema típico de hospital",
+      "tone": "absurdo"
+    },
+    {
+      "id": "hospital-p-011",
+      "text": "Una reacción exagerada de hospital",
+      "tone": "sarcástico"
+    },
+    {
+      "id": "hospital-p-012",
+      "text": "Algo que NO deberías hacer en hospital",
+      "tone": "rápido"
+    },
+    {
+      "id": "hospital-p-013",
+      "text": "Un gesto común en hospital",
+      "tone": "dramático"
+    },
+    {
+      "id": "hospital-p-014",
+      "text": "Una palabra técnica de hospital",
+      "tone": "calmado"
+    },
+    {
+      "id": "hospital-p-015",
+      "text": "Un rumor sobre hospital",
+      "tone": "misterioso"
+    },
+    {
+      "id": "hospital-p-016",
+      "text": "Una queja corta sobre hospital",
+      "tone": "tenso"
+    },
+    {
+      "id": "hospital-p-017",
+      "text": "Un secreto de hospital",
+      "tone": "serio"
+    },
+    {
+      "id": "hospital-p-018",
+      "text": "Un objetivo urgente en hospital",
+      "tone": "absurdo"
+    },
+    {
+      "id": "hospital-p-019",
+      "text": "Una frase en voz baja en hospital",
+      "tone": "sarcástico"
+    },
+    {
+      "id": "hospital-p-020",
+      "text": "Una pregunta incómoda de hospital",
+      "tone": "rápido"
+    },
+    {
+      "id": "hospital-p-021",
+      "text": "Un chiste interno de hospital",
+      "tone": "dramático"
+    },
+    {
+      "id": "hospital-p-022",
+      "text": "Una advertencia breve en hospital",
+      "tone": "calmado"
+    },
+    {
+      "id": "hospital-p-023",
+      "text": "Una promesa en hospital",
+      "tone": "misterioso"
+    },
+    {
+      "id": "hospital-p-024",
+      "text": "Una frase motivacional de hospital",
+      "tone": "tenso"
+    },
+    {
+      "id": "hospital-p-025",
+      "text": "Una frase de despedida de hospital",
+      "tone": "serio"
+    }
+  ]
+}

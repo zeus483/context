@@ -1,0 +1,326 @@
+{
+  "packId": "hospital",
+  "language": "es",
+  "pairs": [
+    {
+      "id": "hospital-001",
+      "a": "Junta médica sobre diagnóstico",
+      "b": "Interrogatorio policial sobre diagnóstico",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-002",
+      "a": "Junta médica sobre turno de noche",
+      "b": "Interrogatorio policial sobre turno de noche",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-003",
+      "a": "Junta médica sobre cirugía",
+      "b": "Interrogatorio policial sobre cirugía",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-004",
+      "a": "Junta médica sobre paciente difícil",
+      "b": "Interrogatorio policial sobre paciente difícil",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-005",
+      "a": "Junta médica sobre emergencias",
+      "b": "Interrogatorio policial sobre emergencias",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-006",
+      "a": "Junta médica sobre receta",
+      "b": "Interrogatorio policial sobre receta",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-007",
+      "a": "Junta médica sobre vacuna",
+      "b": "Interrogatorio policial sobre vacuna",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-008",
+      "a": "Junta médica sobre resultado",
+      "b": "Interrogatorio policial sobre resultado",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-009",
+      "a": "Junta médica sobre triage",
+      "b": "Interrogatorio policial sobre triage",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-010",
+      "a": "Junta médica sobre ambulancia",
+      "b": "Interrogatorio policial sobre ambulancia",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-011",
+      "a": "Junta médica sobre examen",
+      "b": "Interrogatorio policial sobre examen",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-012",
+      "a": "Junta médica sobre alergia",
+      "b": "Interrogatorio policial sobre alergia",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-013",
+      "a": "Junta médica sobre visita",
+      "b": "Interrogatorio policial sobre visita",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-014",
+      "a": "Junta médica sobre alta médica",
+      "b": "Interrogatorio policial sobre alta médica",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-015",
+      "a": "Junta médica sobre equipo médico",
+      "b": "Interrogatorio policial sobre equipo médico",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-016",
+      "a": "Informe clínico de diagnóstico",
+      "b": "Informe secreto de diagnóstico",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-017",
+      "a": "Informe clínico de turno de noche",
+      "b": "Informe secreto de turno de noche",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-018",
+      "a": "Informe clínico de cirugía",
+      "b": "Informe secreto de cirugía",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-019",
+      "a": "Informe clínico de paciente difícil",
+      "b": "Informe secreto de paciente difícil",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-020",
+      "a": "Informe clínico de emergencias",
+      "b": "Informe secreto de emergencias",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-021",
+      "a": "Informe clínico de receta",
+      "b": "Informe secreto de receta",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-022",
+      "a": "Informe clínico de vacuna",
+      "b": "Informe secreto de vacuna",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-023",
+      "a": "Informe clínico de resultado",
+      "b": "Informe secreto de resultado",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-024",
+      "a": "Informe clínico de triage",
+      "b": "Informe secreto de triage",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-025",
+      "a": "Informe clínico de ambulancia",
+      "b": "Informe secreto de ambulancia",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-026",
+      "a": "Informe clínico de examen",
+      "b": "Informe secreto de examen",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-027",
+      "a": "Informe clínico de alergia",
+      "b": "Informe secreto de alergia",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-028",
+      "a": "Informe clínico de visita",
+      "b": "Informe secreto de visita",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-029",
+      "a": "Informe clínico de alta médica",
+      "b": "Informe secreto de alta médica",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-030",
+      "a": "Informe clínico de equipo médico",
+      "b": "Informe secreto de equipo médico",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-031",
+      "a": "Sala de espera por diagnóstico",
+      "b": "Sala de crisis por diagnóstico",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-032",
+      "a": "Sala de espera por turno de noche",
+      "b": "Sala de crisis por turno de noche",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-033",
+      "a": "Sala de espera por cirugía",
+      "b": "Sala de crisis por cirugía",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-034",
+      "a": "Sala de espera por paciente difícil",
+      "b": "Sala de crisis por paciente difícil",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-035",
+      "a": "Sala de espera por emergencias",
+      "b": "Sala de crisis por emergencias",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-036",
+      "a": "Sala de espera por receta",
+      "b": "Sala de crisis por receta",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-037",
+      "a": "Sala de espera por vacuna",
+      "b": "Sala de crisis por vacuna",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-038",
+      "a": "Sala de espera por resultado",
+      "b": "Sala de crisis por resultado",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-039",
+      "a": "Sala de espera por triage",
+      "b": "Sala de crisis por triage",
+      "tags": [
+        "hospital"
+      ]
+    },
+    {
+      "id": "hospital-040",
+      "a": "Sala de espera por ambulancia",
+      "b": "Sala de crisis por ambulancia",
+      "tags": [
+        "hospital"
+      ]
+    }
+  ]
+}

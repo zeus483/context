@@ -1,0 +1,326 @@
+{
+  "packId": "parejas",
+  "language": "es",
+  "pairs": [
+    {
+      "id": "parejas-001",
+      "a": "Conversación romántica sobre aniversario",
+      "b": "Reclamo incómodo sobre aniversario",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-002",
+      "a": "Conversación romántica sobre celos",
+      "b": "Reclamo incómodo sobre celos",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-003",
+      "a": "Conversación romántica sobre mudanza",
+      "b": "Reclamo incómodo sobre mudanza",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-004",
+      "a": "Conversación romántica sobre cita fallida",
+      "b": "Reclamo incómodo sobre cita fallida",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-005",
+      "a": "Conversación romántica sobre mensajes vistos",
+      "b": "Reclamo incómodo sobre mensajes vistos",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-006",
+      "a": "Conversación romántica sobre suegros",
+      "b": "Reclamo incómodo sobre suegros",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-007",
+      "a": "Conversación romántica sobre vacaciones",
+      "b": "Reclamo incómodo sobre vacaciones",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-008",
+      "a": "Conversación romántica sobre dinero compartido",
+      "b": "Reclamo incómodo sobre dinero compartido",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-009",
+      "a": "Conversación romántica sobre mascota",
+      "b": "Reclamo incómodo sobre mascota",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-010",
+      "a": "Conversación romántica sobre plan de boda",
+      "b": "Reclamo incómodo sobre plan de boda",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-011",
+      "a": "Conversación romántica sobre ex",
+      "b": "Reclamo incómodo sobre ex",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-012",
+      "a": "Conversación romántica sobre fotografías",
+      "b": "Reclamo incómodo sobre fotografías",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-013",
+      "a": "Conversación romántica sobre equilibrio de tiempo",
+      "b": "Reclamo incómodo sobre equilibrio de tiempo",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-014",
+      "a": "Conversación romántica sobre regalo olvidado",
+      "b": "Reclamo incómodo sobre regalo olvidado",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-015",
+      "a": "Conversación romántica sobre discusiones tontas",
+      "b": "Reclamo incómodo sobre discusiones tontas",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-016",
+      "a": "Charla de pareja sobre aniversario",
+      "b": "Interrogatorio afectivo sobre aniversario",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-017",
+      "a": "Charla de pareja sobre celos",
+      "b": "Interrogatorio afectivo sobre celos",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-018",
+      "a": "Charla de pareja sobre mudanza",
+      "b": "Interrogatorio afectivo sobre mudanza",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-019",
+      "a": "Charla de pareja sobre cita fallida",
+      "b": "Interrogatorio afectivo sobre cita fallida",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-020",
+      "a": "Charla de pareja sobre mensajes vistos",
+      "b": "Interrogatorio afectivo sobre mensajes vistos",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-021",
+      "a": "Charla de pareja sobre suegros",
+      "b": "Interrogatorio afectivo sobre suegros",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-022",
+      "a": "Charla de pareja sobre vacaciones",
+      "b": "Interrogatorio afectivo sobre vacaciones",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-023",
+      "a": "Charla de pareja sobre dinero compartido",
+      "b": "Interrogatorio afectivo sobre dinero compartido",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-024",
+      "a": "Charla de pareja sobre mascota",
+      "b": "Interrogatorio afectivo sobre mascota",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-025",
+      "a": "Charla de pareja sobre plan de boda",
+      "b": "Interrogatorio afectivo sobre plan de boda",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-026",
+      "a": "Charla de pareja sobre ex",
+      "b": "Interrogatorio afectivo sobre ex",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-027",
+      "a": "Charla de pareja sobre fotografías",
+      "b": "Interrogatorio afectivo sobre fotografías",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-028",
+      "a": "Charla de pareja sobre equilibrio de tiempo",
+      "b": "Interrogatorio afectivo sobre equilibrio de tiempo",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-029",
+      "a": "Charla de pareja sobre regalo olvidado",
+      "b": "Interrogatorio afectivo sobre regalo olvidado",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-030",
+      "a": "Charla de pareja sobre discusiones tontas",
+      "b": "Interrogatorio afectivo sobre discusiones tontas",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-031",
+      "a": "Planificación de aniversario",
+      "b": "Negociación tensa de aniversario",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-032",
+      "a": "Planificación de celos",
+      "b": "Negociación tensa de celos",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-033",
+      "a": "Planificación de mudanza",
+      "b": "Negociación tensa de mudanza",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-034",
+      "a": "Planificación de cita fallida",
+      "b": "Negociación tensa de cita fallida",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-035",
+      "a": "Planificación de mensajes vistos",
+      "b": "Negociación tensa de mensajes vistos",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-036",
+      "a": "Planificación de suegros",
+      "b": "Negociación tensa de suegros",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-037",
+      "a": "Planificación de vacaciones",
+      "b": "Negociación tensa de vacaciones",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-038",
+      "a": "Planificación de dinero compartido",
+      "b": "Negociación tensa de dinero compartido",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-039",
+      "a": "Planificación de mascota",
+      "b": "Negociación tensa de mascota",
+      "tags": [
+        "parejas"
+      ]
+    },
+    {
+      "id": "parejas-040",
+      "a": "Planificación de plan de boda",
+      "b": "Negociación tensa de plan de boda",
+      "tags": [
+        "parejas"
+      ]
+    }
+  ]
+}

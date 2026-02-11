@@ -1,0 +1,326 @@
+{
+  "packId": "familia",
+  "language": "es",
+  "pairs": [
+    {
+      "id": "familia-001",
+      "a": "Cena familiar sobre cumpleaños",
+      "b": "Consejo familiar sobre cumpleaños",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-002",
+      "a": "Cena familiar sobre herencia",
+      "b": "Consejo familiar sobre herencia",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-003",
+      "a": "Cena familiar sobre visita inesperada",
+      "b": "Consejo familiar sobre visita inesperada",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-004",
+      "a": "Cena familiar sobre película familiar",
+      "b": "Consejo familiar sobre película familiar",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-005",
+      "a": "Cena familiar sobre mudanza",
+      "b": "Consejo familiar sobre mudanza",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-006",
+      "a": "Cena familiar sobre viaje",
+      "b": "Consejo familiar sobre viaje",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-007",
+      "a": "Cena familiar sobre comida favorita",
+      "b": "Consejo familiar sobre comida favorita",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-008",
+      "a": "Cena familiar sobre mascota",
+      "b": "Consejo familiar sobre mascota",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-009",
+      "a": "Cena familiar sobre reglas de la casa",
+      "b": "Consejo familiar sobre reglas de la casa",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-010",
+      "a": "Cena familiar sobre historia vergonzosa",
+      "b": "Consejo familiar sobre historia vergonzosa",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-011",
+      "a": "Cena familiar sobre foto antigua",
+      "b": "Consejo familiar sobre foto antigua",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-012",
+      "a": "Cena familiar sobre niñera",
+      "b": "Consejo familiar sobre niñera",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-013",
+      "a": "Cena familiar sobre pariente lejano",
+      "b": "Consejo familiar sobre pariente lejano",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-014",
+      "a": "Cena familiar sobre reparaciones",
+      "b": "Consejo familiar sobre reparaciones",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-015",
+      "a": "Cena familiar sobre pacto secreto",
+      "b": "Consejo familiar sobre pacto secreto",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-016",
+      "a": "Charla en la sala sobre cumpleaños",
+      "b": "Reclamo familiar sobre cumpleaños",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-017",
+      "a": "Charla en la sala sobre herencia",
+      "b": "Reclamo familiar sobre herencia",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-018",
+      "a": "Charla en la sala sobre visita inesperada",
+      "b": "Reclamo familiar sobre visita inesperada",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-019",
+      "a": "Charla en la sala sobre película familiar",
+      "b": "Reclamo familiar sobre película familiar",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-020",
+      "a": "Charla en la sala sobre mudanza",
+      "b": "Reclamo familiar sobre mudanza",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-021",
+      "a": "Charla en la sala sobre viaje",
+      "b": "Reclamo familiar sobre viaje",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-022",
+      "a": "Charla en la sala sobre comida favorita",
+      "b": "Reclamo familiar sobre comida favorita",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-023",
+      "a": "Charla en la sala sobre mascota",
+      "b": "Reclamo familiar sobre mascota",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-024",
+      "a": "Charla en la sala sobre reglas de la casa",
+      "b": "Reclamo familiar sobre reglas de la casa",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-025",
+      "a": "Charla en la sala sobre historia vergonzosa",
+      "b": "Reclamo familiar sobre historia vergonzosa",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-026",
+      "a": "Charla en la sala sobre foto antigua",
+      "b": "Reclamo familiar sobre foto antigua",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-027",
+      "a": "Charla en la sala sobre niñera",
+      "b": "Reclamo familiar sobre niñera",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-028",
+      "a": "Charla en la sala sobre pariente lejano",
+      "b": "Reclamo familiar sobre pariente lejano",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-029",
+      "a": "Charla en la sala sobre reparaciones",
+      "b": "Reclamo familiar sobre reparaciones",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-030",
+      "a": "Charla en la sala sobre pacto secreto",
+      "b": "Reclamo familiar sobre pacto secreto",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-031",
+      "a": "Reunión de domingo por cumpleaños",
+      "b": "Auditoría familiar por cumpleaños",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-032",
+      "a": "Reunión de domingo por herencia",
+      "b": "Auditoría familiar por herencia",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-033",
+      "a": "Reunión de domingo por visita inesperada",
+      "b": "Auditoría familiar por visita inesperada",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-034",
+      "a": "Reunión de domingo por película familiar",
+      "b": "Auditoría familiar por película familiar",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-035",
+      "a": "Reunión de domingo por mudanza",
+      "b": "Auditoría familiar por mudanza",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-036",
+      "a": "Reunión de domingo por viaje",
+      "b": "Auditoría familiar por viaje",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-037",
+      "a": "Reunión de domingo por comida favorita",
+      "b": "Auditoría familiar por comida favorita",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-038",
+      "a": "Reunión de domingo por mascota",
+      "b": "Auditoría familiar por mascota",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-039",
+      "a": "Reunión de domingo por reglas de la casa",
+      "b": "Auditoría familiar por reglas de la casa",
+      "tags": [
+        "familia"
+      ]
+    },
+    {
+      "id": "familia-040",
+      "a": "Reunión de domingo por historia vergonzosa",
+      "b": "Auditoría familiar por historia vergonzosa",
+      "tags": [
+        "familia"
+      ]
+    }
+  ]
+}

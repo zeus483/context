@@ -1,0 +1,56 @@
+{
+  "packId": "hospital",
+  "language": "es",
+  "constraints": [
+    {
+      "id": "hospital-c-001",
+      "text": "Usa exactamente 2 frases",
+      "severity": "medium"
+    },
+    {
+      "id": "hospital-c-002",
+      "text": "Incluye la palabra 'clave'",
+      "severity": "medium"
+    },
+    {
+      "id": "hospital-c-003",
+      "text": "Habla como si fueras un presentador",
+      "severity": "medium"
+    },
+    {
+      "id": "hospital-c-004",
+      "text": "Incluye un nombre de ciudad",
+      "severity": "medium"
+    },
+    {
+      "id": "hospital-c-005",
+      "text": "No uses la palabra 'si'",
+      "severity": "medium"
+    },
+    {
+      "id": "hospital-c-006",
+      "text": "Incluye la palabra 'suerte'",
+      "severity": "medium"
+    },
+    {
+      "id": "hospital-c-007",
+      "text": "Responde con una frase muy directa",
+      "severity": "medium"
+    },
+    {
+      "id": "hospital-c-008",
+      "text": "Incluye la palabra 'control'",
+      "severity": "medium"
+    },
+    {
+      "id": "hospital-c-009",
+      "text": "Habla como si fueras un músico",
+      "severity": "medium"
+    },
+    {
+      "id": "hospital-c-010",
+      "text": "Incluye la palabra 'secreto'",
+      "severity": "medium"
+    }
+  ]
+}

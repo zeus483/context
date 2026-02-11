@@ -1,0 +1,42 @@
+{
+  "name": "@cc/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "worker": "tsx src/workers/highlight-worker.ts"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.688.0",
+    "@aws-sdk/lib-storage": "^3.688.0",
+    "@cc/shared": "workspace:*",
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.51.0",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.51.0",
+    "@opentelemetry/sdk-node": "^0.51.0",
+    "@prisma/client": "^5.20.0",
+    "@sentry/node": "^8.38.0",
+    "bullmq": "^5.25.1",
+    "fastify": "^4.28.1",
+    "@fastify/cors": "^8.5.0",
+    "@fastify/helmet": "^11.1.1",
+    "@fastify/rate-limit": "^9.1.0",
+    "ioredis": "^5.4.1",
+    "jose": "^5.9.3",
+    "nanoid": "^5.0.7",
+    "pino": "^9.3.2",
+    "sanitize-html": "^2.14.0",
+    "socket.io": "^4.8.0",
+    "zod": "^3.23.8",
+    "@fastify/static": "^7.0.4",
+    "playwright": "^1.49.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.25",
+    "typescript": "^5.6.3",
+    "tsx": "^4.19.1"
+  }
+}

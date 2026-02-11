@@ -1,0 +1,106 @@
+{
+  "packId": "colegio",
+  "language": "es",
+  "constraints": [
+    {
+      "id": "colegio-c-001",
+      "text": "No uses la letra 'h'",
+      "severity": "medium"
+    },
+    {
+      "id": "colegio-c-002",
+      "text": "No uses la letra 'l'",
+      "severity": "medium"
+    },
+    {
+      "id": "colegio-c-003",
+      "text": "No uses la letra 'm'",
+      "severity": "medium"
+    },
+    {
+      "id": "colegio-c-004",
+      "text": "No uses la letra 'n'",
+      "severity": "medium"
+    },
+    {
+      "id": "colegio-c-005",
+      "text": "No uses la letra 'p'",
+      "severity": "medium"
+    },
+    {
+      "id": "colegio-c-006",
+      "text": "No uses la letra 't'",
+      "severity": "medium"
+    },
+    {
+      "id": "colegio-c-007",
+      "text": "No uses la letra 'v'",
+      "severity": "medium"
+    },
+    {
+      "id": "colegio-c-008",
+      "text": "No uses la letra 'z'",
+      "severity": "medium"
+    },
+    {
+      "id": "colegio-c-009",
+      "text": "Usa exactamente 4 palabras",
+      "severity": "medium"
+    },
+    {
+      "id": "colegio-c-010",
+      "text": "Usa exactamente 6 palabras",
+      "severity": "medium"
+    },
+    {
+      "id": "colegio-c-011",
+      "text": "Usa exactamente 7 palabras",
+      "severity": "medium"
+    },
+    {
+      "id": "colegio-c-012",
+      "text": "Usa exactamente 8 palabras",
+      "severity": "medium"
+    },
+    {
+      "id": "colegio-c-013",
+      "text": "Usa exactamente 9 palabras",
+      "severity": "medium"
+    },
+    {
+      "id": "colegio-c-014",
+      "text": "Incluye exactamente 1 emojis",
+      "severity": "medium"
+    },
+    {
+      "id": "colegio-c-015",
+      "text": "Incluye exactamente 2 emojis",
+      "severity": "medium"
+    },
+    {
+      "id": "colegio-c-016",
+      "text": "Habla como si fuera un secreto",
+      "severity": "medium"
+    },
+    {
+      "id": "colegio-c-017",
+      "text": "Habla como si estuvieras enojado",
+      "severity": "medium"
+    },
+    {
+      "id": "colegio-c-018",
+      "text": "Habla como si estuvieras muy feliz",
+      "severity": "medium"
+    },
+    {
+      "id": "colegio-c-019",
+      "text": "Habla como si fueras un vendedor",
+      "severity": "medium"
+    },
+    {
+      "id": "colegio-c-020",
+      "text": "Habla como si estuvieras en una audiencia",
+      "severity": "medium"
+    }
+  ]
+}

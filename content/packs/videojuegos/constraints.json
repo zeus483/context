@@ -1,0 +1,106 @@
+{
+  "packId": "videojuegos",
+  "language": "es",
+  "constraints": [
+    {
+      "id": "videojuegos-c-001",
+      "text": "Incluye la palabra 'peligro'",
+      "severity": "medium"
+    },
+    {
+      "id": "videojuegos-c-002",
+      "text": "No uses la palabra 'porque'",
+      "severity": "medium"
+    },
+    {
+      "id": "videojuegos-c-003",
+      "text": "Habla como si fueras de otro país",
+      "severity": "medium"
+    },
+    {
+      "id": "videojuegos-c-004",
+      "text": "Incluye una palabra de dinero",
+      "severity": "medium"
+    },
+    {
+      "id": "videojuegos-c-005",
+      "text": "Incluye un animal",
+      "severity": "medium"
+    },
+    {
+      "id": "videojuegos-c-006",
+      "text": "Usa una frase muy formal",
+      "severity": "medium"
+    },
+    {
+      "id": "videojuegos-c-007",
+      "text": "Habla como si estuvieras susurrando",
+      "severity": "medium"
+    },
+    {
+      "id": "videojuegos-c-008",
+      "text": "Responde con una mini-historia",
+      "severity": "medium"
+    },
+    {
+      "id": "videojuegos-c-009",
+      "text": "Responde con una queja",
+      "severity": "medium"
+    },
+    {
+      "id": "videojuegos-c-010",
+      "text": "Incluye la palabra 'planeta'",
+      "severity": "medium"
+    },
+    {
+      "id": "videojuegos-c-011",
+      "text": "No uses la letra 'q'",
+      "severity": "medium"
+    },
+    {
+      "id": "videojuegos-c-012",
+      "text": "No uses la letra 'x'",
+      "severity": "medium"
+    },
+    {
+      "id": "videojuegos-c-013",
+      "text": "Incluye un verbo en futuro",
+      "severity": "medium"
+    },
+    {
+      "id": "videojuegos-c-014",
+      "text": "Habla como si fueras un juez",
+      "severity": "medium"
+    },
+    {
+      "id": "videojuegos-c-015",
+      "text": "Incluye una palabra de música",
+      "severity": "medium"
+    },
+    {
+      "id": "videojuegos-c-016",
+      "text": "Usa dos frases cortas",
+      "severity": "medium"
+    },
+    {
+      "id": "videojuegos-c-017",
+      "text": "Incluye un número par",
+      "severity": "medium"
+    },
+    {
+      "id": "videojuegos-c-018",
+      "text": "Incluye un número impar",
+      "severity": "medium"
+    },
+    {
+      "id": "videojuegos-c-019",
+      "text": "Habla como si estuvieras en un comercial",
+      "severity": "medium"
+    },
+    {
+      "id": "videojuegos-c-020",
+      "text": "Responde con una frase de 10 palabras",
+      "severity": "medium"
+    }
+  ]
+}

@@ -1,0 +1,326 @@
+{
+  "packId": "crimen",
+  "language": "es",
+  "pairs": [
+    {
+      "id": "crimen-001",
+      "a": "Operativo policial sobre huellas",
+      "b": "Reunión de ladrones sobre huellas",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-002",
+      "a": "Operativo policial sobre coartada",
+      "b": "Reunión de ladrones sobre coartada",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-003",
+      "a": "Operativo policial sobre botín",
+      "b": "Reunión de ladrones sobre botín",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-004",
+      "a": "Operativo policial sobre testigo",
+      "b": "Reunión de ladrones sobre testigo",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-005",
+      "a": "Operativo policial sobre cámaras",
+      "b": "Reunión de ladrones sobre cámaras",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-006",
+      "a": "Operativo policial sobre arma",
+      "b": "Reunión de ladrones sobre arma",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-007",
+      "a": "Operativo policial sobre motivo",
+      "b": "Reunión de ladrones sobre motivo",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-008",
+      "a": "Operativo policial sobre llamada sospechosa",
+      "b": "Reunión de ladrones sobre llamada sospechosa",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-009",
+      "a": "Operativo policial sobre escape",
+      "b": "Reunión de ladrones sobre escape",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-010",
+      "a": "Operativo policial sobre plan maestro",
+      "b": "Reunión de ladrones sobre plan maestro",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-011",
+      "a": "Operativo policial sobre código secreto",
+      "b": "Reunión de ladrones sobre código secreto",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-012",
+      "a": "Operativo policial sobre sospechoso",
+      "b": "Reunión de ladrones sobre sospechoso",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-013",
+      "a": "Operativo policial sobre interrogatorio",
+      "b": "Reunión de ladrones sobre interrogatorio",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-014",
+      "a": "Operativo policial sobre evidencia",
+      "b": "Reunión de ladrones sobre evidencia",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-015",
+      "a": "Operativo policial sobre confesión",
+      "b": "Reunión de ladrones sobre confesión",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-016",
+      "a": "Informe forense de huellas",
+      "b": "Inventario del botín de huellas",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-017",
+      "a": "Informe forense de coartada",
+      "b": "Inventario del botín de coartada",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-018",
+      "a": "Informe forense de botín",
+      "b": "Inventario del botín de botín",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-019",
+      "a": "Informe forense de testigo",
+      "b": "Inventario del botín de testigo",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-020",
+      "a": "Informe forense de cámaras",
+      "b": "Inventario del botín de cámaras",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-021",
+      "a": "Informe forense de arma",
+      "b": "Inventario del botín de arma",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-022",
+      "a": "Informe forense de motivo",
+      "b": "Inventario del botín de motivo",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-023",
+      "a": "Informe forense de llamada sospechosa",
+      "b": "Inventario del botín de llamada sospechosa",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-024",
+      "a": "Informe forense de escape",
+      "b": "Inventario del botín de escape",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-025",
+      "a": "Informe forense de plan maestro",
+      "b": "Inventario del botín de plan maestro",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-026",
+      "a": "Informe forense de código secreto",
+      "b": "Inventario del botín de código secreto",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-027",
+      "a": "Informe forense de sospechoso",
+      "b": "Inventario del botín de sospechoso",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-028",
+      "a": "Informe forense de interrogatorio",
+      "b": "Inventario del botín de interrogatorio",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-029",
+      "a": "Informe forense de evidencia",
+      "b": "Inventario del botín de evidencia",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-030",
+      "a": "Informe forense de confesión",
+      "b": "Inventario del botín de confesión",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-031",
+      "a": "Rueda de prensa sobre huellas",
+      "b": "Reunión clandestina sobre huellas",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-032",
+      "a": "Rueda de prensa sobre coartada",
+      "b": "Reunión clandestina sobre coartada",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-033",
+      "a": "Rueda de prensa sobre botín",
+      "b": "Reunión clandestina sobre botín",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-034",
+      "a": "Rueda de prensa sobre testigo",
+      "b": "Reunión clandestina sobre testigo",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-035",
+      "a": "Rueda de prensa sobre cámaras",
+      "b": "Reunión clandestina sobre cámaras",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-036",
+      "a": "Rueda de prensa sobre arma",
+      "b": "Reunión clandestina sobre arma",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-037",
+      "a": "Rueda de prensa sobre motivo",
+      "b": "Reunión clandestina sobre motivo",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-038",
+      "a": "Rueda de prensa sobre llamada sospechosa",
+      "b": "Reunión clandestina sobre llamada sospechosa",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-039",
+      "a": "Rueda de prensa sobre escape",
+      "b": "Reunión clandestina sobre escape",
+      "tags": [
+        "crimen"
+      ]
+    },
+    {
+      "id": "crimen-040",
+      "a": "Rueda de prensa sobre plan maestro",
+      "b": "Reunión clandestina sobre plan maestro",
+      "tags": [
+        "crimen"
+      ]
+    }
+  ]
+}

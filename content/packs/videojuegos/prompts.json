@@ -1,0 +1,131 @@
+{
+  "packId": "videojuegos",
+  "language": "es",
+  "prompts": [
+    {
+      "id": "videojuegos-p-001",
+      "text": "Di una frase que dirías en videojuegos",
+      "tone": "serio"
+    },
+    {
+      "id": "videojuegos-p-002",
+      "text": "Menciona un objeto típico de videojuegos",
+      "tone": "absurdo"
+    },
+    {
+      "id": "videojuegos-p-003",
+      "text": "Describe el ambiente de videojuegos en 4 palabras",
+      "tone": "sarcástico"
+    },
+    {
+      "id": "videojuegos-p-004",
+      "text": "Una excusa rápida relacionada con videojuegos",
+      "tone": "rápido"
+    },
+    {
+      "id": "videojuegos-p-005",
+      "text": "Una palabra prohibida en videojuegos",
+      "tone": "dramático"
+    },
+    {
+      "id": "videojuegos-p-006",
+      "text": "Un consejo útil en videojuegos",
+      "tone": "calmado"
+    },
+    {
+      "id": "videojuegos-p-007",
+      "text": "Un sonido que se escucha en videojuegos",
+      "tone": "misterioso"
+    },
+    {
+      "id": "videojuegos-p-008",
+      "text": "Una acción que harías en videojuegos",
+      "tone": "tenso"
+    },
+    {
+      "id": "videojuegos-p-009",
+      "text": "Una frase cliché de videojuegos",
+      "tone": "serio"
+    },
+    {
+      "id": "videojuegos-p-010",
+      "text": "Un problema típico de videojuegos",
+      "tone": "absurdo"
+    },
+    {
+      "id": "videojuegos-p-011",
+      "text": "Una reacción exagerada de videojuegos",
+      "tone": "sarcástico"
+    },
+    {
+      "id": "videojuegos-p-012",
+      "text": "Algo que NO deberías hacer en videojuegos",
+      "tone": "rápido"
+    },
+    {
+      "id": "videojuegos-p-013",
+      "text": "Un gesto común en videojuegos",
+      "tone": "dramático"
+    },
+    {
+      "id": "videojuegos-p-014",
+      "text": "Una palabra técnica de videojuegos",
+      "tone": "calmado"
+    },
+    {
+      "id": "videojuegos-p-015",
+      "text": "Un rumor sobre videojuegos",
+      "tone": "misterioso"
+    },
+    {
+      "id": "videojuegos-p-016",
+      "text": "Una queja corta sobre videojuegos",
+      "tone": "tenso"
+    },
+    {
+      "id": "videojuegos-p-017",
+      "text": "Un secreto de videojuegos",
+      "tone": "serio"
+    },
+    {
+      "id": "videojuegos-p-018",
+      "text": "Un objetivo urgente en videojuegos",
+      "tone": "absurdo"
+    },
+    {
+      "id": "videojuegos-p-019",
+      "text": "Una frase en voz baja en videojuegos",
+      "tone": "sarcástico"
+    },
+    {
+      "id": "videojuegos-p-020",
+      "text": "Una pregunta incómoda de videojuegos",
+      "tone": "rápido"
+    },
+    {
+      "id": "videojuegos-p-021",
+      "text": "Un chiste interno de videojuegos",
+      "tone": "dramático"
+    },
+    {
+      "id": "videojuegos-p-022",
+      "text": "Una advertencia breve en videojuegos",
+      "tone": "calmado"
+    },
+    {
+      "id": "videojuegos-p-023",
+      "text": "Una promesa en videojuegos",
+      "tone": "misterioso"
+    },
+    {
+      "id": "videojuegos-p-024",
+      "text": "Una frase motivacional de videojuegos",
+      "tone": "tenso"
+    },
+    {
+      "id": "videojuegos-p-025",
+      "text": "Una frase de despedida de videojuegos",
+      "tone": "serio"
+    }
+  ]
+}

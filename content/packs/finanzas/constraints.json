@@ -1,0 +1,106 @@
+{
+  "packId": "finanzas",
+  "language": "es",
+  "constraints": [
+    {
+      "id": "finanzas-c-001",
+      "text": "Incluye la palabra 'listo'",
+      "severity": "medium"
+    },
+    {
+      "id": "finanzas-c-002",
+      "text": "Habla como si fueras un entrenador",
+      "severity": "medium"
+    },
+    {
+      "id": "finanzas-c-003",
+      "text": "No uses la letra 'j'",
+      "severity": "medium"
+    },
+    {
+      "id": "finanzas-c-004",
+      "text": "Incluye una palabra de tecnología",
+      "severity": "medium"
+    },
+    {
+      "id": "finanzas-c-005",
+      "text": "Responde como si fueras un villano",
+      "severity": "medium"
+    },
+    {
+      "id": "finanzas-c-006",
+      "text": "Incluye la palabra 'silencio'",
+      "severity": "medium"
+    },
+    {
+      "id": "finanzas-c-007",
+      "text": "Usa una frase con 'aunque'",
+      "severity": "medium"
+    },
+    {
+      "id": "finanzas-c-008",
+      "text": "Incluye una palabra de transporte",
+      "severity": "medium"
+    },
+    {
+      "id": "finanzas-c-009",
+      "text": "Empieza con 'Atención,'",
+      "severity": "medium"
+    },
+    {
+      "id": "finanzas-c-010",
+      "text": "No uses la letra 'w'",
+      "severity": "medium"
+    },
+    {
+      "id": "finanzas-c-011",
+      "text": "Incluye la palabra 'código'",
+      "severity": "medium"
+    },
+    {
+      "id": "finanzas-c-012",
+      "text": "Habla como si estuvieras celebrando",
+      "severity": "medium"
+    },
+    {
+      "id": "finanzas-c-013",
+      "text": "Incluye la palabra 'misterio'",
+      "severity": "medium"
+    },
+    {
+      "id": "finanzas-c-014",
+      "text": "Responde con tres palabras exactas",
+      "severity": "medium"
+    },
+    {
+      "id": "finanzas-c-015",
+      "text": "Incluye la palabra 'señal'",
+      "severity": "medium"
+    },
+    {
+      "id": "finanzas-c-016",
+      "text": "Habla como si fueras un narrador de fútbol",
+      "severity": "medium"
+    },
+    {
+      "id": "finanzas-c-017",
+      "text": "Incluye la palabra 'riesgo'",
+      "severity": "medium"
+    },
+    {
+      "id": "finanzas-c-018",
+      "text": "No uses la letra 'ñ'",
+      "severity": "medium"
+    },
+    {
+      "id": "finanzas-c-019",
+      "text": "Habla como si fueras una alarma",
+      "severity": "medium"
+    },
+    {
+      "id": "finanzas-c-020",
+      "text": "Incluye un verbo en gerundio",
+      "severity": "medium"
+    }
+  ]
+}

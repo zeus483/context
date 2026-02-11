@@ -1,0 +1,326 @@
+{
+  "packId": "oficina",
+  "language": "es",
+  "pairs": [
+    {
+      "id": "oficina-001",
+      "a": "Reunión de ventas",
+      "b": "Interrogatorio sobre ventas",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-002",
+      "a": "Reunión de presupuesto",
+      "b": "Interrogatorio sobre presupuesto",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-003",
+      "a": "Reunión de bonos",
+      "b": "Interrogatorio sobre bonos",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-004",
+      "a": "Reunión de metas trimestrales",
+      "b": "Interrogatorio sobre metas trimestrales",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-005",
+      "a": "Reunión de recorte",
+      "b": "Interrogatorio sobre recorte",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-006",
+      "a": "Reunión de nuevo producto",
+      "b": "Interrogatorio sobre nuevo producto",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-007",
+      "a": "Reunión de cliente clave",
+      "b": "Interrogatorio sobre cliente clave",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-008",
+      "a": "Reunión de reorganización",
+      "b": "Interrogatorio sobre reorganización",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-009",
+      "a": "Reunión de sprint crítico",
+      "b": "Interrogatorio sobre sprint crítico",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-010",
+      "a": "Reunión de incidente de seguridad",
+      "b": "Interrogatorio sobre incidente de seguridad",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-011",
+      "a": "Reunión de campaña",
+      "b": "Interrogatorio sobre campaña",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-012",
+      "a": "Reunión de reclutamiento",
+      "b": "Interrogatorio sobre reclutamiento",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-013",
+      "a": "Reunión de cambio de políticas",
+      "b": "Interrogatorio sobre cambio de políticas",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-014",
+      "a": "Reunión de problema técnico",
+      "b": "Interrogatorio sobre problema técnico",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-015",
+      "a": "Reunión de objetivos de KPIs",
+      "b": "Interrogatorio sobre objetivos de KPIs",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-016",
+      "a": "Presentación de ventas",
+      "b": "Defensa legal de ventas",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-017",
+      "a": "Presentación de presupuesto",
+      "b": "Defensa legal de presupuesto",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-018",
+      "a": "Presentación de bonos",
+      "b": "Defensa legal de bonos",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-019",
+      "a": "Presentación de metas trimestrales",
+      "b": "Defensa legal de metas trimestrales",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-020",
+      "a": "Presentación de recorte",
+      "b": "Defensa legal de recorte",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-021",
+      "a": "Presentación de nuevo producto",
+      "b": "Defensa legal de nuevo producto",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-022",
+      "a": "Presentación de cliente clave",
+      "b": "Defensa legal de cliente clave",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-023",
+      "a": "Presentación de reorganización",
+      "b": "Defensa legal de reorganización",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-024",
+      "a": "Presentación de sprint crítico",
+      "b": "Defensa legal de sprint crítico",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-025",
+      "a": "Presentación de incidente de seguridad",
+      "b": "Defensa legal de incidente de seguridad",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-026",
+      "a": "Presentación de campaña",
+      "b": "Defensa legal de campaña",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-027",
+      "a": "Presentación de reclutamiento",
+      "b": "Defensa legal de reclutamiento",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-028",
+      "a": "Presentación de cambio de políticas",
+      "b": "Defensa legal de cambio de políticas",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-029",
+      "a": "Presentación de problema técnico",
+      "b": "Defensa legal de problema técnico",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-030",
+      "a": "Presentación de objetivos de KPIs",
+      "b": "Defensa legal de objetivos de KPIs",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-031",
+      "a": "Brainstorming de ventas",
+      "b": "Confesionario sobre ventas",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-032",
+      "a": "Brainstorming de presupuesto",
+      "b": "Confesionario sobre presupuesto",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-033",
+      "a": "Brainstorming de bonos",
+      "b": "Confesionario sobre bonos",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-034",
+      "a": "Brainstorming de metas trimestrales",
+      "b": "Confesionario sobre metas trimestrales",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-035",
+      "a": "Brainstorming de recorte",
+      "b": "Confesionario sobre recorte",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-036",
+      "a": "Brainstorming de nuevo producto",
+      "b": "Confesionario sobre nuevo producto",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-037",
+      "a": "Brainstorming de cliente clave",
+      "b": "Confesionario sobre cliente clave",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-038",
+      "a": "Brainstorming de reorganización",
+      "b": "Confesionario sobre reorganización",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-039",
+      "a": "Brainstorming de sprint crítico",
+      "b": "Confesionario sobre sprint crítico",
+      "tags": [
+        "oficina"
+      ]
+    },
+    {
+      "id": "oficina-040",
+      "a": "Brainstorming de incidente de seguridad",
+      "b": "Confesionario sobre incidente de seguridad",
+      "tags": [
+        "oficina"
+      ]
+    }
+  ]
+}

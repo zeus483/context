@@ -1,0 +1,106 @@
+{
+  "packId": "crimen",
+  "language": "es",
+  "constraints": [
+    {
+      "id": "crimen-c-001",
+      "text": "Incluye un verbo en imperativo",
+      "severity": "medium"
+    },
+    {
+      "id": "crimen-c-002",
+      "text": "Responde con tres palabras",
+      "severity": "medium"
+    },
+    {
+      "id": "crimen-c-003",
+      "text": "Incluye la palabra 'pero'",
+      "severity": "medium"
+    },
+    {
+      "id": "crimen-c-004",
+      "text": "Habla como narrador deportivo",
+      "severity": "medium"
+    },
+    {
+      "id": "crimen-c-005",
+      "text": "Incluye una palabra de sonido (bum, crack, etc.)",
+      "severity": "medium"
+    },
+    {
+      "id": "crimen-c-006",
+      "text": "No uses la letra 'r'",
+      "severity": "medium"
+    },
+    {
+      "id": "crimen-c-007",
+      "text": "Incluye un saludo",
+      "severity": "medium"
+    },
+    {
+      "id": "crimen-c-008",
+      "text": "Habla como si estuvieras ocultando algo",
+      "severity": "medium"
+    },
+    {
+      "id": "crimen-c-009",
+      "text": "Responde con una frase con rima",
+      "severity": "medium"
+    },
+    {
+      "id": "crimen-c-010",
+      "text": "Incluye la palabra 'sospechoso'",
+      "severity": "medium"
+    },
+    {
+      "id": "crimen-c-011",
+      "text": "No uses la letra 's'",
+      "severity": "medium"
+    },
+    {
+      "id": "crimen-c-012",
+      "text": "Incluye una palabra de color",
+      "severity": "medium"
+    },
+    {
+      "id": "crimen-c-013",
+      "text": "Habla como si dieras instrucciones",
+      "severity": "medium"
+    },
+    {
+      "id": "crimen-c-014",
+      "text": "Incluye un adverbio",
+      "severity": "medium"
+    },
+    {
+      "id": "crimen-c-015",
+      "text": "Responde solo con una palabra",
+      "severity": "medium"
+    },
+    {
+      "id": "crimen-c-016",
+      "text": "No uses la letra 'b'",
+      "severity": "medium"
+    },
+    {
+      "id": "crimen-c-017",
+      "text": "No uses la letra 'c'",
+      "severity": "medium"
+    },
+    {
+      "id": "crimen-c-018",
+      "text": "No uses la letra 'd'",
+      "severity": "medium"
+    },
+    {
+      "id": "crimen-c-019",
+      "text": "No uses la letra 'f'",
+      "severity": "medium"
+    },
+    {
+      "id": "crimen-c-020",
+      "text": "No uses la letra 'g'",
+      "severity": "medium"
+    }
+  ]
+}

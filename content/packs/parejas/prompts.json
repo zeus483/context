@@ -1,0 +1,131 @@
+{
+  "packId": "parejas",
+  "language": "es",
+  "prompts": [
+    {
+      "id": "parejas-p-001",
+      "text": "Di una frase que dirías en parejas",
+      "tone": "serio"
+    },
+    {
+      "id": "parejas-p-002",
+      "text": "Menciona un objeto típico de parejas",
+      "tone": "absurdo"
+    },
+    {
+      "id": "parejas-p-003",
+      "text": "Describe el ambiente de parejas en 4 palabras",
+      "tone": "sarcástico"
+    },
+    {
+      "id": "parejas-p-004",
+      "text": "Una excusa rápida relacionada con parejas",
+      "tone": "rápido"
+    },
+    {
+      "id": "parejas-p-005",
+      "text": "Una palabra prohibida en parejas",
+      "tone": "dramático"
+    },
+    {
+      "id": "parejas-p-006",
+      "text": "Un consejo útil en parejas",
+      "tone": "calmado"
+    },
+    {
+      "id": "parejas-p-007",
+      "text": "Un sonido que se escucha en parejas",
+      "tone": "misterioso"
+    },
+    {
+      "id": "parejas-p-008",
+      "text": "Una acción que harías en parejas",
+      "tone": "tenso"
+    },
+    {
+      "id": "parejas-p-009",
+      "text": "Una frase cliché de parejas",
+      "tone": "serio"
+    },
+    {
+      "id": "parejas-p-010",
+      "text": "Un problema típico de parejas",
+      "tone": "absurdo"
+    },
+    {
+      "id": "parejas-p-011",
+      "text": "Una reacción exagerada de parejas",
+      "tone": "sarcástico"
+    },
+    {
+      "id": "parejas-p-012",
+      "text": "Algo que NO deberías hacer en parejas",
+      "tone": "rápido"
+    },
+    {
+      "id": "parejas-p-013",
+      "text": "Un gesto común en parejas",
+      "tone": "dramático"
+    },
+    {
+      "id": "parejas-p-014",
+      "text": "Una palabra técnica de parejas",
+      "tone": "calmado"
+    },
+    {
+      "id": "parejas-p-015",
+      "text": "Un rumor sobre parejas",
+      "tone": "misterioso"
+    },
+    {
+      "id": "parejas-p-016",
+      "text": "Una queja corta sobre parejas",
+      "tone": "tenso"
+    },
+    {
+      "id": "parejas-p-017",
+      "text": "Un secreto de parejas",
+      "tone": "serio"
+    },
+    {
+      "id": "parejas-p-018",
+      "text": "Un objetivo urgente en parejas",
+      "tone": "absurdo"
+    },
+    {
+      "id": "parejas-p-019",
+      "text": "Una frase en voz baja en parejas",
+      "tone": "sarcástico"
+    },
+    {
+      "id": "parejas-p-020",
+      "text": "Una pregunta incómoda de parejas",
+      "tone": "rápido"
+    },
+    {
+      "id": "parejas-p-021",
+      "text": "Un chiste interno de parejas",
+      "tone": "dramático"
+    },
+    {
+      "id": "parejas-p-022",
+      "text": "Una advertencia breve en parejas",
+      "tone": "calmado"
+    },
+    {
+      "id": "parejas-p-023",
+      "text": "Una promesa en parejas",
+      "tone": "misterioso"
+    },
+    {
+      "id": "parejas-p-024",
+      "text": "Una frase motivacional de parejas",
+      "tone": "tenso"
+    },
+    {
+      "id": "parejas-p-025",
+      "text": "Una frase de despedida de parejas",
+      "tone": "serio"
+    }
+  ]
+}

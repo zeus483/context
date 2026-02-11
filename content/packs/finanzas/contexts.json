@@ -1,0 +1,326 @@
+{
+  "packId": "finanzas",
+  "language": "es",
+  "pairs": [
+    {
+      "id": "finanzas-001",
+      "a": "Reunión bancaria sobre crédito",
+      "b": "Interrogatorio financiero sobre crédito",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-002",
+      "a": "Reunión bancaria sobre préstamo",
+      "b": "Interrogatorio financiero sobre préstamo",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-003",
+      "a": "Reunión bancaria sobre tarjeta bloqueada",
+      "b": "Interrogatorio financiero sobre tarjeta bloqueada",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-004",
+      "a": "Reunión bancaria sobre fraude",
+      "b": "Interrogatorio financiero sobre fraude",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-005",
+      "a": "Reunión bancaria sobre inversión",
+      "b": "Interrogatorio financiero sobre inversión",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-006",
+      "a": "Reunión bancaria sobre tasas",
+      "b": "Interrogatorio financiero sobre tasas",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-007",
+      "a": "Reunión bancaria sobre presupuesto personal",
+      "b": "Interrogatorio financiero sobre presupuesto personal",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-008",
+      "a": "Reunión bancaria sobre hipoteca",
+      "b": "Interrogatorio financiero sobre hipoteca",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-009",
+      "a": "Reunión bancaria sobre criptos",
+      "b": "Interrogatorio financiero sobre criptos",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-010",
+      "a": "Reunión bancaria sobre cierre de mes",
+      "b": "Interrogatorio financiero sobre cierre de mes",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-011",
+      "a": "Reunión bancaria sobre auditoría",
+      "b": "Interrogatorio financiero sobre auditoría",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-012",
+      "a": "Reunión bancaria sobre ahorros",
+      "b": "Interrogatorio financiero sobre ahorros",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-013",
+      "a": "Reunión bancaria sobre cobro inesperado",
+      "b": "Interrogatorio financiero sobre cobro inesperado",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-014",
+      "a": "Reunión bancaria sobre deuda",
+      "b": "Interrogatorio financiero sobre deuda",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-015",
+      "a": "Reunión bancaria sobre aprobación",
+      "b": "Interrogatorio financiero sobre aprobación",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-016",
+      "a": "Asesoría de crédito",
+      "b": "Confesión de crédito",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-017",
+      "a": "Asesoría de préstamo",
+      "b": "Confesión de préstamo",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-018",
+      "a": "Asesoría de tarjeta bloqueada",
+      "b": "Confesión de tarjeta bloqueada",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-019",
+      "a": "Asesoría de fraude",
+      "b": "Confesión de fraude",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-020",
+      "a": "Asesoría de inversión",
+      "b": "Confesión de inversión",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-021",
+      "a": "Asesoría de tasas",
+      "b": "Confesión de tasas",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-022",
+      "a": "Asesoría de presupuesto personal",
+      "b": "Confesión de presupuesto personal",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-023",
+      "a": "Asesoría de hipoteca",
+      "b": "Confesión de hipoteca",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-024",
+      "a": "Asesoría de criptos",
+      "b": "Confesión de criptos",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-025",
+      "a": "Asesoría de cierre de mes",
+      "b": "Confesión de cierre de mes",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-026",
+      "a": "Asesoría de auditoría",
+      "b": "Confesión de auditoría",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-027",
+      "a": "Asesoría de ahorros",
+      "b": "Confesión de ahorros",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-028",
+      "a": "Asesoría de cobro inesperado",
+      "b": "Confesión de cobro inesperado",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-029",
+      "a": "Asesoría de deuda",
+      "b": "Confesión de deuda",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-030",
+      "a": "Asesoría de aprobación",
+      "b": "Confesión de aprobación",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-031",
+      "a": "Revisión de crédito",
+      "b": "Investigación de crédito",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-032",
+      "a": "Revisión de préstamo",
+      "b": "Investigación de préstamo",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-033",
+      "a": "Revisión de tarjeta bloqueada",
+      "b": "Investigación de tarjeta bloqueada",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-034",
+      "a": "Revisión de fraude",
+      "b": "Investigación de fraude",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-035",
+      "a": "Revisión de inversión",
+      "b": "Investigación de inversión",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-036",
+      "a": "Revisión de tasas",
+      "b": "Investigación de tasas",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-037",
+      "a": "Revisión de presupuesto personal",
+      "b": "Investigación de presupuesto personal",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-038",
+      "a": "Revisión de hipoteca",
+      "b": "Investigación de hipoteca",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-039",
+      "a": "Revisión de criptos",
+      "b": "Investigación de criptos",
+      "tags": [
+        "finanzas"
+      ]
+    },
+    {
+      "id": "finanzas-040",
+      "a": "Revisión de cierre de mes",
+      "b": "Investigación de cierre de mes",
+      "tags": [
+        "finanzas"
+      ]
+    }
+  ]
+}

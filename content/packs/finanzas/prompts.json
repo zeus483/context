@@ -1,0 +1,131 @@
+{
+  "packId": "finanzas",
+  "language": "es",
+  "prompts": [
+    {
+      "id": "finanzas-p-001",
+      "text": "Di una frase que dirías en finanzas",
+      "tone": "serio"
+    },
+    {
+      "id": "finanzas-p-002",
+      "text": "Menciona un objeto típico de finanzas",
+      "tone": "absurdo"
+    },
+    {
+      "id": "finanzas-p-003",
+      "text": "Describe el ambiente de finanzas en 4 palabras",
+      "tone": "sarcástico"
+    },
+    {
+      "id": "finanzas-p-004",
+      "text": "Una excusa rápida relacionada con finanzas",
+      "tone": "rápido"
+    },
+    {
+      "id": "finanzas-p-005",
+      "text": "Una palabra prohibida en finanzas",
+      "tone": "dramático"
+    },
+    {
+      "id": "finanzas-p-006",
+      "text": "Un consejo útil en finanzas",
+      "tone": "calmado"
+    },
+    {
+      "id": "finanzas-p-007",
+      "text": "Un sonido que se escucha en finanzas",
+      "tone": "misterioso"
+    },
+    {
+      "id": "finanzas-p-008",
+      "text": "Una acción que harías en finanzas",
+      "tone": "tenso"
+    },
+    {
+      "id": "finanzas-p-009",
+      "text": "Una frase cliché de finanzas",
+      "tone": "serio"
+    },
+    {
+      "id": "finanzas-p-010",
+      "text": "Un problema típico de finanzas",
+      "tone": "absurdo"
+    },
+    {
+      "id": "finanzas-p-011",
+      "text": "Una reacción exagerada de finanzas",
+      "tone": "sarcástico"
+    },
+    {
+      "id": "finanzas-p-012",
+      "text": "Algo que NO deberías hacer en finanzas",
+      "tone": "rápido"
+    },
+    {
+      "id": "finanzas-p-013",
+      "text": "Un gesto común en finanzas",
+      "tone": "dramático"
+    },
+    {
+      "id": "finanzas-p-014",
+      "text": "Una palabra técnica de finanzas",
+      "tone": "calmado"
+    },
+    {
+      "id": "finanzas-p-015",
+      "text": "Un rumor sobre finanzas",
+      "tone": "misterioso"
+    },
+    {
+      "id": "finanzas-p-016",
+      "text": "Una queja corta sobre finanzas",
+      "tone": "tenso"
+    },
+    {
+      "id": "finanzas-p-017",
+      "text": "Un secreto de finanzas",
+      "tone": "serio"
+    },
+    {
+      "id": "finanzas-p-018",
+      "text": "Un objetivo urgente en finanzas",
+      "tone": "absurdo"
+    },
+    {
+      "id": "finanzas-p-019",
+      "text": "Una frase en voz baja en finanzas",
+      "tone": "sarcástico"
+    },
+    {
+      "id": "finanzas-p-020",
+      "text": "Una pregunta incómoda de finanzas",
+      "tone": "rápido"
+    },
+    {
+      "id": "finanzas-p-021",
+      "text": "Un chiste interno de finanzas",
+      "tone": "dramático"
+    },
+    {
+      "id": "finanzas-p-022",
+      "text": "Una advertencia breve en finanzas",
+      "tone": "calmado"
+    },
+    {
+      "id": "finanzas-p-023",
+      "text": "Una promesa en finanzas",
+      "tone": "misterioso"
+    },
+    {
+      "id": "finanzas-p-024",
+      "text": "Una frase motivacional de finanzas",
+      "tone": "tenso"
+    },
+    {
+      "id": "finanzas-p-025",
+      "text": "Una frase de despedida de finanzas",
+      "tone": "serio"
+    }
+  ]
+}

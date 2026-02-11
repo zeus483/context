@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-base text-ink font-body;
+  background-image:
+    radial-gradient(900px 600px at 90% -10%, rgba(41, 240, 177, 0.14), transparent 60%),
+    radial-gradient(700px 500px at -10% 20%, rgba(251, 191, 36, 0.12), transparent 55%);
+}
+
+input[type="range"] {
+  accent-color: #29f0b1;
+}
+
+@keyframes soft-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes swipe-hint {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-3xl border border-white/10 bg-white/5 shadow-[0_20px_60px_rgba(0,0,0,0.35)];
+  }
+
+  .input {
+    @apply w-full rounded-2xl border border-white/10 bg-surface/70 px-4 py-3 text-sm text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent/70;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold transition active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply btn bg-accent text-base text-[#0a0b0f] shadow-[0_0_20px_rgba(41,240,177,0.2)] hover:bg-accent/90;
+  }
+
+  .btn-secondary {
+    @apply btn bg-white/10 text-ink hover:bg-white/15;
+  }
+
+  .btn-ghost {
+    @apply btn bg-transparent text-ink hover:bg-white/5;
+  }
+
+  .btn-danger {
+    @apply btn bg-danger/20 text-danger hover:bg-danger/30;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-muted;
+  }
+
+  .animate-soft-in {
+    animation: soft-in 0.35s ease;
+  }
+
+  .swipe-hint {
+    animation: swipe-hint 1.2s ease-in-out infinite;
+    letter-spacing: 0.25em;
+  }
+
+  .reveal-flip-card {
+    position: relative;
+    width: min(100%, 420px);
+    min-height: 320px;
+    perspective: 1200px;
+  }
+
+  .reveal-flip-face {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(19, 21, 32, 0.86);
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    backface-visibility: hidden;
+    transition: transform 0.36s ease;
+  }
+
+  .reveal-flip-front {
+    transform: rotateY(0deg);
+  }
+
+  .reveal-flip-back {
+    transform: rotateY(180deg);
+  }
+
+  .reveal-flip-card.is-flipping .reveal-flip-front {
+    transform: rotateY(180deg);
+  }
+
+  .reveal-flip-card.is-flipping .reveal-flip-back {
+    transform: rotateY(360deg);
+  }
+}

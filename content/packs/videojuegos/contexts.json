@@ -1,0 +1,326 @@
+{
+  "packId": "videojuegos",
+  "language": "es",
+  "pairs": [
+    {
+      "id": "videojuegos-001",
+      "a": "Chat de gamers sobre boss final",
+      "b": "Informe militar sobre boss final",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-002",
+      "a": "Chat de gamers sobre loot legendario",
+      "b": "Informe militar sobre loot legendario",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-003",
+      "a": "Chat de gamers sobre bug extraño",
+      "b": "Informe militar sobre bug extraño",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-004",
+      "a": "Chat de gamers sobre clan rival",
+      "b": "Informe militar sobre clan rival",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-005",
+      "a": "Chat de gamers sobre torneo",
+      "b": "Informe militar sobre torneo",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-006",
+      "a": "Chat de gamers sobre skin exclusiva",
+      "b": "Informe militar sobre skin exclusiva",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-007",
+      "a": "Chat de gamers sobre nerf inesperado",
+      "b": "Informe militar sobre nerf inesperado",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-008",
+      "a": "Chat de gamers sobre server caído",
+      "b": "Informe militar sobre server caído",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-009",
+      "a": "Chat de gamers sobre speedrun",
+      "b": "Informe militar sobre speedrun",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-010",
+      "a": "Chat de gamers sobre misión secreta",
+      "b": "Informe militar sobre misión secreta",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-011",
+      "a": "Chat de gamers sobre ranking",
+      "b": "Informe militar sobre ranking",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-012",
+      "a": "Chat de gamers sobre co-op",
+      "b": "Informe militar sobre co-op",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-013",
+      "a": "Chat de gamers sobre troleo",
+      "b": "Informe militar sobre troleo",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-014",
+      "a": "Chat de gamers sobre parche nuevo",
+      "b": "Informe militar sobre parche nuevo",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-015",
+      "a": "Chat de gamers sobre campaña",
+      "b": "Informe militar sobre campaña",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-016",
+      "a": "Briefing de raid sobre boss final",
+      "b": "Briefing de rescate sobre boss final",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-017",
+      "a": "Briefing de raid sobre loot legendario",
+      "b": "Briefing de rescate sobre loot legendario",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-018",
+      "a": "Briefing de raid sobre bug extraño",
+      "b": "Briefing de rescate sobre bug extraño",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-019",
+      "a": "Briefing de raid sobre clan rival",
+      "b": "Briefing de rescate sobre clan rival",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-020",
+      "a": "Briefing de raid sobre torneo",
+      "b": "Briefing de rescate sobre torneo",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-021",
+      "a": "Briefing de raid sobre skin exclusiva",
+      "b": "Briefing de rescate sobre skin exclusiva",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-022",
+      "a": "Briefing de raid sobre nerf inesperado",
+      "b": "Briefing de rescate sobre nerf inesperado",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-023",
+      "a": "Briefing de raid sobre server caído",
+      "b": "Briefing de rescate sobre server caído",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-024",
+      "a": "Briefing de raid sobre speedrun",
+      "b": "Briefing de rescate sobre speedrun",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-025",
+      "a": "Briefing de raid sobre misión secreta",
+      "b": "Briefing de rescate sobre misión secreta",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-026",
+      "a": "Briefing de raid sobre ranking",
+      "b": "Briefing de rescate sobre ranking",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-027",
+      "a": "Briefing de raid sobre co-op",
+      "b": "Briefing de rescate sobre co-op",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-028",
+      "a": "Briefing de raid sobre troleo",
+      "b": "Briefing de rescate sobre troleo",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-029",
+      "a": "Briefing de raid sobre parche nuevo",
+      "b": "Briefing de rescate sobre parche nuevo",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-030",
+      "a": "Briefing de raid sobre campaña",
+      "b": "Briefing de rescate sobre campaña",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-031",
+      "a": "Celebración por boss final",
+      "b": "Queja formal por boss final",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-032",
+      "a": "Celebración por loot legendario",
+      "b": "Queja formal por loot legendario",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-033",
+      "a": "Celebración por bug extraño",
+      "b": "Queja formal por bug extraño",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-034",
+      "a": "Celebración por clan rival",
+      "b": "Queja formal por clan rival",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-035",
+      "a": "Celebración por torneo",
+      "b": "Queja formal por torneo",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-036",
+      "a": "Celebración por skin exclusiva",
+      "b": "Queja formal por skin exclusiva",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-037",
+      "a": "Celebración por nerf inesperado",
+      "b": "Queja formal por nerf inesperado",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-038",
+      "a": "Celebración por server caído",
+      "b": "Queja formal por server caído",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-039",
+      "a": "Celebración por speedrun",
+      "b": "Queja formal por speedrun",
+      "tags": [
+        "videojuegos"
+      ]
+    },
+    {
+      "id": "videojuegos-040",
+      "a": "Celebración por misión secreta",
+      "b": "Queja formal por misión secreta",
+      "tags": [
+        "videojuegos"
+      ]
+    }
+  ]
+}
