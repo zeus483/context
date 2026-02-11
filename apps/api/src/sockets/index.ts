@@ -315,7 +315,7 @@ export function registerSockets(io: Server<ClientToServerEvents, ServerToClientE
       if (!roomCode) return;
       const runtime = getRuntime(roomCode);
       if (!runtime) return;
-      if (![Phases.PROMPT1, Phases.PROMPT2].includes(runtime.state.phase)) return;
+      if (runtime.state.phase !== Phases.PROMPT1 && runtime.state.phase !== Phases.PROMPT2) return;
       if (!runtime.state.players.find((p) => p.id === socket.data.playerId && p.isAlive !== false)) return;
       if (phaseNonce && phaseNonce !== runtime.state.phaseNonce) return;
       const lastSubmit = submitCooldown.get(socket.data.playerId || "") || 0;

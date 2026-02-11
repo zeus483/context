@@ -1,13 +1,36 @@
-import dotenv from "dotenv";
 import fs from "fs";
 import path from "path";
 import { z } from "zod";
+
+function loadEnvFile(filePath: string) {
+  const raw = fs.readFileSync(filePath, "utf8");
+  const lines = raw.split(/\r?\n/);
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+    const separator = trimmed.indexOf("=");
+    if (separator <= 0) continue;
+
+    const key = trimmed.slice(0, separator).trim();
+    let value = trimmed.slice(separator + 1).trim();
+    if (
+      (value.startsWith("\"") && value.endsWith("\"")) ||
+      (value.startsWith("'") && value.endsWith("'"))
+    ) {
+      value = value.slice(1, -1);
+    }
+    if (process.env[key] === undefined) {
+      process.env[key] = value;
+    }
+  }
+}
 
 const cwdEnv = path.resolve(process.cwd(), ".env");
 const rootEnv = path.resolve(process.cwd(), "../../.env");
 const envPath = fs.existsSync(cwdEnv) ? cwdEnv : fs.existsSync(rootEnv) ? rootEnv : undefined;
 if (envPath) {
-  dotenv.config({ path: envPath });
+  loadEnvFile(envPath);
 }
 
 const envSchema = z.object({
