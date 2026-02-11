@@ -42,12 +42,15 @@ await app.register(fastifyStatic, {
 
 registerRoutes(app);
 
-const io = new Server(app.server, {
-  cors: {
-    origin: config.corsOrigin,
-    credentials: true
-  }
-});
+const io = new Server(
+  app.server,
+  ({
+    cors: {
+      origin: config.corsOrigin,
+      credentials: true
+    }
+  } as unknown as ConstructorParameters<typeof Server>[1])
+);
 
 registerSockets(io);
 
