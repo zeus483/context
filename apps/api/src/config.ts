@@ -65,32 +65,56 @@ if (!parsed.success) {
   process.exit(1);
 }
 
-const env = parsed.data;
+const {
+  NODE_ENV,
+  PORT,
+  DATABASE_URL,
+  REDIS_URL,
+  JWT_SECRET,
+  USER_TOKEN_SECRET,
+  PUBLIC_WEB_URL,
+  API_BASE_URL,
+  CORS_ORIGIN,
+  SENTRY_DSN,
+  OTEL_EXPORTER_OTLP_ENDPOINT,
+  S3_ENABLED,
+  S3_ENDPOINT,
+  S3_REGION,
+  S3_BUCKET,
+  S3_ACCESS_KEY_ID,
+  S3_SECRET_ACCESS_KEY,
+  S3_PUBLIC_URL,
+  LOCAL_STORAGE_PATH,
+  CHAT_COOLDOWN_MS,
+  MAX_CHAT_LENGTH,
+  STREAM_CHAT_DELAY_MS,
+  ADMIN_KEY
+} = parsed.data;
 
 export const appConfig = {
-  nodeEnv: env.NODE_ENV,
-  port: env.PORT,
-  databaseUrl: env.DATABASE_URL,
-  redisUrl: env.REDIS_URL,
-  jwtSecret: env.JWT_SECRET,
-  userTokenSecret: env.USER_TOKEN_SECRET,
-  publicWebUrl: env.PUBLIC_WEB_URL,
-  apiBaseUrl: env.API_BASE_URL,
-  corsOrigin: env.CORS_ORIGIN,
-  sentryDsn: env.SENTRY_DSN,
-  otelEndpoint: env.OTEL_EXPORTER_OTLP_ENDPOINT,
+  nodeEnv: NODE_ENV,
+  port: PORT,
+  databaseUrl: DATABASE_URL,
+  redisUrl: REDIS_URL,
+  jwtSecret: JWT_SECRET,
+  userTokenSecret: USER_TOKEN_SECRET,
+  publicWebUrl: PUBLIC_WEB_URL,
+  apiBaseUrl: API_BASE_URL,
+  corsOrigin: CORS_ORIGIN,
+  sentryDsn: SENTRY_DSN,
+  otelEndpoint: OTEL_EXPORTER_OTLP_ENDPOINT,
   s3: {
-    enabled: env.S3_ENABLED === "true",
-    endpoint: env.S3_ENDPOINT,
-    region: env.S3_REGION,
-    bucket: env.S3_BUCKET,
-    accessKeyId: env.S3_ACCESS_KEY_ID,
-    secretAccessKey: env.S3_SECRET_ACCESS_KEY,
-    publicUrl: env.S3_PUBLIC_URL
+    enabled: S3_ENABLED === "true",
+    endpoint: S3_ENDPOINT,
+    region: S3_REGION,
+    bucket: S3_BUCKET,
+    accessKeyId: S3_ACCESS_KEY_ID,
+    secretAccessKey: S3_SECRET_ACCESS_KEY,
+    publicUrl: S3_PUBLIC_URL
   },
-  localStoragePath: env.LOCAL_STORAGE_PATH,
-  chatCooldownMs: env.CHAT_COOLDOWN_MS,
-  maxChatLength: env.MAX_CHAT_LENGTH,
-  streamChatDelayMs: env.STREAM_CHAT_DELAY_MS,
-  adminKey: env.ADMIN_KEY
+  localStoragePath: LOCAL_STORAGE_PATH,
+  chatCooldownMs: CHAT_COOLDOWN_MS,
+  maxChatLength: MAX_CHAT_LENGTH,
+  streamChatDelayMs: STREAM_CHAT_DELAY_MS,
+  adminKey: ADMIN_KEY
 };
