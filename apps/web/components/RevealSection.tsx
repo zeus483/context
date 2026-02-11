@@ -5,6 +5,7 @@ import {
   useMemo,
   useRef,
   useState,
+  type MouseEvent,
   type PointerEvent,
   type RefObject,
   type TouchEvent
@@ -336,6 +337,12 @@ export default function RevealSection({
     finishSwipe();
   };
 
+  const handleContextMenu = (event: MouseEvent<HTMLDivElement>) => {
+    if (!desktopMode) {
+      event.preventDefault();
+    }
+  };
+
   const handleDesktopReveal = () => {
     if (revealState !== "ARMED") return;
     setRevealState("REVEALED_PERSISTENT");
@@ -393,7 +400,7 @@ export default function RevealSection({
         <p className="text-sm text-muted">Privado, sin filtraciones: una persona a la vez.</p>
       </header>
 
-      <div className="mt-5 rounded-3xl border border-white/10 bg-surface/50 p-4">
+      <div className="mt-5 rounded-3xl border border-white/10 bg-surface/50 p-4 select-none">
         <div className="flex items-center justify-between gap-3">
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-muted">Jugador</p>
@@ -476,8 +483,14 @@ export default function RevealSection({
           ) : null}
 
           <div
-            className="relative mx-auto h-[410px] w-full max-w-md overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-b from-surface2/95 via-surface/90 to-base/95 shadow-[0_24px_80px_rgba(0,0,0,0.45)]"
-            style={{ touchAction: desktopMode ? "auto" : "none", userSelect: "none", WebkitUserSelect: "none" }}
+            className="relative mx-auto h-[410px] w-full max-w-md overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-b from-surface2/95 via-surface/90 to-base/95 shadow-[0_24px_80px_rgba(0,0,0,0.45)] select-none"
+            style={{
+              touchAction: desktopMode ? "auto" : "none",
+              userSelect: "none",
+              WebkitUserSelect: "none",
+              WebkitTouchCallout: "none",
+              WebkitTapHighlightColor: "transparent"
+            }}
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
@@ -485,13 +498,15 @@ export default function RevealSection({
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
+            onContextMenu={handleContextMenu}
+            onDragStart={(event) => event.preventDefault()}
             role="presentation"
           >
             {!desktopMode ? (
               <>
                 {showSensitiveOnMobile ? (
                   <div
-                    className="absolute inset-0"
+                    className="absolute inset-0 pointer-events-none select-none"
                     style={{ clipPath: `inset(${(1 - revealRatioForMask) * 100}% 0 0 0)` }}
                   >
                     {renderSensitiveContent()}
