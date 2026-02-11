@@ -1,7 +1,7 @@
 import { SignJWT, jwtVerify } from "jose";
 import { nanoid } from "nanoid";
 import sanitizeHtml from "sanitize-html";
-import { config } from "../config";
+import { appConfig as config } from "../config";
 import { prisma } from "../prisma";
 import { logger } from "../logger";
 import { initRoomState, startGame, handleSubmit, handleVote } from "../game/engine";

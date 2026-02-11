@@ -1,5 +1,5 @@
 import { prisma } from "../prisma";
-import { config } from "../config";
+import { appConfig as config } from "../config";
 function checkAdmin(req) {
     const key = req.headers["x-admin-key"];
     if (!config.adminKey)

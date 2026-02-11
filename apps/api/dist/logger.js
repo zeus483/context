@@ -1,5 +1,5 @@
 import pino from "pino";
-import { config } from "./config";
+import { appConfig as config } from "./config";
 export const logger = pino({
     level: config.nodeEnv === "production" ? "info" : "debug",
     base: { service: "contexto-cruzado-api" }

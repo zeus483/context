@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-import { config } from "./config";
+import { appConfig as config } from "./config";
 import { nanoid } from "nanoid";
 const s3Client = config.s3.enabled && config.s3.bucket
     ? new S3Client({

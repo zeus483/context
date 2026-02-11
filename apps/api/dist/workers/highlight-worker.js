@@ -1,10 +1,11 @@
 import { Worker } from "bullmq";
-import { chromium } from "playwright";
+import playwright from "playwright";
 import { redis } from "../redis";
 import { prisma } from "../prisma";
 import { uploadHighlightImage } from "../storage";
-import { config } from "../config";
+import { appConfig as config } from "../config";
 import { logger } from "../logger";
+const { chromium } = playwright;
 const worker = new Worker("highlight-render", async (job) => {
     const { highlightId } = job.data;
     const highlight = await prisma.highlight.findUnique({ where: { id: highlightId } });
