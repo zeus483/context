@@ -6,8 +6,7 @@ import {
   useRef,
   useState,
   type MouseEvent,
-  type RefObject,
-  type TouchEvent
+  type RefObject
 } from "react";
 import type { Category, Player } from "../src/types";
 
@@ -25,8 +24,6 @@ type RevealSectionProps = {
   onStartRound: () => void;
 };
 
-const HOLD_REVEAL_THRESHOLD_MS = 380;
-const HOLD_PASS_THRESHOLD_MS = 800;
 const ARMING_DELAY_MS = 600;
 const MAX_CURTAIN_LIFT = 220;
 
@@ -43,7 +40,7 @@ export default function RevealSection({
   category,
   word,
   showCategoryToImpostor,
-  accessibleRevealMode,
+  accessibleRevealMode: _accessibleRevealMode,
   enableHaptics,
   onPlayerRevealed,
   onStartRound
@@ -58,13 +55,7 @@ export default function RevealSection({
   const [desktopMode, setDesktopMode] = useState(false);
   const [isArming, setIsArming] = useState(false);
   const [hasPeekedEnough, setHasPeekedEnough] = useState(false);
-  const [holdProgress, setHoldProgress] = useState(0);
-  const [holdPressed, setHoldPressed] = useState(false);
-
-  const holdRevealReadyRef = useRef(false);
   const armingTimerRef = useRef<number | null>(null);
-  const holdStartRef = useRef<number | null>(null);
-  const holdRafRef = useRef<number | null>(null);
 
   const revealedCount = useMemo(
     () => players.filter((player) => player.revealed).length,
@@ -95,18 +86,10 @@ export default function RevealSection({
     setRevealState("HANDOFF");
     setIsArming(false);
     setHasPeekedEnough(false);
-    setHoldProgress(0);
-    setHoldPressed(false);
-    holdRevealReadyRef.current = false;
-    holdStartRef.current = null;
 
     if (armingTimerRef.current !== null) {
       window.clearTimeout(armingTimerRef.current);
       armingTimerRef.current = null;
-    }
-    if (holdRafRef.current !== null) {
-      window.cancelAnimationFrame(holdRafRef.current);
-      holdRafRef.current = null;
     }
   }, [currentPlayer?.id]);
 
@@ -114,9 +97,6 @@ export default function RevealSection({
     return () => {
       if (armingTimerRef.current !== null) {
         window.clearTimeout(armingTimerRef.current);
-      }
-      if (holdRafRef.current !== null) {
-        window.cancelAnimationFrame(holdRafRef.current);
       }
     };
   }, []);
@@ -138,75 +118,16 @@ export default function RevealSection({
     }, ARMING_DELAY_MS);
   };
 
-  const holdLoop = () => {
-    if (holdStartRef.current === null) return;
-    const elapsed = Date.now() - holdStartRef.current;
-    const revealRatio = Math.min(1, elapsed / HOLD_REVEAL_THRESHOLD_MS);
-    const passRatio = Math.min(1, elapsed / HOLD_PASS_THRESHOLD_MS);
-
-    setHoldProgress(passRatio);
-
-    if (revealRatio >= 1 && !holdRevealReadyRef.current) {
-      holdRevealReadyRef.current = true;
-      setRevealState("PEEKING");
-    }
-
-    if (passRatio >= 1) {
-      markPeekAsRead();
-    }
-
-    holdRafRef.current = window.requestAnimationFrame(holdLoop);
-  };
-
-  const startHoldPeek = () => {
-    if (desktopMode || revealState !== "ARMED") return;
-    setHoldPressed(true);
-    setHoldProgress(0);
-    holdRevealReadyRef.current = false;
-    holdStartRef.current = Date.now();
-    if (holdRafRef.current !== null) {
-      window.cancelAnimationFrame(holdRafRef.current);
-    }
-    holdRafRef.current = window.requestAnimationFrame(holdLoop);
-  };
-
-  const stopHoldPeek = () => {
+  const handleMobileToggleReveal = () => {
     if (desktopMode) return;
-    setHoldPressed(false);
-    setHoldProgress(0);
-    holdRevealReadyRef.current = false;
-    holdStartRef.current = null;
-
-    if (holdRafRef.current !== null) {
-      window.cancelAnimationFrame(holdRafRef.current);
-      holdRafRef.current = null;
+    if (revealState === "ARMED") {
+      setRevealState("PEEKING");
+      markPeekAsRead();
+      return;
     }
-
     if (revealState === "PEEKING") {
       setRevealState("ARMED");
     }
-  };
-
-  const handleMobileHoldTouchStart = (event: TouchEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    startHoldPeek();
-  };
-
-  const handleMobileHoldTouchEnd = (event: TouchEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    stopHoldPeek();
-  };
-
-  const handleMobileHoldMouseDown = (event: MouseEvent<HTMLButtonElement>) => {
-    if (desktopMode) return;
-    event.preventDefault();
-    startHoldPeek();
-  };
-
-  const handleMobileHoldMouseUp = (event: MouseEvent<HTMLButtonElement>) => {
-    if (desktopMode) return;
-    event.preventDefault();
-    stopHoldPeek();
   };
 
   const handleContextMenu = (event: MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
@@ -260,7 +181,7 @@ export default function RevealSection({
 
   const showSensitiveOnMobile = currentPlayer && revealState === "PEEKING" && !desktopMode;
   const showSensitiveOnDesktop = currentPlayer && revealState === "REVEALED_PERSISTENT" && desktopMode;
-  const curtainLift = (revealState === "PEEKING" ? 1 : holdProgress) * MAX_CURTAIN_LIFT;
+  const curtainLift = (revealState === "PEEKING" ? 1 : 0) * MAX_CURTAIN_LIFT;
 
   return (
     <section className="card min-h-[calc(100svh-11rem)] p-6 md:p-8">
@@ -330,9 +251,7 @@ export default function RevealSection({
         <div className="mt-6">
           {!desktopMode ? (
             <div className="mb-3 rounded-2xl border border-white/10 bg-surface/60 px-3 py-2 text-center">
-              <p className="text-xs uppercase tracking-[0.24em] text-muted">
-                Modo móvil estable: mantener presionado{accessibleRevealMode ? " (accesible)" : ""}
-              </p>
+              <p className="text-xs uppercase tracking-[0.24em] text-muted">Modo móvil: botón revelar/ocultar</p>
             </div>
           ) : null}
 
@@ -363,29 +282,19 @@ export default function RevealSection({
                     <span className="h-1.5 w-16 rounded-full bg-white/30" aria-hidden="true" />
                   </div>
                   <div className="absolute inset-x-6 bottom-24 text-center">
-                    <p className="text-sm text-muted">Mantén presionado para revelar</p>
-                    <div className="relative mt-3 h-2 rounded-full bg-white/15">
-                      <div className="h-full rounded-full bg-accent transition-[width] duration-75" style={{ width: `${holdProgress * 100}%` }} />
-                    </div>
-                    <p className="mt-2 text-xs text-muted">
-                      {holdPressed ? "Sostén hasta completar para habilitar Siguiente" : "Mantén pulsado para ver el contenido"}
-                    </p>
+                    <p className="text-sm text-muted">{showSensitiveOnMobile ? "Contenido visible" : "Contenido oculto"}</p>
+                    <p className="mt-2 text-xs text-muted">Usa el botón para revelar y ocultar.</p>
                   </div>
                 </div>
 
                 <div className="absolute inset-x-6 bottom-6">
                   <button
                     type="button"
-                    className={`btn-secondary w-full justify-center py-4 text-base ${holdPressed ? "bg-accent text-[#0a0b0f]" : ""}`}
-                    onTouchStart={handleMobileHoldTouchStart}
-                    onTouchEnd={handleMobileHoldTouchEnd}
-                    onTouchCancel={handleMobileHoldTouchEnd}
-                    onMouseDown={handleMobileHoldMouseDown}
-                    onMouseUp={handleMobileHoldMouseUp}
-                    onMouseLeave={handleMobileHoldMouseUp}
+                    className={`w-full justify-center py-4 text-base ${showSensitiveOnMobile ? "btn-secondary" : "btn-primary"}`}
+                    onClick={handleMobileToggleReveal}
                     onContextMenu={handleContextMenu}
                   >
-                    {holdPressed ? "Revelando..." : "Mantener para revelar"}
+                    {showSensitiveOnMobile ? "Ocultar" : "Revelar"}
                   </button>
                 </div>
               </>
@@ -423,18 +332,18 @@ export default function RevealSection({
         </div>
       ) : null}
 
-      {currentPlayer ? (
+      {currentPlayer && revealState !== "HANDOFF" && revealState !== "DONE_PLAYER" ? (
         <div className="fixed bottom-4 left-1/2 z-40 w-[calc(100%-1.5rem)] max-w-md -translate-x-1/2 rounded-2xl border border-white/10 bg-base/90 p-3 shadow-[0_14px_40px_rgba(0,0,0,0.5)] backdrop-blur">
           <button
             type="button"
             className="btn-primary w-full justify-center py-4 text-base"
-            disabled={!canGoNext || revealState === "DONE_PLAYER"}
+            disabled={!canGoNext}
             onClick={handleNextPlayer}
           >
             Siguiente
           </button>
           {!hasPeekedEnough ? (
-            <p className="mt-2 text-center text-xs text-muted">Mantén presionado hasta completar para continuar.</p>
+            <p className="mt-2 text-center text-xs text-muted">Revela al menos una vez para continuar.</p>
           ) : null}
         </div>
       ) : null}
