@@ -310,7 +310,7 @@ export default function ConfigSection({
             </label>
 
             <label className="flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm">
-              <span>Modo accesible (mantener presionado)</span>
+              <span>Modo inicial: mantener presionado</span>
               <input
                 type="checkbox"
                 checked={accessibleRevealMode}

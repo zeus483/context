@@ -27,9 +27,10 @@ type RevealSectionProps = {
 
 const MAX_DRAG_DISTANCE = 320;
 const SAFE_READING_THRESHOLD = 0.7;
+const FAILED_DRAG_THRESHOLD = 0.35;
 const HOLD_REVEAL_THRESHOLD_MS = 500;
 const HOLD_PASS_THRESHOLD_MS = 800;
-const ARMING_DELAY_MS = 900;
+const ARMING_DELAY_MS = 600;
 
 function triggerHaptic(enabled: boolean) {
   if (!enabled || typeof navigator === "undefined") return;
@@ -64,6 +65,9 @@ export default function RevealSection({
   const [failedDragAttempts, setFailedDragAttempts] = useState(0);
   const [holdProgress, setHoldProgress] = useState(0);
   const [holdPressed, setHoldPressed] = useState(false);
+  const [activeRevealMode, setActiveRevealMode] = useState<"SWIPE" | "HOLD">(
+    accessibleRevealMode ? "HOLD" : "SWIPE"
+  );
 
   const dragStartRef = useRef<number | null>(null);
   const dragDistanceRef = useRef(0);
@@ -81,6 +85,7 @@ export default function RevealSection({
   const progress = players.length > 0 ? (revealedCount / players.length) * 100 : 0;
   const currentDisplayIndex = currentPlayer ? currentPlayerIndex + 1 : players.length;
   const canGoNext = Boolean(currentPlayer && hasPeekedEnough);
+  const isHoldMode = activeRevealMode === "HOLD";
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -97,6 +102,10 @@ export default function RevealSection({
     query.addListener(update);
     return () => query.removeListener(update);
   }, []);
+
+  useEffect(() => {
+    setActiveRevealMode(accessibleRevealMode ? "HOLD" : "SWIPE");
+  }, [accessibleRevealMode]);
 
   useEffect(() => {
     setRevealState("HANDOFF");
@@ -141,6 +150,27 @@ export default function RevealSection({
     }
   };
 
+  const switchRevealMode = (mode: "SWIPE" | "HOLD") => {
+    setActiveRevealMode(mode);
+    setFailedDragAttempts(0);
+    setIsDragging(false);
+    setPeekRatio(0);
+    setHoldPressed(false);
+    setHoldProgress(0);
+    dragStartRef.current = null;
+    dragDistanceRef.current = 0;
+    crossedThresholdRef.current = false;
+    holdRevealReadyRef.current = false;
+    holdStartRef.current = null;
+    if (holdRafRef.current !== null) {
+      window.cancelAnimationFrame(holdRafRef.current);
+      holdRafRef.current = null;
+    }
+    if (revealState === "PEEKING") {
+      setRevealState("ARMED");
+    }
+  };
+
   const startArming = () => {
     if (isArming) return;
     setIsArming(true);
@@ -162,7 +192,7 @@ export default function RevealSection({
   };
 
   const startSwipe = (clientY: number) => {
-    if (desktopMode || revealState !== "ARMED" || accessibleRevealMode) return;
+    if (desktopMode || revealState !== "ARMED" || isHoldMode) return;
     setIsDragging(true);
     setRevealState("PEEKING");
     dragStartRef.current = clientY;
@@ -172,7 +202,7 @@ export default function RevealSection({
   };
 
   const moveSwipe = (clientY: number) => {
-    if (!isDragging || revealState !== "PEEKING" || desktopMode || accessibleRevealMode) return;
+    if (!isDragging || revealState !== "PEEKING" || desktopMode || isHoldMode) return;
     const startY = dragStartRef.current;
     if (startY === null) return;
     const distance = Math.max(0, Math.min(MAX_DRAG_DISTANCE, startY - clientY));
@@ -181,9 +211,9 @@ export default function RevealSection({
   };
 
   const finishSwipe = () => {
-    if (!isDragging || desktopMode || accessibleRevealMode) return;
+    if (!isDragging || desktopMode || isHoldMode) return;
     const ratio = dragDistanceRef.current / MAX_DRAG_DISTANCE;
-    if (ratio < 0.15) {
+    if (ratio < FAILED_DRAG_THRESHOLD) {
       setFailedDragAttempts((value) => value + 1);
     }
 
@@ -217,7 +247,7 @@ export default function RevealSection({
   };
 
   const startHoldPeek = () => {
-    if (!accessibleRevealMode || desktopMode || revealState !== "ARMED") return;
+    if (!isHoldMode || desktopMode || revealState !== "ARMED") return;
     setHoldPressed(true);
     setHoldProgress(0);
     holdRevealReadyRef.current = false;
@@ -226,7 +256,7 @@ export default function RevealSection({
   };
 
   const stopHoldPeek = () => {
-    if (!accessibleRevealMode || desktopMode) return;
+    if (!isHoldMode || desktopMode) return;
     setHoldPressed(false);
     setHoldProgress(0);
     holdRevealReadyRef.current = false;
@@ -245,7 +275,7 @@ export default function RevealSection({
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
     if (event.pointerType === "mouse") return;
     event.preventDefault();
-    if (accessibleRevealMode) {
+    if (isHoldMode) {
       startHoldPeek();
       return;
     }
@@ -260,7 +290,7 @@ export default function RevealSection({
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
     if (event.pointerType === "mouse") return;
     event.preventDefault();
-    if (accessibleRevealMode) return;
+    if (isHoldMode) return;
     moveSwipe(event.clientY);
   };
 
@@ -275,7 +305,7 @@ export default function RevealSection({
     } catch {
       // Ignore capture-release errors in browsers with partial pointer APIs.
     }
-    if (accessibleRevealMode) {
+    if (isHoldMode) {
       stopHoldPeek();
       return;
     }
@@ -284,7 +314,7 @@ export default function RevealSection({
 
   const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
     event.preventDefault();
-    if (accessibleRevealMode) {
+    if (isHoldMode) {
       startHoldPeek();
       return;
     }
@@ -293,13 +323,13 @@ export default function RevealSection({
 
   const handleTouchMove = (event: TouchEvent<HTMLDivElement>) => {
     event.preventDefault();
-    if (accessibleRevealMode) return;
+    if (isHoldMode) return;
     moveSwipe(event.touches[0]?.clientY ?? 0);
   };
 
   const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
     event.preventDefault();
-    if (accessibleRevealMode) {
+    if (isHoldMode) {
       stopHoldPeek();
       return;
     }
@@ -351,7 +381,7 @@ export default function RevealSection({
 
   const showSensitiveOnMobile = currentPlayer && revealState === "PEEKING" && !desktopMode;
   const showSensitiveOnDesktop = currentPlayer && revealState === "REVEALED_PERSISTENT" && desktopMode;
-  const revealRatioForMask = accessibleRevealMode ? (revealState === "PEEKING" ? 1 : 0) : peekRatio;
+  const revealRatioForMask = isHoldMode ? (revealState === "PEEKING" ? 1 : 0) : peekRatio;
 
   return (
     <section className="card min-h-[calc(100svh-11rem)] p-6 md:p-8">
@@ -419,6 +449,32 @@ export default function RevealSection({
 
       {currentPlayer && (revealState === "ARMED" || revealState === "PEEKING" || revealState === "REVEALED_PERSISTENT") ? (
         <div className="mt-6">
+          {!desktopMode ? (
+            <div className="mb-3 flex items-center justify-between rounded-2xl border border-white/10 bg-surface/60 px-3 py-2">
+              <p className="text-xs uppercase tracking-[0.24em] text-muted">Modo actual</p>
+              <div className="inline-flex rounded-xl border border-white/10 bg-base/70 p-1">
+                <button
+                  type="button"
+                  className={`rounded-lg px-3 py-1 text-xs font-semibold transition ${
+                    !isHoldMode ? "bg-accent text-[#0a0b0f]" : "text-muted hover:text-ink"
+                  }`}
+                  onClick={() => switchRevealMode("SWIPE")}
+                >
+                  Deslizar
+                </button>
+                <button
+                  type="button"
+                  className={`rounded-lg px-3 py-1 text-xs font-semibold transition ${
+                    isHoldMode ? "bg-accent text-[#0a0b0f]" : "text-muted hover:text-ink"
+                  }`}
+                  onClick={() => switchRevealMode("HOLD")}
+                >
+                  Mantener
+                </button>
+              </div>
+            </div>
+          ) : null}
+
           <div
             className="relative mx-auto h-[410px] w-full max-w-md overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-b from-surface2/95 via-surface/90 to-base/95 shadow-[0_24px_80px_rgba(0,0,0,0.45)]"
             style={{ touchAction: desktopMode ? "auto" : "none", userSelect: "none", WebkitUserSelect: "none" }}
@@ -442,31 +498,38 @@ export default function RevealSection({
                   </div>
                 ) : null}
 
-              <div
+                <div
                   className={`absolute inset-0 transition-transform duration-300 ease-[cubic-bezier(0.22,1.2,0.36,1)] ${isDragging ? "duration-75 ease-linear" : ""}`}
                 style={{ transform: `translateY(${-peekRatio * (MAX_DRAG_DISTANCE - 30)}px)` }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-b from-white/6 via-surface2/95 to-surface/98 backdrop-blur-[1.2px]" />
-                <div className="absolute inset-x-0 top-0 h-16 bg-white/[0.04]" />
-                <div className="absolute inset-x-6 bottom-6 text-center">
-                  <p className="text-sm text-muted">
-                    {accessibleRevealMode ? "Mantén presionado para ver" : "Arrastra hacia arriba para ver"}
-                  </p>
-                  <div className="mt-3 h-2 rounded-full bg-white/15">
-                    <div
-                      className="h-full rounded-full bg-accent transition-[width] duration-75"
-                      style={{ width: `${(accessibleRevealMode ? holdProgress : peekRatio) * 100}%` }}
-                    />
+                >
+                  <div className="absolute inset-0 bg-gradient-to-b from-surface2/96 via-surface2/94 to-surface/96 shadow-[inset_0_10px_30px_rgba(255,255,255,0.04),inset_0_-30px_50px_rgba(0,0,0,0.32)] backdrop-blur-[1.4px]" />
+                  <div className="absolute inset-x-0 top-5 grid place-items-center">
+                    <span className="h-1.5 w-16 rounded-full bg-white/30" aria-hidden="true" />
                   </div>
-                  {!accessibleRevealMode ? (
-                    <p className="mt-2 text-xs text-muted">Zona de lectura segura: 70%</p>
-                  ) : (
+                  <div className="absolute inset-x-6 bottom-7 text-center">
+                    <p className="text-sm text-muted">{isHoldMode ? "Mantén presionado para revelar" : "Desliza hacia arriba para revelar"}</p>
+                    <div className="relative mt-3 h-2 rounded-full bg-white/15">
+                      <div
+                        className="h-full rounded-full bg-accent transition-[width] duration-75"
+                        style={{ width: `${(isHoldMode ? holdProgress : peekRatio) * 100}%` }}
+                      />
+                      {!isHoldMode ? (
+                        <div
+                          className="absolute inset-y-[-2px] border-l border-white/35"
+                          style={{ left: `${SAFE_READING_THRESHOLD * 100}%` }}
+                          aria-hidden="true"
+                        />
+                      ) : null}
+                    </div>
                     <p className="mt-2 text-xs text-muted">
-                      {holdPressed ? "Sostén 0.8s para habilitar Siguiente" : "Mantén pulsado para revelar"}
+                      {isHoldMode
+                        ? holdPressed
+                          ? "Sostén hasta completar para habilitar Siguiente"
+                          : "Mantén pulsado para ver el contenido"
+                        : "Llega al 70% para habilitar Siguiente"}
                     </p>
-                  )}
+                  </div>
                 </div>
-              </div>
               </>
             ) : (
               <div className={`reveal-flip-card h-full min-h-full w-full max-w-none ${showSensitiveOnDesktop ? "is-flipping" : ""}`}>
@@ -494,10 +557,13 @@ export default function RevealSection({
             )}
           </div>
 
-          {failedDragAttempts >= 2 && !accessibleRevealMode && !desktopMode ? (
-            <p className="mt-3 text-center text-xs text-muted">
-              ¿Problemas con el gesto? Activa modo accesible en Configuración avanzada.
-            </p>
+          {failedDragAttempts >= 2 && !isHoldMode && !desktopMode ? (
+            <div className="mt-3 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2 text-center">
+              <p className="text-xs text-muted">¿Te cuesta deslizar? Cambia temporalmente a mantener presionado.</p>
+              <button type="button" className="btn-secondary mt-2 w-full justify-center text-sm" onClick={() => switchRevealMode("HOLD")}>
+                Usar mantener presionado
+              </button>
+            </div>
           ) : null}
         </div>
       ) : null}
@@ -519,7 +585,9 @@ export default function RevealSection({
             Siguiente
           </button>
           {!hasPeekedEnough ? (
-            <p className="mt-2 text-center text-xs text-muted">Haz un peek suficiente para habilitar continuar.</p>
+            <p className="mt-2 text-center text-xs text-muted">
+              {isHoldMode ? "Mantén presionado hasta completar para continuar." : "Desliza al menos 70% para continuar."}
+            </p>
           ) : null}
         </div>
       ) : null}
