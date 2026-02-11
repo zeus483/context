@@ -244,23 +244,36 @@ export default function RevealSection({
 
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
     if (event.pointerType === "mouse") return;
+    event.preventDefault();
     if (accessibleRevealMode) {
       startHoldPeek();
       return;
     }
     startSwipe(event.clientY);
-    event.currentTarget.setPointerCapture(event.pointerId);
+    try {
+      event.currentTarget.setPointerCapture(event.pointerId);
+    } catch {
+      // Safari/iOS can fail pointer capture for touch; swipe still works without it.
+    }
   };
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
     if (event.pointerType === "mouse") return;
+    event.preventDefault();
     if (accessibleRevealMode) return;
     moveSwipe(event.clientY);
   };
 
   const handlePointerUp = (event: PointerEvent<HTMLDivElement>) => {
-    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-      event.currentTarget.releasePointerCapture(event.pointerId);
+    if (event.pointerType !== "mouse") {
+      event.preventDefault();
+    }
+    try {
+      if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+        event.currentTarget.releasePointerCapture(event.pointerId);
+      }
+    } catch {
+      // Ignore capture-release errors in browsers with partial pointer APIs.
     }
     if (accessibleRevealMode) {
       stopHoldPeek();
@@ -270,6 +283,7 @@ export default function RevealSection({
   };
 
   const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    event.preventDefault();
     if (accessibleRevealMode) {
       startHoldPeek();
       return;
@@ -278,11 +292,13 @@ export default function RevealSection({
   };
 
   const handleTouchMove = (event: TouchEvent<HTMLDivElement>) => {
+    event.preventDefault();
     if (accessibleRevealMode) return;
     moveSwipe(event.touches[0]?.clientY ?? 0);
   };
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
+    event.preventDefault();
     if (accessibleRevealMode) {
       stopHoldPeek();
       return;
@@ -405,6 +421,7 @@ export default function RevealSection({
         <div className="mt-6">
           <div
             className="relative mx-auto h-[410px] w-full max-w-md overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-b from-surface2/95 via-surface/90 to-base/95 shadow-[0_24px_80px_rgba(0,0,0,0.45)]"
+            style={{ touchAction: desktopMode ? "auto" : "none", userSelect: "none", WebkitUserSelect: "none" }}
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
