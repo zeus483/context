@@ -6,7 +6,7 @@ import fastifyStatic from "@fastify/static";
 import path from "path";
 import fs from "fs";
 import { Server } from "socket.io";
-import { config } from "./config";
+import { appConfig as config } from "./config";
 import { logger } from "./logger";
 import { initSentry } from "./sentry";
 import { startOtel, shutdownOtel } from "./otel";

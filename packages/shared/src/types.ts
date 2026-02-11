@@ -1,4 +1,4 @@
-import type { Phase, RoomMode } from "./constants";
+import type { Phase, RoomMode } from "./constants.js";
 
 export type TimersConfig = {
   brief: number;

@@ -1,6 +1,6 @@
 import type { FastifyInstance } from "fastify";
 import { prisma } from "../prisma";
-import { config } from "../config";
+import { appConfig as config } from "../config";
 
 function checkAdmin(req: { headers: Record<string, string | string[] | undefined> }) {
   const key = req.headers["x-admin-key"];

@@ -1,7 +1,7 @@
 {
   "name": "impostor-clasico",
   "private": true,
-  "packageManager": "pnpm@9.15.0",
+  "packageManager": "pnpm@10.14.0",
   "scripts": {
     "dev": "pnpm --filter @cc/web dev",
     "build": "pnpm --filter @cc/web build",

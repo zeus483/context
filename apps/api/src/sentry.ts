@@ -1,5 +1,5 @@
 import * as Sentry from "@sentry/node";
-import { config } from "./config";
+import { appConfig as config } from "./config";
 
 export function initSentry() {
   if (!config.sentryDsn) return;

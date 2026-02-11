@@ -67,7 +67,7 @@ if (!parsed.success) {
 
 const env = parsed.data;
 
-export const config = {
+export const appConfig = {
   nodeEnv: env.NODE_ENV,
   port: env.PORT,
   databaseUrl: env.DATABASE_URL,

@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-import { config } from "./config";
+import { appConfig as config } from "./config";
 import { nanoid } from "nanoid";
 
 const s3Client = config.s3.enabled && config.s3.bucket
@@ -20,7 +20,7 @@ export async function uploadHighlightImage(buffer: Buffer, slug: string) {
   const filename = `${slug}.png`;
   if (s3Client && config.s3.bucket) {
     const key = `highlights/${filename}`;
-    await s3Client.send(new PutObjectCommand({
+    await (s3Client as any).send(new PutObjectCommand({
       Bucket: config.s3.bucket,
       Key: key,
       Body: buffer,

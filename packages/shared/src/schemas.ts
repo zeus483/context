@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { DEFAULT_TIMERS } from "./constants";
+import { DEFAULT_TIMERS } from "./constants.js";
 
 export const TimersSchema = z.object({
   brief: z.number().min(3).max(30).default(DEFAULT_TIMERS.brief),

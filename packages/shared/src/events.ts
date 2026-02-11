@@ -1,5 +1,5 @@
-import type { RoomConfig, RoomState } from "./types";
-import type { Phase } from "./constants";
+import type { RoomConfig, RoomState } from "./types.js";
+import type { Phase } from "./constants.js";
 
 export type ClientToServerEvents = {
   "client:connect": (payload: { token?: string; userToken?: string }) => void;
