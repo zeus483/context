@@ -57,45 +57,65 @@ type TodayPayload = {
 export default function TodayPage() {
   const [data, setData] = useState<TodayPayload | null>(null);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
   const [checkinScore, setCheckinScore] = useState(6);
   const [fatigueFlag, setFatigueFlag] = useState(false);
   const [checkinBusy, setCheckinBusy] = useState(false);
 
-  async function load() {
-    const res = await fetch("/api/today");
-    if (!res.ok) {
-      throw new Error("No se pudo cargar el resumen de hoy");
-    }
-    const payload = await res.json();
-    setData(payload);
-  }
-
   useEffect(() => {
-    load().catch((err) => setError(err.message));
+    const controller = new AbortController();
+
+    fetch("/api/today", { signal: controller.signal })
+      .then(async (res) => {
+        if (!res.ok) throw new Error("No se pudo cargar el resumen de hoy");
+        return res.json();
+      })
+      .then((payload) => {
+        setData(payload);
+        setLoading(false);
+      })
+      .catch((err) => {
+        if (err.name === "AbortError") return;
+        setError(err.message);
+        setLoading(false);
+      });
+
+    return () => controller.abort();
   }, []);
 
   async function submitCheckin() {
     setCheckinBusy(true);
     setError("");
 
-    const response = await fetch("/api/checkin/weekly", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        effortScore: checkinScore,
-        fatigueFlag
-      })
-    });
+    try {
+      const response = await fetch("/api/checkin/weekly", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ effortScore: checkinScore, fatigueFlag })
+      });
 
-    if (!response.ok) {
-      const payload = await response.json().catch(() => ({}));
-      setError(payload.error ?? "No se pudo guardar check-in");
+      if (!response.ok) {
+        const payload = await response.json().catch(() => ({}));
+        setError(payload.error ?? "No se pudo guardar check-in");
+        return;
+      }
+
+      const res = await fetch("/api/today");
+      if (res.ok) setData(await res.json());
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Error al guardar check-in");
+    } finally {
       setCheckinBusy(false);
-      return;
     }
+  }
 
-    setCheckinBusy(false);
-    await load().catch((err) => setError(err.message));
+  if (loading) {
+    return (
+      <div className="space-y-4">
+        <section className="card text-center text-sm text-zinc-400">Cargando...</section>
+        <Nav />
+      </div>
+    );
   }
 
   return (
@@ -163,7 +183,7 @@ export default function TodayPage() {
 
       <section className="card space-y-3">
         <p className="text-xs uppercase tracking-[0.15em] text-zinc-400">Qué toca hoy</p>
-        <h2 className="h2">{data?.today.title ?? "Cargando..."}</h2>
+        <h2 className="h2">{data?.today.title ?? "-"}</h2>
         <p className="text-sm text-zinc-300">{data?.today.focus ?? ""}</p>
         {!data?.today.isRest && data?.today.dayId ? (
           <Link href={`/session/${data.today.dayId}?date=${data.today.date}&planType=${data.today.planType}`} className="btn w-full">
@@ -180,14 +200,7 @@ export default function TodayPage() {
         {data?.checkin.pendingCurrentWeek ? (
           <div className="space-y-2">
             <label className="label">Esfuerzo percibido (1-10)</label>
-            <input
-              className="input"
-              type="number"
-              min={1}
-              max={10}
-              value={checkinScore}
-              onChange={(e) => setCheckinScore(Number(e.target.value))}
-            />
+            <input className="input" type="number" min={1} max={10} value={checkinScore} onChange={(e) => setCheckinScore(Number(e.target.value))} />
             <label className="flex items-center gap-2 text-sm text-zinc-300">
               <input type="checkbox" checked={fatigueFlag} onChange={(e) => setFatigueFlag(e.target.checked)} />
               Fatiga alta esta semana
@@ -199,9 +212,7 @@ export default function TodayPage() {
         ) : (
           <p className="text-sm text-emerald-300">Check-in semanal completado.</p>
         )}
-        {data?.checkin.pendingPreviousWeek ? (
-          <p className="text-xs text-amber-300">Tienes check-in pendiente de la semana anterior.</p>
-        ) : null}
+        {data?.checkin.pendingPreviousWeek ? <p className="text-xs text-amber-300">Tienes check-in pendiente de la semana anterior.</p> : null}
       </section>
 
       {data?.recommendation ? (

@@ -47,7 +47,7 @@ type TitlePayload = {
   unlockedTitles: { id: string; name: string; description: string; unlockedAt: string }[];
 };
 
-function todayDateKey() {
+function getTodayDateKey() {
   const now = new Date();
   const local = new Date(now.getTime() - now.getTimezoneOffset() * 60_000);
   return local.toISOString().slice(0, 10);
@@ -58,8 +58,9 @@ export default function ProgressPage() {
   const [titles, setTitles] = useState<TitlePayload | null>(null);
   const [error, setError] = useState("");
   const [weight, setWeight] = useState(80);
-  const [photoUrl, setPhotoUrl] = useState("");
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [photoNote, setPhotoNote] = useState("");
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
   const [selectedTitleId, setSelectedTitleId] = useState("");
 
   async function load() {
@@ -85,7 +86,30 @@ export default function ProgressPage() {
   }
 
   useEffect(() => {
-    load().catch((err) => setError(err.message));
+    const controller = new AbortController();
+
+    Promise.all([
+      fetch("/api/progress", { signal: controller.signal }),
+      fetch("/api/gamification/titles", { signal: controller.signal })
+    ])
+      .then(async ([progressRes, titlesRes]) => {
+        if (!progressRes.ok) throw new Error("No se pudo cargar el progreso");
+        if (!titlesRes.ok) throw new Error("No se pudo cargar títulos");
+
+        const [progressPayload, titlesPayload] = await Promise.all([progressRes.json(), titlesRes.json()]);
+        setData(progressPayload);
+        setTitles(titlesPayload);
+        setSelectedTitleId(titlesPayload.currentTitleId ?? "");
+
+        const latestWeight = progressPayload.weight[progressPayload.weight.length - 1];
+        if (latestWeight) setWeight(latestWeight.weightKg);
+      })
+      .catch((err) => {
+        if (err.name === "AbortError") return;
+        setError(err.message);
+      });
+
+    return () => controller.abort();
   }, []);
 
   const weightPolyline = useMemo(() => {
@@ -110,7 +134,7 @@ export default function ProgressPage() {
     const response = await fetch("/api/weight", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ date: todayDateKey(), weightKg: Number(weight) })
+      body: JSON.stringify({ date: getTodayDateKey(), weightKg: Number(weight) })
     });
 
     if (!response.ok) {
@@ -123,20 +147,34 @@ export default function ProgressPage() {
   }
 
   async function addPhoto() {
+    if (!photoFile) {
+      setError("Selecciona una foto primero");
+      return;
+    }
+
+    setUploadingPhoto(true);
+    setError("");
+
+    const formData = new FormData();
+    formData.append("file", photoFile);
+    formData.append("date", getTodayDateKey());
+    if (photoNote) formData.append("privacyNote", photoNote);
+
     const response = await fetch("/api/photos", {
       method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ date: todayDateKey(), imageUrl: photoUrl, privacyNote: photoNote })
+      body: formData
     });
 
     if (!response.ok) {
       const payload = await response.json().catch(() => ({}));
       setError(payload.error ?? "No se pudo guardar la foto");
+      setUploadingPhoto(false);
       return;
     }
 
-    setPhotoUrl("");
+    setPhotoFile(null);
     setPhotoNote("");
+    setUploadingPhoto(false);
     await load();
   }
 
@@ -322,10 +360,15 @@ export default function ProgressPage() {
       <section className="card space-y-3">
         <h2 className="h2">Fotos de progreso (privadas)</h2>
         <div className="space-y-2">
-          <input className="input" value={photoUrl} onChange={(e) => setPhotoUrl(e.target.value)} placeholder="https://..." />
+          <input
+            className="input"
+            type="file"
+            accept="image/*"
+            onChange={(e) => setPhotoFile(e.target.files?.[0] ?? null)}
+          />
           <input className="input" value={photoNote} onChange={(e) => setPhotoNote(e.target.value)} placeholder="Nota privada opcional" />
-          <button className="btn w-full" type="button" onClick={addPhoto}>
-            Guardar foto
+          <button className="btn w-full" type="button" onClick={addPhoto} disabled={uploadingPhoto || !photoFile}>
+            {uploadingPhoto ? "Subiendo..." : "Guardar foto"}
           </button>
         </div>
 

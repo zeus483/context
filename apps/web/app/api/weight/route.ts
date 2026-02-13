@@ -6,15 +6,19 @@ import { prisma } from "../../../lib/prisma";
 import { weightLogSchema } from "../../../lib/validation";
 import { refreshGamification } from "../../../lib/gamification";
 
-export async function GET() {
+export async function GET(req: Request) {
   const auth = await getAuthContext();
   if (!auth) {
     return unauthorized();
   }
 
+  const { searchParams } = new URL(req.url);
+  const limitParam = Math.min(365, Math.max(1, Number(searchParams.get("limit")) || 90));
+
   const rows = await prisma.bodyWeightLog.findMany({
     where: { userId: auth.user.id },
-    orderBy: { date: "asc" }
+    orderBy: { date: "asc" },
+    take: limitParam
   });
 
   return NextResponse.json(

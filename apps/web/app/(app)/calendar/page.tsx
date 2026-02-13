@@ -4,12 +4,6 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { Nav } from "../../../components/Nav";
 
-function monthKeyNow() {
-  const now = new Date();
-  const local = new Date(now.getTime() - now.getTimezoneOffset() * 60_000);
-  return local.toISOString().slice(0, 7);
-}
-
 type CalendarResponse = {
   month: string;
   cells: {
@@ -46,15 +40,15 @@ type CalendarResponse = {
 };
 
 function statusGlyph(status: string) {
-  if (status === "DONE") return "✅";
-  if (status === "PARTIAL") return "⚠️";
-  if (status === "REST") return "○";
-  if (status === "MISSED") return "—";
-  return "·";
+  if (status === "DONE") return "\u2705";
+  if (status === "PARTIAL") return "\u26a0\ufe0f";
+  if (status === "REST") return "\u25cb";
+  if (status === "MISSED") return "\u2014";
+  return "\u00b7";
 }
 
 export default function CalendarPage() {
-  const [month, setMonth] = useState(monthKeyNow());
+  const [month, setMonth] = useState("");
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [data, setData] = useState<CalendarResponse | null>(null);
   const [fromDate, setFromDate] = useState("");
@@ -62,10 +56,19 @@ export default function CalendarPage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    const now = new Date();
+    const local = new Date(now.getTime() - now.getTimezoneOffset() * 60_000);
+    setMonth(local.toISOString().slice(0, 7));
+  }, []);
+
+  useEffect(() => {
+    if (!month) return;
+
+    const controller = new AbortController();
     const query = new URLSearchParams({ month });
     if (selectedDate) query.set("date", selectedDate);
 
-    fetch(`/api/calendar?${query.toString()}`)
+    fetch(`/api/calendar?${query.toString()}`, { signal: controller.signal })
       .then(async (res) => {
         if (!res.ok) throw new Error("No se pudo cargar calendario");
         return res.json();
@@ -74,7 +77,12 @@ export default function CalendarPage() {
         setData(payload);
         setError("");
       })
-      .catch((err) => setError(err.message));
+      .catch((err) => {
+        if (err.name === "AbortError") return;
+        setError(err.message);
+      });
+
+    return () => controller.abort();
   }, [month, selectedDate]);
 
   const calendarGrid = useMemo(() => {
@@ -100,6 +108,15 @@ export default function CalendarPage() {
     }
 
     setSelectedDate(toDate);
+  }
+
+  if (!month) {
+    return (
+      <div className="space-y-4">
+        <section className="card text-center text-sm text-zinc-400">Cargando...</section>
+        <Nav />
+      </div>
+    );
   }
 
   return (
@@ -140,7 +157,7 @@ export default function CalendarPage() {
           )}
         </div>
 
-        <p className="text-xs text-zinc-500">Estados: ✅ Hecho, ⚠️ Parcial, ○ Descanso, — Fallado</p>
+        <p className="text-xs text-zinc-500">Estados: {"\u2705"} Hecho, {"\u26a0\ufe0f"} Parcial, {"\u25cb"} Descanso, {"\u2014"} Fallado</p>
       </section>
 
       <section className="card space-y-3">

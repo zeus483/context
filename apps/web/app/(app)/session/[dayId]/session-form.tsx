@@ -52,12 +52,6 @@ type SetInput = {
   completed: boolean;
 };
 
-function localDateKey() {
-  const date = new Date();
-  const local = new Date(date.getTime() - date.getTimezoneOffset() * 60_000);
-  return local.toISOString().slice(0, 10);
-}
-
 export function SessionForm({
   dayId,
   dateKey,
@@ -67,7 +61,12 @@ export function SessionForm({
   dateKey?: string;
   planType?: "BASE" | "CUSTOM";
 }) {
-  const resolvedDate = dateKey ?? localDateKey();
+  const [resolvedDate] = useState(() => {
+    if (dateKey) return dateKey;
+    const date = new Date();
+    const local = new Date(date.getTime() - date.getTimezoneOffset() * 60_000);
+    return local.toISOString().slice(0, 10);
+  });
   const [template, setTemplate] = useState<TemplateResponse | null>(null);
   const [sets, setSets] = useState<SetInput[]>([]);
   const [notes, setNotes] = useState("");
@@ -85,12 +84,13 @@ export function SessionForm({
   const initialLoadedRef = useRef(false);
 
   useEffect(() => {
+    const controller = new AbortController();
     const params = new URLSearchParams({ dayId, date: resolvedDate });
     if (planType) {
       params.set("planType", planType);
     }
 
-    fetch(`/api/session/template?${params.toString()}`)
+    fetch(`/api/session/template?${params.toString()}`, { signal: controller.signal })
       .then(async (res) => {
         if (!res.ok) {
           throw new Error("No se pudo cargar la sesión");
@@ -135,7 +135,12 @@ export function SessionForm({
         setCardioReason(payload.session?.cardio?.reasonIfZero ?? "");
         initialLoadedRef.current = true;
       })
-      .catch((err) => setError(err.message));
+      .catch((err) => {
+        if (err.name === "AbortError") return;
+        setError(err.message);
+      });
+
+    return () => controller.abort();
   }, [resolvedDate, dayId, planType]);
 
   const setsByExercise = useMemo(() => {
@@ -215,7 +220,7 @@ export function SessionForm({
     }, 9000);
 
     return () => clearInterval(timer);
-  }, [template, sets, notes, cardioType, cardioMinutes, cardioIntensity, cardioReason]);
+  }, []);
 
   function updateSet(target: SetInput, patch: Partial<SetInput>) {
     setSets((current) =>

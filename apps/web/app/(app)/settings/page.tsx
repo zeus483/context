@@ -20,13 +20,20 @@ export default function SettingsPage() {
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    fetch("/api/profile")
+    const controller = new AbortController();
+
+    fetch("/api/profile", { signal: controller.signal })
       .then(async (res) => {
         if (!res.ok) throw new Error("No se pudo cargar perfil");
         return res.json();
       })
       .then(setProfile)
-      .catch((err) => setError(err.message));
+      .catch((err) => {
+        if (err.name === "AbortError") return;
+        setError(err.message);
+      });
+
+    return () => controller.abort();
   }, []);
 
   async function saveProfile() {

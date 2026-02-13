@@ -34,36 +34,40 @@ export async function PATCH(req: Request) {
     const body = await req.json();
     const parsed = profilePatchSchema.parse(body);
 
-    const updated = await prisma.profile.update({
-      where: { userId: auth.user.id },
-      data: {
-        name: parsed.name,
-        weightKg: parsed.weightKg,
-        heightCm: parsed.heightCm,
-        age: parsed.age,
-        goal: parsed.goal,
-        trainingDays: parsed.trainingDays,
-        availableHours: parsed.availableHours,
-        beachGoalDate: parsed.beachGoalDate ? fromDateKey(parsed.beachGoalDate) : undefined
-      }
-    });
-
-    if (parsed.weightKg) {
-      await prisma.bodyWeightLog.upsert({
-        where: {
-          userId_date: {
-            userId: auth.user.id,
-            date: fromDateKey(todayKey())
-          }
-        },
-        update: { weightKg: parsed.weightKg },
-        create: {
-          userId: auth.user.id,
-          date: fromDateKey(todayKey()),
-          weightKg: parsed.weightKg
+    const updated = await prisma.$transaction(async (tx) => {
+      const profile = await tx.profile.update({
+        where: { userId: auth.user.id },
+        data: {
+          name: parsed.name,
+          weightKg: parsed.weightKg,
+          heightCm: parsed.heightCm,
+          age: parsed.age,
+          goal: parsed.goal,
+          trainingDays: parsed.trainingDays,
+          availableHours: parsed.availableHours,
+          beachGoalDate: parsed.beachGoalDate ? fromDateKey(parsed.beachGoalDate) : undefined
         }
       });
-    }
+
+      if (parsed.weightKg) {
+        await tx.bodyWeightLog.upsert({
+          where: {
+            userId_date: {
+              userId: auth.user.id,
+              date: fromDateKey(todayKey())
+            }
+          },
+          update: { weightKg: parsed.weightKg },
+          create: {
+            userId: auth.user.id,
+            date: fromDateKey(todayKey()),
+            weightKg: parsed.weightKg
+          }
+        });
+      }
+
+      return profile;
+    });
 
     return NextResponse.json({
       id: updated.id,

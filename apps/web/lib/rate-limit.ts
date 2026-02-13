@@ -3,10 +3,25 @@ type Bucket = {
   resetAt: number;
 };
 
+const MAX_BUCKETS = 10_000;
 const buckets = new Map<string, Bucket>();
+
+function pruneExpired() {
+  const now = Date.now();
+  for (const [key, bucket] of buckets) {
+    if (bucket.resetAt < now) {
+      buckets.delete(key);
+    }
+  }
+}
 
 export function checkRateLimit(key: string, limit: number, windowMs: number) {
   const now = Date.now();
+
+  if (buckets.size > MAX_BUCKETS) {
+    pruneExpired();
+  }
+
   const existing = buckets.get(key);
 
   if (!existing || existing.resetAt < now) {
@@ -22,7 +37,6 @@ export function checkRateLimit(key: string, limit: number, windowMs: number) {
   }
 
   existing.count += 1;
-  buckets.set(key, existing);
 
   return {
     ok: existing.count <= limit,
