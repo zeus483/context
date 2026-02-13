@@ -1,0 +1,129 @@
+{
+  "users": [
+    {
+      "id": "u1",
+      "email": "demo@transformacion.app",
+      "passwordHash": "0ead2060b65992dca4769af601a1b3a35ef38cfad2c2c465bb160ea764157c5d"
+    }
+  ],
+  "profiles": [
+    {
+      "userId": "u1",
+      "weightKg": 80,
+      "heightCm": 175,
+      "age": 23,
+      "goal": "Hipertrofia + recomposición",
+      "trainingDays": 5,
+      "availableHours": 2,
+      "beachGoalDate": "2026-04-10T18:29:04.333Z"
+    }
+  ],
+  "sessions": [],
+  "bodyWeights": [
+    {
+      "userId": "u1",
+      "date": "2026-02-13T18:29:04.333Z",
+      "weightKg": 80
+    }
+  ],
+  "plan": {
+    "id": "fase-playa-8-semanas",
+    "name": "Fase Playa 8 Semanas",
+    "days": [
+      {
+        "id": "d1",
+        "dayNumber": 1,
+        "title": "Pecho fuerza + tríceps",
+        "cardioDefault": 20,
+        "optional": false,
+        "exercises": [
+          "Press banca",
+          "Press inclinado",
+          "Fondos"
+        ]
+      },
+      {
+        "id": "d2",
+        "dayNumber": 2,
+        "title": "Espalda + bíceps",
+        "cardioDefault": 15,
+        "optional": false,
+        "exercises": [
+          "Jalón",
+          "Remo",
+          "Curl barra"
+        ]
+      },
+      {
+        "id": "d3",
+        "dayNumber": 3,
+        "title": "Pierna cuádriceps",
+        "cardioDefault": 20,
+        "optional": false,
+        "exercises": [
+          "Prensa",
+          "Zancadas",
+          "Extensión"
+        ]
+      },
+      {
+        "id": "d4",
+        "dayNumber": 4,
+        "title": "Pecho hipertrofia + hombro",
+        "cardioDefault": 20,
+        "optional": false,
+        "exercises": [
+          "Press inclinado",
+          "Aperturas",
+          "Laterales"
+        ]
+      },
+      {
+        "id": "d5",
+        "dayNumber": 5,
+        "title": "Espalda + brazos",
+        "cardioDefault": 15,
+        "optional": false,
+        "exercises": [
+          "Remo",
+          "Jalón",
+          "Curl"
+        ]
+      },
+      {
+        "id": "d6",
+        "dayNumber": 6,
+        "title": "Pierna posterior + abs",
+        "cardioDefault": 25,
+        "optional": true,
+        "exercises": [
+          "RDL",
+          "Hip thrust",
+          "Plancha"
+        ]
+      }
+    ]
+  },
+  "library": [
+    {
+      "id": "e1",
+      "name": "Press banca",
+      "muscleGroup": "Pecho",
+      "equipment": "Barra",
+      "imageUrl": "https://placehold.co/640x420/png?text=Press+Banca",
+      "instructions": "Escápulas juntas, baja controlado, empuja vertical.",
+      "tips": "No rebotes.",
+      "alternatives": "Press en máquina"
+    },
+    {
+      "id": "e2",
+      "name": "Jalón al pecho",
+      "muscleGroup": "Espalda",
+      "equipment": "Polea",
+      "imageUrl": "https://placehold.co/640x420/png?text=Jalon",
+      "instructions": "Pecho arriba, lleva codos a costillas.",
+      "tips": "Evita tirón de espalda baja.",
+      "alternatives": "Dominadas asistidas"
+    }
+  ]
+}

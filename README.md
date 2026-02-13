@@ -1,90 +1,63 @@
-# Impostor Clásico
+# Transformación 2026
 
-Juego social en **un solo celular**: roles secretos, revelación privada con gesto, timer y votación con reglas de empate. Funciona offline como PWA.
+App mobile-first para hipertrofia + cardio (fase playa 8 semanas), lista para desplegar en Vercel con Next.js (App Router).
 
-## Requisitos
+## Producto entregado
+- Login real con credenciales (email/password con cookie de sesión).
+- Home "Hoy" con día asignado, CTA de sesión, progreso hacia playa.
+- Modo sesión con guardado de sets + cardio + notas.
+- Calendario simple con estado ✅/⚠️.
+- Progreso con peso corporal (gráfico SVG) + volumen básico.
+- Biblioteca de ejercicios con imagen placeholder reemplazable.
+- Exportación CSV desde `/api/export`.
 
-- Node.js 20+
-- pnpm 9+
+## UX/UI entregables
+- **Mapa navegación:** Login → Hoy → Sesión → Calendario / Progreso / Biblioteca.
+- **Flujo principal:** login → ver “Hoy” → iniciar sesión → guardar → revisar calendario/progreso.
+- **Wireframe textual:**
+  - Login: héroe + formulario simple.
+  - Hoy: barra “Playa en X días”, tarjeta entrenamiento y acceso sesión.
+  - Sesión: lista ejercicios + cardio + guardar.
+  - Calendario: lista de días recientes con estado.
+  - Progreso: gráfica peso + resumen volumen.
+  - Biblioteca: catálogo en cards con instrucciones y alternativas.
+- **UI Kit (tokens):**
+  - Colores: `zinc-950` fondo, `zinc-900` surfaces, `emerald-500` acento.
+  - Tipografía: sistema sans.
+  - Espaciado: escala Tailwind 2/3/4/6.
+  - Radius: `rounded-xl`, `rounded-2xl`.
+  - Sombras: `shadow-xl shadow-black/20`.
 
-## Instalar
+## Arquitectura técnica
+- Front+Back: Next.js App Router (Node full-stack).
+- Persistencia actual: JSON file (`apps/web/storage/app-data.json`) para ejecutar out-of-the-box.
+- Seguridad: rutas privadas por middleware + sesión httpOnly cookie.
+- Validación funcional base en endpoints de sesión/progreso/export.
 
+## Variables de entorno
+No obligatorias para correr en modo actual.
+
+## Setup local
 ```bash
 pnpm install
-```
-
-## Desarrollo
-
-```bash
 pnpm dev
 ```
 
-Abre [http://localhost:3000](http://localhost:3000).
+## Usuario demo
+- `demo@transformacion.app`
+- `demo1234`
 
-## Build de producción
-
+## Testing
 ```bash
-pnpm build
-pnpm start
+pnpm --filter @cc/web test
+pnpm --filter @cc/web build
 ```
 
-## Flujo principal
+## Deploy Vercel
+1. Importar repo en Vercel.
+2. Build command: `pnpm build`.
+3. Start command: `pnpm start`.
 
-1. **Configuración**: presets (Rápida/Clásica/Larga), jugadores, impostores y categorías.
-2. **Revelación**: móvil con cortina peek-to-read (o modo accesible mantener presionado), desktop con flip card.
-3. **Ronda**: timer + votación simple (seleccionar, confirmar, revelar resultado).
-4. **Resultado**: revancha 1 toque, cambiar palabra y volver a configuración.
-
-## Persistencia de partida activa (reanudar tras reload)
-
-La app guarda en `localStorage` el estado activo para resistir recargas/cierre:
-
-- fase actual (`REVEAL`, `RUNNING`, `ENDED`)
-- configuración de partida
-- categoría/palabra seleccionadas
-- roles y progreso de revelación
-- timer restante con `roundEndsAt` (timestamp)
-- progreso de jugadores ya revelados
-
-Al abrir de nuevo, si existe partida activa, se muestra modal:
-- **Reanudar**: restaura estado y timer correctamente por timestamp.
-- **Reiniciar**: descarta snapshot y vuelve a configuración.
-
-## Categorías, dificultad y palabras
-
-### Categorías base
-
-Archivo:
-
-- `/Users/cristiancastro/Documents/Proyector Personales/Contexta/apps/web/src/content/categories.ts`
-
-Cada palabra usa estructura:
-
-```ts
-{ word: string; difficulty: 'easy' | 'medium' | 'hard'; flags?: { ambiguous?: boolean } }
-```
-
-### Categorías personalizadas
-
-Se crean desde UI y se guardan en `localStorage`.
-
-### Dificultad y curación
-
-- Selector de dificultad: `easy | medium | hard`
-- Palabras ambiguas excluidas por defecto
-- En Avanzado: toggle **Incluir palabras difíciles/ambiguas**
-- Anti-repetición: historial local de últimas 50 palabras + evita repetir categoría consecutiva cuando hay variedad
-
-## Reglas de empate
-
-Visible en Avanzado (placeholder de producto):
-
-- `Empate => mini-ronda 30s + revoto`
-- `Empate => no se elimina nadie`
-- `Empate => eliminación aleatoria entre empatados`
-
-## Extras de producto
-
-- Onboarding express (3 slides), auto primera vez, reabrible desde “Cómo jugar”
-- Botón fijo “Siguiente” en revelación (se habilita tras peek suficiente)
-- Toggle de vibración al revelar y beep opcional en últimos 10s
+## Supuestos
+- Se dejó schema Prisma + seed para futura migración a PostgreSQL sin rehacer dominio.
+- Fotos y PRs avanzados quedan preparados a nivel de arquitectura para iteración siguiente.
