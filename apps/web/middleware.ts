@@ -35,7 +35,7 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  const isProtectedPage = ["/today", "/plans", "/session", "/calendar", "/progress", "/library", "/settings"].some((prefix) =>
+  const isProtectedPage = ["/today", "/plans", "/tools", "/session", "/calendar", "/progress", "/library", "/settings"].some((prefix) =>
     pathname.startsWith(prefix)
   );
 

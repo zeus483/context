@@ -118,6 +118,14 @@ export default function TodayPage() {
     );
   }
 
+  const todayWeekDay = data?.week.find((d) => d.date === data?.today.date);
+  const showStreakAtRisk =
+    data !== null &&
+    data.adherence.streak > 2 &&
+    !data.today.isRest &&
+    todayWeekDay?.status !== "DONE" &&
+    todayWeekDay?.status !== "REST";
+
   return (
     <div className="space-y-4">
       <section className="card space-y-3">
@@ -139,6 +147,25 @@ export default function TodayPage() {
           <div className="h-2 rounded-full bg-gradient-to-r from-emerald-400 to-amber-300" style={{ width: `${data?.gamification.levelProgressPct ?? 0}%` }} />
         </div>
       </section>
+
+      {showStreakAtRisk && data?.today.dayId ? (
+        <section className="rounded-xl border border-amber-700/50 bg-amber-950/30 px-4 py-3">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.15em] text-amber-400">Racha en juego</p>
+              <p className="mt-0.5 text-sm text-zinc-300">
+                {data.adherence.streak} días seguidos. Hoy toca <span className="font-semibold text-white">{data.today.title}</span>.
+              </p>
+            </div>
+            <Link
+              href={`/session/${data.today.dayId}?date=${data.today.date}&planType=${data.today.planType}`}
+              className="btn-secondary whitespace-nowrap text-xs"
+            >
+              Ir
+            </Link>
+          </div>
+        </section>
+      ) : null}
 
       <section className="card space-y-2">
         <p className="text-xs uppercase tracking-[0.15em] text-zinc-400">Plan activo</p>
@@ -200,7 +227,35 @@ export default function TodayPage() {
         {data?.checkin.pendingCurrentWeek ? (
           <div className="space-y-2">
             <label className="label">Esfuerzo percibido (1-10)</label>
-            <input className="input" type="number" min={1} max={10} value={checkinScore} onChange={(e) => setCheckinScore(Number(e.target.value))} />
+            <div className="grid grid-cols-5 gap-2">
+              {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => {
+                const isSelected = checkinScore === n;
+                const borderColor = n <= 4 ? "border-emerald-700" : n <= 7 ? "border-amber-700" : "border-rose-800";
+                return (
+                  <button
+                    key={n}
+                    type="button"
+                    onClick={() => setCheckinScore(n)}
+                    className={`h-11 rounded-xl border text-sm font-semibold transition-colors ${
+                      isSelected
+                        ? "bg-emerald-400 border-emerald-400 text-zinc-900"
+                        : `bg-zinc-900 ${borderColor} text-zinc-300 active:bg-zinc-800`
+                    }`}
+                  >
+                    {n}
+                  </button>
+                );
+              })}
+            </div>
+            <p className="text-center text-xs text-zinc-500">
+              {checkinScore <= 3
+                ? "Sesiones suaves, bien recuperado"
+                : checkinScore <= 6
+                  ? "Esfuerzo moderado"
+                  : checkinScore <= 8
+                    ? "Alta intensidad"
+                    : "Límite máximo"}
+            </p>
             <label className="flex items-center gap-2 text-sm text-zinc-300">
               <input type="checkbox" checked={fatigueFlag} onChange={(e) => setFatigueFlag(e.target.checked)} />
               Fatiga alta esta semana

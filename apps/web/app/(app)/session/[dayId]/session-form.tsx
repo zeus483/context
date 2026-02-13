@@ -79,9 +79,14 @@ export function SessionForm({
   const [error, setError] = useState("");
   const [xpGain, setXpGain] = useState(0);
   const [startedAt, setStartedAt] = useState<number>(Date.now());
+  const [elapsedSec, setElapsedSec] = useState(0);
+  const [restTimerEnabled, setRestTimerEnabled] = useState(false);
+  const [restTimerSec, setRestTimerSec] = useState(0);
+  const [restTimerActive, setRestTimerActive] = useState(false);
 
   const dirtyRef = useRef(false);
   const initialLoadedRef = useRef(false);
+  const restTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -100,6 +105,14 @@ export function SessionForm({
       .then((payload) => {
         setTemplate(payload);
         setStartedAt(Date.now());
+        setElapsedSec(0);
+        setRestTimerEnabled(false);
+        setRestTimerSec(0);
+        setRestTimerActive(false);
+        if (restTimerRef.current) {
+          clearInterval(restTimerRef.current);
+          restTimerRef.current = null;
+        }
 
         if (payload.session?.sets?.length) {
           setSets(
@@ -142,6 +155,13 @@ export function SessionForm({
 
     return () => controller.abort();
   }, [resolvedDate, dayId, planType]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setElapsedSec(Math.floor((Date.now() - startedAt) / 1000));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [startedAt]);
 
   const setsByExercise = useMemo(() => {
     if (!template) {
@@ -230,16 +250,75 @@ export function SessionForm({
     );
   }
 
+  function formatElapsed(sec: number) {
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return `${m}:${String(s).padStart(2, "0")}`;
+  }
+
+  function startRestTimer(seconds: number) {
+    if (!restTimerEnabled) return;
+    if (restTimerRef.current) clearInterval(restTimerRef.current);
+    setRestTimerSec(seconds);
+    setRestTimerActive(true);
+    restTimerRef.current = setInterval(() => {
+      setRestTimerSec((prev) => {
+        if (prev <= 1) {
+          if (restTimerRef.current) {
+            clearInterval(restTimerRef.current);
+            restTimerRef.current = null;
+          }
+          setRestTimerActive(false);
+          if (typeof navigator !== "undefined" && "vibrate" in navigator) {
+            navigator.vibrate([200, 100, 200]);
+          }
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  }
+
+  useEffect(() => {
+    return () => {
+      if (restTimerRef.current) clearInterval(restTimerRef.current);
+    };
+  }, []);
+
   return (
     <div className="space-y-4">
       {xpGain > 0 ? <div className="card-muted text-sm text-emerald-300">+{xpGain} XP</div> : null}
 
       <section className="card">
         <p className="text-xs uppercase tracking-[0.15em] text-zinc-400">Registro de sesión</p>
-        <h1 className="h1 mt-1">{template?.day.title ?? "Cargando..."}</h1>
+        <div className="mt-1 flex items-center justify-between gap-3">
+          <h1 className="h1">{template?.day.title ?? "Cargando..."}</h1>
+          <span className="font-mono text-sm text-zinc-400">{formatElapsed(elapsedSec)}</span>
+        </div>
         <p className="text-sm text-zinc-300">{template?.day.focus ?? ""}</p>
         <p className="mt-1 text-xs text-zinc-500">Fecha: {template?.date ?? resolvedDate}</p>
         <p className="mt-1 text-xs text-emerald-300">Plan {template?.day.planType === "CUSTOM" ? "Personalizado" : "Base"}</p>
+        <button
+          type="button"
+          onClick={() =>
+            setRestTimerEnabled((v) => {
+              const next = !v;
+              if (!next && restTimerRef.current) {
+                clearInterval(restTimerRef.current);
+                restTimerRef.current = null;
+                setRestTimerActive(false);
+                setRestTimerSec(0);
+              }
+              return next;
+            })
+          }
+          className={`mt-2 flex items-center gap-2 text-xs transition-colors ${restTimerEnabled ? "text-emerald-400" : "text-zinc-500"}`}
+        >
+          <span className={`relative h-4 w-8 rounded-full transition-colors ${restTimerEnabled ? "bg-emerald-500" : "bg-zinc-700"}`}>
+            <span className={`absolute top-0.5 h-3 w-3 rounded-full bg-white transition-transform ${restTimerEnabled ? "translate-x-4" : "translate-x-0.5"}`} />
+          </span>
+          Timer de descanso
+        </button>
       </section>
 
       {setsByExercise.map((exercise) => (
@@ -267,7 +346,13 @@ export function SessionForm({
                     <input
                       type="checkbox"
                       checked={set.completed}
-                      onChange={(event) => updateSet(set, { completed: event.target.checked })}
+                      onChange={(event) => {
+                        const checked = event.target.checked;
+                        if (checked && !set.completed) {
+                          startRestTimer(exercise.suggestedRestSec);
+                        }
+                        updateSet(set, { completed: checked });
+                      }}
                     />
                     Completado
                   </label>
@@ -365,6 +450,31 @@ export function SessionForm({
 
         {error ? <p className="text-sm text-rose-300">{error}</p> : null}
       </section>
+
+      {restTimerActive ? (
+        <div className="fixed bottom-20 left-1/2 z-40 -translate-x-1/2">
+          <div className="flex items-center gap-3 rounded-full border border-emerald-700/50 bg-zinc-900/95 px-5 py-2.5 shadow-lg backdrop-blur-sm">
+            <span className="font-mono text-lg font-semibold text-emerald-400">
+              {Math.floor(restTimerSec / 60)}:{String(restTimerSec % 60).padStart(2, "0")}
+            </span>
+            <span className="text-xs text-zinc-400">descanso</span>
+            <button
+              type="button"
+              onClick={() => {
+                if (restTimerRef.current) {
+                  clearInterval(restTimerRef.current);
+                  restTimerRef.current = null;
+                }
+                setRestTimerActive(false);
+                setRestTimerSec(0);
+              }}
+              className="text-xs text-zinc-500 active:text-zinc-300"
+            >
+              Omitir
+            </button>
+          </div>
+        </div>
+      ) : null}
 
       <Nav />
     </div>

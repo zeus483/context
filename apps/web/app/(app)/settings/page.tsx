@@ -156,6 +156,13 @@ export default function SettingsPage() {
         </div>
       </section>
 
+      <section className="card space-y-2">
+        <h2 className="h2">Herramientas</h2>
+        <a className="btn-secondary h-11 w-full" href="/tools">
+          Abrir calculadoras
+        </a>
+      </section>
+
       {error ? <p className="text-sm text-rose-300">{error}</p> : null}
 
       <Nav />

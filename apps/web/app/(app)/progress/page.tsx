@@ -62,6 +62,10 @@ export default function ProgressPage() {
   const [photoNote, setPhotoNote] = useState("");
   const [uploadingPhoto, setUploadingPhoto] = useState(false);
   const [selectedTitleId, setSelectedTitleId] = useState("");
+  const [compareMode, setCompareMode] = useState(false);
+  const [compareA, setCompareA] = useState<string | null>(null);
+  const [compareB, setCompareB] = useState<string | null>(null);
+  const [showCompareView, setShowCompareView] = useState(false);
 
   async function load() {
     const [progressRes, titlesRes] = await Promise.all([fetch("/api/progress"), fetch("/api/gamification/titles")]);
@@ -180,6 +184,9 @@ export default function ProgressPage() {
 
   async function removePhoto(id: string) {
     await fetch(`/api/photos?id=${id}`, { method: "DELETE" });
+    if (compareA === id) setCompareA(null);
+    if (compareB === id) setCompareB(null);
+    setShowCompareView(false);
     await load();
   }
 
@@ -201,6 +208,47 @@ export default function ProgressPage() {
     }
 
     await load();
+  }
+
+  const photos = data?.photos ?? [];
+  const canCompare = photos.length >= 2;
+  const photoA = photos.find((photo) => photo.id === compareA) ?? null;
+  const photoB = photos.find((photo) => photo.id === compareB) ?? null;
+
+  function resetCompare() {
+    setCompareMode(false);
+    setCompareA(null);
+    setCompareB(null);
+    setShowCompareView(false);
+  }
+
+  function handlePhotoSelect(photoId: string) {
+    if (!compareMode) return;
+
+    if (compareA === photoId) {
+      setCompareA(null);
+      setShowCompareView(false);
+      return;
+    }
+
+    if (compareB === photoId) {
+      setCompareB(null);
+      setShowCompareView(false);
+      return;
+    }
+
+    if (!compareA) {
+      setCompareA(photoId);
+      return;
+    }
+
+    if (!compareB) {
+      setCompareB(photoId);
+      return;
+    }
+
+    setCompareB(photoId);
+    setShowCompareView(false);
   }
 
   return (
@@ -358,7 +406,30 @@ export default function ProgressPage() {
       </section>
 
       <section className="card space-y-3">
-        <h2 className="h2">Fotos de progreso (privadas)</h2>
+        <div className="flex items-center justify-between gap-2">
+          <h2 className="h2">Fotos de progreso (privadas)</h2>
+          {canCompare ? (
+            <button
+              className="btn-secondary h-11 px-4 text-xs"
+              type="button"
+              onClick={() => {
+                if (compareMode) {
+                  resetCompare();
+                  return;
+                }
+                setCompareMode(true);
+                setShowCompareView(false);
+              }}
+            >
+              {compareMode ? "Salir de comparación" : "Comparar"}
+            </button>
+          ) : (
+            <button className="btn-secondary h-11 px-4 text-xs opacity-50" type="button" disabled>
+              Comparar
+            </button>
+          )}
+        </div>
+
         <div className="space-y-2">
           <input
             className="input"
@@ -367,23 +438,78 @@ export default function ProgressPage() {
             onChange={(e) => setPhotoFile(e.target.files?.[0] ?? null)}
           />
           <input className="input" value={photoNote} onChange={(e) => setPhotoNote(e.target.value)} placeholder="Nota privada opcional" />
-          <button className="btn w-full" type="button" onClick={addPhoto} disabled={uploadingPhoto || !photoFile}>
+          <button className="btn w-full h-11" type="button" onClick={addPhoto} disabled={uploadingPhoto || !photoFile}>
             {uploadingPhoto ? "Subiendo..." : "Guardar foto"}
           </button>
         </div>
 
+        {compareMode ? <p className="text-xs text-zinc-500">Selecciona 2 fotos: primero Antes y luego Después.</p> : null}
+
         <div className="grid grid-cols-2 gap-2">
-          {data?.photos.map((photo) => (
-            <div key={photo.id} className="rounded-xl border border-zinc-800 p-2">
-              <img src={photo.imageUrl} alt={`Progreso ${photo.date}`} className="h-28 w-full rounded-lg object-cover" />
-              <p className="mt-1 text-[11px] text-zinc-400">{photo.date}</p>
-              {photo.privacyNote ? <p className="text-[11px] text-zinc-500">{photo.privacyNote}</p> : null}
-              <button className="mt-1 text-[11px] text-rose-300" type="button" onClick={() => removePhoto(photo.id)}>
-                Eliminar
-              </button>
-            </div>
-          ))}
+          {photos.map((photo) => {
+            const isA = compareA === photo.id;
+            const isB = compareB === photo.id;
+            return (
+              <div
+                key={photo.id}
+                className={`relative rounded-xl border p-2 transition-colors ${
+                  isA ? "border-emerald-400" : isB ? "border-amber-400" : "border-zinc-800"
+                }`}
+              >
+                <button
+                  type="button"
+                  className="w-full text-left"
+                  onClick={() => handlePhotoSelect(photo.id)}
+                  disabled={!compareMode}
+                >
+                  <img src={photo.imageUrl} alt={`Progreso ${photo.date}`} className="h-28 w-full rounded-lg object-cover" />
+                  <p className="mt-1 text-[11px] text-zinc-400">{photo.date}</p>
+                  {photo.privacyNote ? <p className="text-[11px] text-zinc-500">{photo.privacyNote}</p> : null}
+                </button>
+
+                {compareMode && isA ? (
+                  <span className="absolute left-2 top-2 rounded-full bg-emerald-500 px-2 py-0.5 text-[10px] font-semibold text-zinc-900">Antes</span>
+                ) : null}
+                {compareMode && isB ? (
+                  <span className="absolute left-2 top-2 rounded-full bg-amber-400 px-2 py-0.5 text-[10px] font-semibold text-zinc-900">Después</span>
+                ) : null}
+
+                {!compareMode ? (
+                  <button className="mt-1 text-[11px] text-rose-300" type="button" onClick={() => removePhoto(photo.id)}>
+                    Eliminar
+                  </button>
+                ) : null}
+              </div>
+            );
+          })}
         </div>
+
+        {compareMode && compareA && compareB ? (
+          <button className="btn-secondary h-11 w-full" type="button" onClick={() => setShowCompareView(true)}>
+            Ver comparativa
+          </button>
+        ) : null}
+
+        {showCompareView && photoA && photoB ? (
+          <div className="grid grid-cols-2 gap-2">
+            <div className="space-y-1">
+              <p className="text-center text-xs text-zinc-400">{photoA.date}</p>
+              <img src={photoA.imageUrl} className="aspect-[3/4] w-full rounded-xl object-cover" alt="Foto comparativa A" />
+              <p className="text-center text-xs font-medium text-emerald-400">Antes</p>
+            </div>
+            <div className="space-y-1">
+              <p className="text-center text-xs text-zinc-400">{photoB.date}</p>
+              <img src={photoB.imageUrl} className="aspect-[3/4] w-full rounded-xl object-cover" alt="Foto comparativa B" />
+              <p className="text-center text-xs font-medium text-amber-400">Después</p>
+            </div>
+          </div>
+        ) : null}
+
+        {compareMode ? (
+          <button className="btn-secondary h-11 w-full" type="button" onClick={resetCompare}>
+            Salir de comparación
+          </button>
+        ) : null}
       </section>
 
       <section className="card space-y-2">
