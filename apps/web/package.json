@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "prebuild": "pnpm run db:generate",
+    "db:generate": "PRISMA_GENERATE_SKIP_AUTOINSTALL=1 prisma generate --schema ../../prisma/schema.prisma",
     "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start -p 3000",
