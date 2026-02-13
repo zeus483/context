@@ -1,2 +1,5 @@
 import { redirect } from "next/navigation";
-export default function Page() { redirect("/today"); }
+
+export default function Page() {
+  redirect("/today");
+}

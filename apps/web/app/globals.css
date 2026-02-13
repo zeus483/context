@@ -2,8 +2,92 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { color-scheme: dark; }
-body { @apply bg-zinc-950 text-zinc-100 min-h-screen; }
-.card { @apply bg-zinc-900/80 border border-zinc-800 rounded-2xl p-4 shadow-xl shadow-black/20; }
-.btn { @apply rounded-xl px-4 py-3 bg-emerald-500 text-zinc-950 font-semibold active:scale-[.99] transition; }
-.input { @apply w-full rounded-xl border border-zinc-700 bg-zinc-900 px-3 py-2; }
+:root {
+  --bg: #06090f;
+  --surface: #0d111a;
+  --surface-2: #131a26;
+  --border: #222c3f;
+  --text: #f2f5fa;
+  --muted: #9ca8bf;
+  --accent: #1be48f;
+  --accent-2: #f9b233;
+  color-scheme: dark;
+}
+
+* {
+  @apply antialiased;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 10% -10%, rgba(27, 228, 143, 0.22), transparent 36%),
+    radial-gradient(circle at 90% 0%, rgba(249, 178, 51, 0.14), transparent 26%),
+    linear-gradient(160deg, #04070d 0%, #070b12 40%, #05070c 100%);
+}
+
+main {
+  @apply mx-auto w-full max-w-xl px-4 pb-36 pt-4;
+}
+
+.card {
+  @apply rounded-2xl border p-4 shadow-[0_16px_42px_rgba(0,0,0,0.35)];
+  background: linear-gradient(160deg, rgba(19, 26, 38, 0.95), rgba(13, 17, 26, 0.95));
+  border-color: var(--border);
+}
+
+.card-muted {
+  @apply rounded-2xl border p-3;
+  background: rgba(13, 17, 26, 0.7);
+  border-color: rgba(34, 44, 63, 0.7);
+}
+
+.btn {
+  @apply inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-semibold transition active:scale-[0.98];
+  background: linear-gradient(130deg, var(--accent), #28f2a0);
+  color: #041209;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center rounded-xl border px-4 py-2.5 text-sm font-semibold text-zinc-200 transition hover:bg-zinc-900;
+  border-color: var(--border);
+}
+
+.input,
+select,
+textarea {
+  @apply w-full rounded-xl border bg-zinc-950/80 px-3 py-2.5 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none;
+  border-color: var(--border);
+}
+
+.label {
+  @apply mb-1 block text-xs font-medium uppercase tracking-wide text-zinc-400;
+}
+
+.h1 {
+  @apply text-2xl font-semibold tracking-tight;
+}
+
+.h2 {
+  @apply text-lg font-semibold tracking-tight;
+}
+
+.metric {
+  @apply text-2xl font-bold;
+}
+
+.status-pill {
+  @apply inline-flex rounded-full px-2 py-1 text-xs font-medium;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #243149;
+  border-radius: 999px;
+}

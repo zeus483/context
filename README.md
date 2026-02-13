@@ -1,63 +1,102 @@
 # Transformación 2026
 
-App mobile-first para hipertrofia + cardio (fase playa 8 semanas), lista para desplegar en Vercel con Next.js (App Router).
+Aplicación web mobile-first para hipertrofia + cardio, enfocada en el bloque **Fase Playa 8 semanas** y continuidad anual. Stack full-stack Node.js en un solo repo con Next.js App Router y Postgres/Prisma, lista para Vercel.
 
-## Producto entregado
-- Login real con credenciales (email/password con cookie de sesión).
-- Home "Hoy" con día asignado, CTA de sesión, progreso hacia playa.
-- Modo sesión con guardado de sets + cardio + notas.
-- Calendario simple con estado ✅/⚠️.
-- Progreso con peso corporal (gráfico SVG) + volumen básico.
-- Biblioteca de ejercicios con imagen placeholder reemplazable.
-- Exportación CSV desde `/api/export`.
+## Qué incluye
+- Login + registro real (`email/password`) con sesión segura en DB.
+- Home “Hoy” en menos de 3 taps: día actual, mañana, semana, racha y cumplimiento.
+- Sesión guiada completa:
+  - sets por ejercicio (`kg`, `reps`, `RIR`, notas, completado)
+  - cardio final obligatorio (permite `0` con motivo)
+  - autoguardado por cambios + intervalo
+  - sugerencia de cargas de la última sesión
+- Calendario mensual con estados:
+  - `✅ Hecho`, `⚠️ Parcial`, `○ Descanso`, `— Fallado`
+  - detalle diario editable y reprogramación de día
+- Progreso:
+  - panel “Playa en X días”
+  - peso corporal (línea)
+  - volumen semanal por grupo muscular
+  - PRs recientes por levantamiento clave
+  - fotos de progreso opcionales (URL + nota privada)
+- Biblioteca de ejercicios:
+  - imagen/placeholder
+  - cómo se hace, tips, errores, alternativas
+- Ajustes:
+  - perfil físico
+  - preferencia 5/6 días
+  - horas disponibles
+  - fecha objetivo playa
+- Exportación de entrenos en CSV y JSON.
 
-## UX/UI entregables
-- **Mapa navegación:** Login → Hoy → Sesión → Calendario / Progreso / Biblioteca.
-- **Flujo principal:** login → ver “Hoy” → iniciar sesión → guardar → revisar calendario/progreso.
-- **Wireframe textual:**
-  - Login: héroe + formulario simple.
-  - Hoy: barra “Playa en X días”, tarjeta entrenamiento y acceso sesión.
-  - Sesión: lista ejercicios + cardio + guardar.
-  - Calendario: lista de días recientes con estado.
-  - Progreso: gráfica peso + resumen volumen.
-  - Biblioteca: catálogo en cards con instrucciones y alternativas.
-- **UI Kit (tokens):**
-  - Colores: `zinc-950` fondo, `zinc-900` surfaces, `emerald-500` acento.
-  - Tipografía: sistema sans.
-  - Espaciado: escala Tailwind 2/3/4/6.
-  - Radius: `rounded-xl`, `rounded-2xl`.
-  - Sombras: `shadow-xl shadow-black/20`.
+## Entregables UX/UI
+- Mapa de navegación, flujo principal, wireframes textuales, tokens y componentes en:
+  - `docs/ui-kit.md`
 
-## Arquitectura técnica
-- Front+Back: Next.js App Router (Node full-stack).
-- Persistencia actual: JSON file (`apps/web/storage/app-data.json`) para ejecutar out-of-the-box.
-- Seguridad: rutas privadas por middleware + sesión httpOnly cookie.
-- Validación funcional base en endpoints de sesión/progreso/export.
+## Arquitectura
+- Front + Back: Next.js (App Router) + TypeScript
+- UI: Tailwind + componentes propios
+- DB: PostgreSQL + Prisma
+- Auth: credenciales con tabla `UserSession`
+- Validación: Zod
+- Seguridad:
+  - cookies httpOnly
+  - middleware de protección de rutas
+  - rate limiting básico por IP en endpoints críticos
+
+## Modelo de datos
+Definido en `prisma/schema.prisma`:
+- `User`, `UserSession`, `Profile`
+- `WorkoutPlan`, `WorkoutDay`, `Exercise`, `DayExercise`
+- `WorkoutAssignment` (reprogramación/flexibilidad)
+- `WorkoutSession`, `ExerciseSet`, `CardioEntry`
+- `BodyWeightLog`, `ProgressPhoto`
 
 ## Variables de entorno
-No obligatorias para correr en modo actual.
+Copia `.env.example` a `.env`:
+
+```bash
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/transformacion"
+NODE_ENV="development"
+```
 
 ## Setup local
 ```bash
 pnpm install
+pnpm db:generate
+pnpm db:push
+pnpm db:seed
 pnpm dev
 ```
 
 ## Usuario demo
-- `demo@transformacion.app`
-- `demo1234`
+- Email: `demo@transformacion.app`
+- Password: `demo1234`
 
-## Testing
+## Pruebas
+### Unit
 ```bash
-pnpm --filter @cc/web test
-pnpm --filter @cc/web build
+pnpm test
 ```
 
-## Deploy Vercel
-1. Importar repo en Vercel.
-2. Build command: `pnpm build`.
-3. Start command: `pnpm start`.
+### E2E smoke
+```bash
+pnpm test:e2e
+```
 
-## Supuestos
-- Se dejó schema Prisma + seed para futura migración a PostgreSQL sin rehacer dominio.
-- Fotos y PRs avanzados quedan preparados a nivel de arquitectura para iteración siguiente.
+Flujo smoke cubierto: login -> abrir día de sesión -> guardar sesión -> validar calendario.
+
+## Deploy en Vercel
+1. Importa el repo en Vercel.
+2. Configura variable `DATABASE_URL` (Postgres en producción).
+3. Build command:
+   - `pnpm db:generate && pnpm build`
+4. Install command:
+   - `pnpm install`
+5. Start command:
+   - `pnpm start`
+
+## Supuestos tomados
+- Fotos de progreso se guardan como URL (la app queda lista para conectar storage S3/Vercel Blob sin romper el dominio).
+- El plan base está validado para no exceder 2 días de tren inferior.
+- La base planificada para 5 días deja el día 6 como opcional y reprogramable.

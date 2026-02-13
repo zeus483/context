@@ -6,6 +6,10 @@
     "dev": "pnpm --filter @cc/web dev",
     "build": "pnpm --filter @cc/web build",
     "start": "pnpm --filter @cc/web start",
-    "test": "pnpm --filter @cc/web test"
+    "test": "pnpm --filter @cc/web test",
+    "test:e2e": "pnpm --filter @cc/web test:e2e",
+    "db:generate": "pnpm --filter @cc/web exec prisma generate --schema ../../prisma/schema.prisma",
+    "db:push": "DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@localhost:5432/transformacion} pnpm --filter @cc/web exec prisma db push --schema ../../prisma/schema.prisma",
+    "db:seed": "DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@localhost:5432/transformacion} pnpm --filter @cc/api exec tsx ../../prisma/seed.ts"
   }
 }

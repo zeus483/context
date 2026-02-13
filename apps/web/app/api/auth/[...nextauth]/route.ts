@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
-import { login, logout } from "../../../../lib/auth";
 
-export async function POST(req: Request) {
-  const body = await req.json();
-  const ok = await login(body.email, body.password);
-  return NextResponse.json({ ok }, { status: ok ? 200 : 401 });
+export async function GET() {
+  return NextResponse.json(
+    {
+      ok: false,
+      message: "Usa /api/auth/login, /api/auth/register y /api/auth/logout."
+    },
+    { status: 410 }
+  );
 }
 
-export async function DELETE() {
-  logout();
-  return NextResponse.json({ ok: true });
-}
+export const POST = GET;
+export const DELETE = GET;

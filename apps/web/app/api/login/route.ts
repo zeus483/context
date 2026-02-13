@@ -1,8 +1,20 @@
 import { NextResponse } from "next/server";
-import { login } from "../../../lib/auth";
+import { loginUser } from "../../../lib/auth";
+import { loginSchema } from "../../../lib/validation";
+import { zodToResponse } from "../../../lib/http";
 
 export async function POST(req: Request) {
-  const body = await req.json();
-  const ok = await login(body.email, body.password);
-  return NextResponse.json({ ok }, { status: ok ? 200 : 401 });
+  try {
+    const body = await req.json();
+    const parsed = loginSchema.parse(body);
+    const result = await loginUser(parsed.email, parsed.password);
+
+    if (!result.ok) {
+      return NextResponse.json({ ok: false, error: result.message }, { status: 401 });
+    }
+
+    return NextResponse.json({ ok: true, user: result.user });
+  } catch (error) {
+    return zodToResponse(error) ?? NextResponse.json({ ok: false, error: "No se pudo iniciar sesión" }, { status: 500 });
+  }
 }
