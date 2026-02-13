@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { registerUser } from "../../../../lib/auth";
-import { applyRateLimit, zodToResponse } from "../../../../lib/http";
+import { applyRateLimit, databaseErrorToResponse, zodToResponse } from "../../../../lib/http";
 import { registerSchema } from "../../../../lib/validation";
 import { addDays, todayKey } from "../../../../lib/dates";
 
@@ -34,6 +34,11 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ ok: true, user: result.user });
   } catch (error) {
-    return zodToResponse(error) ?? NextResponse.json({ error: "No se pudo crear la cuenta" }, { status: 500 });
+    console.error("auth.register.error", error);
+    return (
+      zodToResponse(error) ??
+      databaseErrorToResponse(error) ??
+      NextResponse.json({ error: "No se pudo crear la cuenta" }, { status: 500 })
+    );
   }
 }
