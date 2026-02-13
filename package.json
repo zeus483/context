@@ -1,10 +1,11 @@
 {
-  "name": "impostor-clasico",
+  "name": "transformacion-2026",
   "private": true,
   "packageManager": "pnpm@9.15.0",
   "scripts": {
     "dev": "pnpm --filter @cc/web dev",
     "build": "pnpm --filter @cc/web build",
-    "start": "pnpm --filter @cc/web start"
+    "start": "pnpm --filter @cc/web start",
+    "test": "pnpm --filter @cc/web test"
   }
 }
