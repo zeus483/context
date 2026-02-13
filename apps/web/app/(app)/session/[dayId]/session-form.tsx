@@ -8,6 +8,8 @@ type TemplateResponse = {
   date: string;
   day: {
     id: string;
+    planType: "BASE" | "CUSTOM";
+    planId: string;
     title: string;
     focus: string;
     cardioDefault: number;
@@ -56,7 +58,15 @@ function localDateKey() {
   return local.toISOString().slice(0, 10);
 }
 
-export function SessionForm({ workoutDayId, dateKey }: { workoutDayId: string; dateKey?: string }) {
+export function SessionForm({
+  dayId,
+  dateKey,
+  planType
+}: {
+  dayId: string;
+  dateKey?: string;
+  planType?: "BASE" | "CUSTOM";
+}) {
   const resolvedDate = dateKey ?? localDateKey();
   const [template, setTemplate] = useState<TemplateResponse | null>(null);
   const [sets, setSets] = useState<SetInput[]>([]);
@@ -68,12 +78,19 @@ export function SessionForm({ workoutDayId, dateKey }: { workoutDayId: string; d
   const [saving, setSaving] = useState(false);
   const [savedAt, setSavedAt] = useState<string | null>(null);
   const [error, setError] = useState("");
+  const [xpGain, setXpGain] = useState(0);
+  const [startedAt, setStartedAt] = useState<number>(Date.now());
 
   const dirtyRef = useRef(false);
   const initialLoadedRef = useRef(false);
 
   useEffect(() => {
-    fetch(`/api/session/template?workoutDayId=${workoutDayId}&date=${resolvedDate}`)
+    const params = new URLSearchParams({ dayId, date: resolvedDate });
+    if (planType) {
+      params.set("planType", planType);
+    }
+
+    fetch(`/api/session/template?${params.toString()}`)
       .then(async (res) => {
         if (!res.ok) {
           throw new Error("No se pudo cargar la sesión");
@@ -82,6 +99,7 @@ export function SessionForm({ workoutDayId, dateKey }: { workoutDayId: string; d
       })
       .then((payload) => {
         setTemplate(payload);
+        setStartedAt(Date.now());
 
         if (payload.session?.sets?.length) {
           setSets(
@@ -118,7 +136,7 @@ export function SessionForm({ workoutDayId, dateKey }: { workoutDayId: string; d
         initialLoadedRef.current = true;
       })
       .catch((err) => setError(err.message));
-  }, [resolvedDate, workoutDayId]);
+  }, [resolvedDate, dayId, planType]);
 
   const setsByExercise = useMemo(() => {
     if (!template) {
@@ -139,13 +157,18 @@ export function SessionForm({ workoutDayId, dateKey }: { workoutDayId: string; d
     setSaving(true);
     setError("");
 
+    const durationMinutes = Math.max(1, Math.round((Date.now() - startedAt) / 60_000));
+
     const response = await fetch("/api/session", {
       method: "PUT",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
         date: template.date,
-        workoutDayId: template.day.id,
+        planType: template.day.planType,
+        planId: template.day.planId,
+        dayId: template.day.id,
         notes,
+        durationMinutes,
         finalize,
         cardio: {
           cardioType,
@@ -167,6 +190,7 @@ export function SessionForm({ workoutDayId, dateKey }: { workoutDayId: string; d
 
     setSavedAt(new Date().toLocaleTimeString("es-CO"));
     dirtyRef.current = false;
+    setXpGain(payload.xpGain ?? 0);
   }
 
   useEffect(() => {
@@ -203,11 +227,14 @@ export function SessionForm({ workoutDayId, dateKey }: { workoutDayId: string; d
 
   return (
     <div className="space-y-4">
+      {xpGain > 0 ? <div className="card-muted text-sm text-emerald-300">+{xpGain} XP</div> : null}
+
       <section className="card">
         <p className="text-xs uppercase tracking-[0.15em] text-zinc-400">Registro de sesión</p>
         <h1 className="h1 mt-1">{template?.day.title ?? "Cargando..."}</h1>
         <p className="text-sm text-zinc-300">{template?.day.focus ?? ""}</p>
         <p className="mt-1 text-xs text-zinc-500">Fecha: {template?.date ?? resolvedDate}</p>
+        <p className="mt-1 text-xs text-emerald-300">Plan {template?.day.planType === "CUSTOM" ? "Personalizado" : "Base"}</p>
       </section>
 
       {setsByExercise.map((exercise) => (
@@ -222,7 +249,9 @@ export function SessionForm({ workoutDayId, dateKey }: { workoutDayId: string; d
             <span className="rounded-full border border-zinc-700 px-2 py-1 text-xs text-zinc-300">{exercise.muscleGroup}</span>
           </div>
 
-          <p className="text-xs text-zinc-400">Última referencia: {exercise.previous.weightKg ?? "-"} kg x {exercise.previous.reps ?? "-"}</p>
+          <p className="text-xs text-zinc-400">
+            Última referencia: {exercise.previous.weightKg ?? "-"} kg x {exercise.previous.reps ?? "-"}
+          </p>
 
           <div className="space-y-2">
             {exercise.sets.map((set) => (
@@ -299,7 +328,7 @@ export function SessionForm({ workoutDayId, dateKey }: { workoutDayId: string; d
           </div>
           <div>
             <label className="label">Intensidad</label>
-            <select className="input" value={cardioIntensity} onChange={(e) => setCardioIntensity(e.target.value as "LOW" | "MEDIUM" | "HIGH")}>
+            <select className="input" value={cardioIntensity} onChange={(e) => setCardioIntensity(e.target.value as "LOW" | "MEDIUM" | "HIGH")}> 
               <option value="LOW">Baja</option>
               <option value="MEDIUM">Media</option>
               <option value="HIGH">Alta</option>

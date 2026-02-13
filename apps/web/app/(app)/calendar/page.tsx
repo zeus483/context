@@ -17,6 +17,7 @@ type CalendarResponse = {
     dayOfMonth: number;
     title: string;
     dayId: string | null;
+    planType: "BASE" | "CUSTOM";
     status: "DONE" | "PARTIAL" | "REST" | "MISSED" | "PENDING";
     statusLabel: string;
   }[];
@@ -27,10 +28,21 @@ type CalendarResponse = {
       id: string;
       status: string;
       notes: string | null;
-      workoutDay: { id: string; title: string };
+      planType: "BASE" | "CUSTOM";
+      dayId: string | null;
+      dayTitle: string;
       cardioEntry: { cardioType: string; minutes: number } | null;
     }[];
   } | null;
+  recentSessions: {
+    id: string;
+    date: string;
+    status: string;
+    planType: "BASE" | "CUSTOM";
+    dayId: string | null;
+    title: string;
+    cardioMinutes: number;
+  }[];
 };
 
 function statusGlyph(status: string) {
@@ -139,15 +151,20 @@ export default function CalendarPage() {
             {data.details.sessions.length ? (
               data.details.sessions.map((session) => (
                 <div key={session.id} className="rounded-xl border border-zinc-800 p-3 text-sm">
-                  <p className="font-medium">{session.workoutDay.title}</p>
+                  <p className="font-medium">{session.dayTitle}</p>
                   <p className="text-xs text-zinc-500">Estado: {session.status}</p>
                   <p className="text-xs text-zinc-500">
                     Cardio: {session.cardioEntry ? `${session.cardioEntry.cardioType} ${session.cardioEntry.minutes} min` : "No registrado"}
                   </p>
                   {session.notes ? <p className="mt-1 text-xs text-zinc-400">{session.notes}</p> : null}
-                  <Link href={`/session/${session.workoutDay.id}?date=${data.details?.date}`} className="mt-2 inline-flex text-xs text-emerald-300">
-                    Editar sesión
-                  </Link>
+                  {session.dayId ? (
+                    <Link
+                      href={`/session/${session.dayId}?date=${data.details?.date}&planType=${session.planType}`}
+                      className="mt-2 inline-flex text-xs text-emerald-300"
+                    >
+                      Editar sesión
+                    </Link>
+                  ) : null}
                 </div>
               ))
             ) : (
@@ -157,6 +174,28 @@ export default function CalendarPage() {
         ) : (
           <p className="text-sm text-zinc-400">Toca un día para ver resumen y editar.</p>
         )}
+      </section>
+
+      <section className="card space-y-3">
+        <h2 className="h2">Últimos entrenos</h2>
+        <div className="space-y-2">
+          {data?.recentSessions.map((session) => (
+            <div key={session.id} className="rounded-xl border border-zinc-800 p-3 text-sm">
+              <div className="flex items-center justify-between">
+                <p className="font-medium">{session.title}</p>
+                <p className="text-xs text-zinc-400">{session.date}</p>
+              </div>
+              <p className="text-xs text-zinc-500">
+                Estado {session.status} · Cardio {session.cardioMinutes} min
+              </p>
+              {session.dayId ? (
+                <Link href={`/session/${session.dayId}?date=${session.date}&planType=${session.planType}`} className="text-xs text-emerald-300">
+                  Abrir
+                </Link>
+              ) : null}
+            </div>
+          ))}
+        </div>
       </section>
 
       <section className="card space-y-3">

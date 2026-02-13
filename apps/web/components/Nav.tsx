@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 
 const links = [
   { href: "/today", label: "Hoy" },
+  { href: "/plans", label: "Planes" },
   { href: "/calendar", label: "Calendario" },
   { href: "/progress", label: "Progreso" },
   { href: "/library", label: "Biblioteca" },
@@ -17,7 +18,7 @@ export function Nav() {
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-40 mx-auto w-full max-w-xl px-4 pb-4">
-      <nav className="grid grid-cols-5 items-center gap-1 rounded-2xl border border-zinc-800/80 bg-zinc-950/90 p-2 backdrop-blur">
+      <nav className="grid grid-cols-6 items-center gap-1 rounded-2xl border border-zinc-800/80 bg-zinc-950/90 p-2 backdrop-blur">
         {links.map((link) => {
           const active = pathname.startsWith(link.href);
           return (
@@ -39,7 +40,7 @@ export function Nav() {
             router.replace("/login");
             router.refresh();
           }}
-          className="col-span-5 mt-1 rounded-xl border border-zinc-800 px-3 py-2 text-xs text-zinc-300 hover:bg-zinc-900"
+          className="col-span-6 mt-1 rounded-xl border border-zinc-800 px-3 py-2 text-xs text-zinc-300 hover:bg-zinc-900"
         >
           Cerrar sesión
         </button>

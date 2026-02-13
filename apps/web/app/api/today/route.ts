@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server";
 import { getAuthContext } from "../../../lib/auth";
 import { unauthorized } from "../../../lib/http";
-import { addDays, fromDateKey, todayKey, toDateKey } from "../../../lib/dates";
+import { addDays, fromDateKey, todayKey, toDateKey, weekBounds } from "../../../lib/dates";
 import {
+  assignmentMeta,
   beachStats,
   compliancePercent,
   computeStreak,
+  getActivePlanForUser,
   listAssignments,
   resolveAssignment,
   statusFromSessions,
@@ -13,14 +15,7 @@ import {
   summarizeDailyStatus
 } from "../../../lib/workout";
 import { prisma } from "../../../lib/prisma";
-
-function mondayOf(dateKey: string) {
-  const date = fromDateKey(dateKey);
-  const day = date.getUTCDay();
-  const delta = day === 0 ? -6 : 1 - day;
-  date.setUTCDate(date.getUTCDate() + delta);
-  return toDateKey(date);
-}
+import { ensureRecentRecommendation, getWeeklyState, refreshGamification } from "../../../lib/gamification";
 
 export async function GET() {
   const auth = await getAuthContext();
@@ -30,11 +25,13 @@ export async function GET() {
 
   const trainingDays = (auth.profile.trainingDays === 6 ? 6 : 5) as 5 | 6;
   const nowKey = todayKey();
-  const todayAssignment = await resolveAssignment(auth.user.id, nowKey, trainingDays);
-  const tomorrowAssignment = await resolveAssignment(auth.user.id, addDays(nowKey, 1), trainingDays);
+  const activePlan = await getActivePlanForUser(auth.user.id);
+
+  const todayAssignment = await resolveAssignment(auth.user.id, nowKey, trainingDays, activePlan);
+  const tomorrowAssignment = await resolveAssignment(auth.user.id, addDays(nowKey, 1), trainingDays, activePlan);
 
   const trailingStart = addDays(nowKey, -13);
-  const trailingAssignments = await listAssignments(auth.user.id, trailingStart, 14, trainingDays);
+  const trailingAssignments = await listAssignments(auth.user.id, trailingStart, 14, trainingDays, activePlan);
   const trailingSessions = await prisma.workoutSession.findMany({
     where: {
       userId: auth.user.id,
@@ -61,25 +58,23 @@ export async function GET() {
     })
     .reverse();
 
-  const weekStart = mondayOf(nowKey);
-  const weekAssignments = await listAssignments(auth.user.id, weekStart, 7, trainingDays);
+  const { startKey: weekStart, endKey: weekEnd } = weekBounds(nowKey);
+  const weekAssignments = await listAssignments(auth.user.id, weekStart, 7, trainingDays, activePlan);
   const weekSessions = await prisma.workoutSession.findMany({
     where: {
       userId: auth.user.id,
       date: {
         gte: fromDateKey(weekStart),
-        lte: fromDateKey(addDays(weekStart, 6))
+        lte: fromDateKey(weekEnd)
       }
     },
-    include: { workoutDay: true }
+    select: {
+      date: true,
+      status: true
+    }
   });
 
-  const weekByDay = summarizeDailyStatus(
-    weekSessions.map((session) => ({
-      date: session.date,
-      status: session.status
-    }))
-  );
+  const weekByDay = summarizeDailyStatus(weekSessions);
 
   const weekItems = weekAssignments.map((assignment) => {
     const key = toDateKey(assignment.date);
@@ -92,30 +87,55 @@ export async function GET() {
       hasSessionPartial: summary?.partial ?? false
     });
 
+    const meta = assignmentMeta(assignment);
+    const planType = assignment.customWorkoutDayId ? "CUSTOM" : "BASE";
+
     return {
       date: key,
-      title: assignment.workoutDay?.title ?? "Descanso",
-      dayId: assignment.workoutDayId,
+      title: meta.title,
+      dayId: meta.dayId,
+      planType,
       status,
       statusLabel: statusLabel(status)
     };
   });
 
   const beach = beachStats(auth.profile.beachGoalDate);
+  const weeklyState = await getWeeklyState(auth.user.id);
+  const recommendation = await ensureRecentRecommendation(auth.user.id);
+  const gamification = await refreshGamification(auth.user.id);
+
+  const latestWeight = await prisma.bodyWeightLog.findFirst({
+    where: { userId: auth.user.id },
+    orderBy: { date: "desc" }
+  });
+
+  const daysWithoutWeight = latestWeight ? Math.max(0, Math.floor((Date.now() - latestWeight.date.getTime()) / 86_400_000)) : 999;
+
+  const todayMeta = assignmentMeta(todayAssignment);
+  const tomorrowMeta = assignmentMeta(tomorrowAssignment);
 
   return NextResponse.json({
+    activePlan: {
+      id: activePlan.planId,
+      name: activePlan.planName,
+      type: activePlan.planType,
+      kind: activePlan.kind
+    },
     today: {
       date: nowKey,
-      dayId: todayAssignment.workoutDayId,
-      title: todayAssignment.workoutDay?.title ?? "Descanso",
-      focus: todayAssignment.workoutDay?.focus ?? "Recuperación",
+      dayId: todayMeta.dayId,
+      planType: todayAssignment.customWorkoutDayId ? "CUSTOM" : "BASE",
+      title: todayMeta.title,
+      focus: todayMeta.focus,
       isRest: todayAssignment.isRest,
-      cardioDefault: todayAssignment.workoutDay?.cardioDefault ?? 0
+      cardioDefault: todayMeta.cardioDefault
     },
     tomorrow: {
       date: addDays(nowKey, 1),
-      dayId: tomorrowAssignment.workoutDayId,
-      title: tomorrowAssignment.workoutDay?.title ?? "Descanso",
+      dayId: tomorrowMeta.dayId,
+      planType: tomorrowAssignment.customWorkoutDayId ? "CUSTOM" : "BASE",
+      title: tomorrowMeta.title,
       isRest: tomorrowAssignment.isRest
     },
     week: weekItems,
@@ -123,6 +143,25 @@ export async function GET() {
       streak: computeStreak(trailingStatuses),
       complianceLast2WeeksPct: compliancePercent(trailingStatuses)
     },
-    beach
+    beach,
+    checkin: {
+      weekStartDate: weeklyState.startKey,
+      weekEndDate: weeklyState.endKey,
+      pendingCurrentWeek: weeklyState.pendingCurrentWeek,
+      pendingPreviousWeek: weeklyState.pendingPreviousWeek
+    },
+    recommendation: recommendation
+      ? {
+          weekStartDate: toDateKey(recommendation.weekStartDate),
+          compoundIncreasePct: recommendation.compoundIncreasePct,
+          accessoryIncreasePct: recommendation.accessoryIncreasePct,
+          message: recommendation.message
+        }
+      : null,
+    weightNudge: {
+      daysWithoutLog: daysWithoutWeight,
+      shouldNudge: daysWithoutWeight > 7
+    },
+    gamification
   });
 }

@@ -18,6 +18,7 @@ export async function GET(req: Request) {
     orderBy: { date: "desc" },
     include: {
       workoutDay: true,
+      customWorkoutDay: true,
       cardioEntry: true,
       sets: {
         include: { exercise: true },

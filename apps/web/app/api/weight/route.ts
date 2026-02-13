@@ -4,6 +4,7 @@ import { applyRateLimit, badRequest, unauthorized, zodToResponse } from "../../.
 import { fromDateKey, toDateKey } from "../../../lib/dates";
 import { prisma } from "../../../lib/prisma";
 import { weightLogSchema } from "../../../lib/validation";
+import { refreshGamification } from "../../../lib/gamification";
 
 export async function GET() {
   const auth = await getAuthContext();
@@ -60,10 +61,14 @@ export async function POST(req: Request) {
       data: { weightKg: parsed.weightKg }
     });
 
+    const gamification = await refreshGamification(auth.user.id);
+
     return NextResponse.json({
       id: row.id,
       date: toDateKey(row.date),
-      weightKg: row.weightKg
+      weightKg: row.weightKg,
+      xpGain: Math.max(0, gamification.xpDelta),
+      gamification
     });
   } catch (error) {
     return zodToResponse(error) ?? NextResponse.json({ error: "No se pudo guardar el peso" }, { status: 500 });

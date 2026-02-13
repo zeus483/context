@@ -10,6 +10,41 @@ type ProgressPayload = {
   volumeByMuscle: { muscle: string; sets: number }[];
   prs: { key: string; label: string; value: string; date: string | null }[];
   photos: { id: string; date: string; imageUrl: string; privacyNote: string | null }[];
+  weeklyRecommendation: {
+    weekStartDate: string;
+    compoundIncreasePct: number;
+    accessoryIncreasePct: number;
+    message: string;
+  } | null;
+  weeklyCheckins: {
+    id: string;
+    weekStartDate: string;
+    weekEndDate: string;
+    effortScore: number;
+    fatigueFlag: boolean;
+  }[];
+  gamification: {
+    xpTotal: number;
+    level: number;
+    xpInLevel: number;
+    nextLevelXp: number;
+    levelProgressPct: number;
+    streakCount: number;
+    currentTitle: string;
+    quests: {
+      daily: { id: string; name: string; progress: number; target: number; completed: boolean }[];
+      weekly: { id: string; name: string; progress: number; target: number; completed: boolean }[];
+      monthly: { id: string; name: string; progress: number; target: number; completed: boolean }[];
+    };
+    unlockedTitles: string[];
+    unlockedBadges: { name: string; description: string; iconKey: string; unlockedAt: string }[];
+  };
+};
+
+type TitlePayload = {
+  currentTitleId: string | null;
+  currentTitle: string | null;
+  unlockedTitles: { id: string; name: string; description: string; unlockedAt: string }[];
 };
 
 function todayDateKey() {
@@ -20,20 +55,30 @@ function todayDateKey() {
 
 export default function ProgressPage() {
   const [data, setData] = useState<ProgressPayload | null>(null);
+  const [titles, setTitles] = useState<TitlePayload | null>(null);
   const [error, setError] = useState("");
   const [weight, setWeight] = useState(80);
   const [photoUrl, setPhotoUrl] = useState("");
   const [photoNote, setPhotoNote] = useState("");
+  const [selectedTitleId, setSelectedTitleId] = useState("");
 
   async function load() {
-    const response = await fetch("/api/progress");
-    if (!response.ok) {
+    const [progressRes, titlesRes] = await Promise.all([fetch("/api/progress"), fetch("/api/gamification/titles")]);
+
+    if (!progressRes.ok) {
       throw new Error("No se pudo cargar el progreso");
     }
-    const payload = await response.json();
-    setData(payload);
 
-    const latestWeight = payload.weight[payload.weight.length - 1];
+    if (!titlesRes.ok) {
+      throw new Error("No se pudo cargar títulos");
+    }
+
+    const [progressPayload, titlesPayload] = await Promise.all([progressRes.json(), titlesRes.json()]);
+    setData(progressPayload);
+    setTitles(titlesPayload);
+    setSelectedTitleId(titlesPayload.currentTitleId ?? "");
+
+    const latestWeight = progressPayload.weight[progressPayload.weight.length - 1];
     if (latestWeight) {
       setWeight(latestWeight.weightKg);
     }
@@ -100,8 +145,47 @@ export default function ProgressPage() {
     await load();
   }
 
+  async function updateActiveTitle() {
+    if (!selectedTitleId) {
+      return;
+    }
+
+    const response = await fetch("/api/gamification/titles", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ titleId: selectedTitleId })
+    });
+
+    if (!response.ok) {
+      const payload = await response.json().catch(() => ({}));
+      setError(payload.error ?? "No se pudo cambiar título");
+      return;
+    }
+
+    await load();
+  }
+
   return (
     <div className="space-y-4">
+      <section className="card space-y-3">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-xs uppercase tracking-[0.15em] text-emerald-300">Perfil RPG</p>
+            <p className="h2">Nivel {data?.gamification.level ?? 1}</p>
+            <p className="text-sm text-zinc-300">{data?.gamification.currentTitle ?? "Recluta"}</p>
+          </div>
+          <p className="text-sm text-zinc-400">XP total {data?.gamification.xpTotal ?? 0}</p>
+        </div>
+
+        <div className="flex items-center justify-between text-xs text-zinc-500">
+          <span>{data?.gamification.xpInLevel ?? 0} XP</span>
+          <span>{data?.gamification.nextLevelXp ?? 0} para nivel siguiente</span>
+        </div>
+        <div className="h-2 rounded-full bg-zinc-900">
+          <div className="h-2 rounded-full bg-gradient-to-r from-emerald-400 to-amber-300" style={{ width: `${data?.gamification.levelProgressPct ?? 0}%` }} />
+        </div>
+      </section>
+
       <section className="card">
         <div className="flex items-end justify-between">
           <div>
@@ -123,6 +207,71 @@ export default function ProgressPage() {
         <div className="card">
           <p className="text-xs text-zinc-400">Cumplimiento 14d</p>
           <p className="metric">{data?.adherence.complianceLast2WeeksPct ?? 0}%</p>
+        </div>
+      </section>
+
+      {data?.weeklyRecommendation ? (
+        <section className="card space-y-2">
+          <h2 className="h2">Recomendación semanal</h2>
+          <p className="text-sm text-zinc-300">{data.weeklyRecommendation.message}</p>
+          <p className="text-xs text-zinc-500">
+            Compuestos {data.weeklyRecommendation.compoundIncreasePct >= 0 ? "+" : ""}
+            {data.weeklyRecommendation.compoundIncreasePct}% · Aislados {data.weeklyRecommendation.accessoryIncreasePct >= 0 ? "+" : ""}
+            {data.weeklyRecommendation.accessoryIncreasePct}%
+          </p>
+        </section>
+      ) : null}
+
+      <section className="card space-y-3">
+        <h2 className="h2">Título activo</h2>
+        <div className="grid grid-cols-[1fr,auto] gap-2">
+          <select className="input" value={selectedTitleId} onChange={(e) => setSelectedTitleId(e.target.value)}>
+            <option value="">Selecciona un título</option>
+            {titles?.unlockedTitles.map((title) => (
+              <option key={title.id} value={title.id}>
+                {title.name}
+              </option>
+            ))}
+          </select>
+          <button className="btn-secondary" type="button" onClick={updateActiveTitle}>
+            Aplicar
+          </button>
+        </div>
+      </section>
+
+      <section className="card space-y-3">
+        <h2 className="h2">Quests</h2>
+        <div className="space-y-2">
+          {[...(data?.gamification.quests.daily ?? []), ...(data?.gamification.quests.weekly ?? []), ...(data?.gamification.quests.monthly ?? [])].map(
+            (quest) => (
+              <div key={quest.id} className="rounded-xl border border-zinc-800 p-3">
+                <div className="flex items-center justify-between text-sm">
+                  <p className="font-medium">{quest.name}</p>
+                  <p className="text-xs text-zinc-500">
+                    {quest.progress}/{quest.target}
+                  </p>
+                </div>
+                <div className="mt-2 h-2 rounded-full bg-zinc-900">
+                  <div
+                    className="h-2 rounded-full bg-emerald-400"
+                    style={{ width: `${Math.min(100, Math.round((quest.progress / Math.max(1, quest.target)) * 100))}%` }}
+                  />
+                </div>
+              </div>
+            )
+          )}
+        </div>
+      </section>
+
+      <section className="card space-y-3">
+        <h2 className="h2">Badges desbloqueados</h2>
+        <div className="grid grid-cols-1 gap-2">
+          {(data?.gamification.unlockedBadges ?? []).map((badge) => (
+            <div key={badge.iconKey} className="rounded-xl border border-zinc-800 p-3">
+              <p className="text-sm font-medium">{badge.name}</p>
+              <p className="text-xs text-zinc-500">{badge.description}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -173,12 +322,7 @@ export default function ProgressPage() {
       <section className="card space-y-3">
         <h2 className="h2">Fotos de progreso (privadas)</h2>
         <div className="space-y-2">
-          <input
-            className="input"
-            value={photoUrl}
-            onChange={(e) => setPhotoUrl(e.target.value)}
-            placeholder="https://..."
-          />
+          <input className="input" value={photoUrl} onChange={(e) => setPhotoUrl(e.target.value)} placeholder="https://..." />
           <input className="input" value={photoNote} onChange={(e) => setPhotoNote(e.target.value)} placeholder="Nota privada opcional" />
           <button className="btn w-full" type="button" onClick={addPhoto}>
             Guardar foto

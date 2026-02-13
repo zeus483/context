@@ -1,12 +1,39 @@
-import { PrismaClient } from "@prisma/client";
+import { BasePlanKind, PrismaClient } from "@prisma/client";
 import crypto from "crypto";
 
 const prisma = new PrismaClient();
 
 const PROFILE_GOAL = "Hipertrofia + recomposición";
-const PLAN_NAME = "Fase Playa 8 Semanas";
+const BEACH_PLAN_NAME = "Fase Playa 8 Semanas";
+const NORMAL_PLAN_NAME = "Rutina Normal (Anual)";
 
-const dayBlueprint = [
+type ExerciseBlueprint = {
+  name: string;
+  group: string;
+  equipment: string;
+  reps: string;
+  rest: number;
+  sets: number;
+};
+
+type DayBlueprint = {
+  dayNumber: number;
+  title: string;
+  focus: string;
+  cardio: number;
+  optional: boolean;
+  exercises: ExerciseBlueprint[];
+};
+
+type PlanBlueprint = {
+  name: string;
+  code: string;
+  kind: BasePlanKind;
+  description: string;
+  days: DayBlueprint[];
+};
+
+const beachDays: DayBlueprint[] = [
   {
     dayNumber: 1,
     title: "Pecho fuerza + tríceps",
@@ -85,25 +112,215 @@ const dayBlueprint = [
       { name: "Plancha", group: "Core", equipment: "Peso corporal", reps: "30-60s", rest: 60, sets: 3 }
     ]
   }
+];
+
+const normalDays: DayBlueprint[] = [
+  {
+    dayNumber: 1,
+    title: "Pecho fuerza + tríceps",
+    focus: "Compuestos de empuje",
+    cardio: 20,
+    optional: false,
+    exercises: [
+      { name: "Press banca barra", group: "Pecho", equipment: "Barra", reps: "6-8", rest: 120, sets: 4 },
+      { name: "Press inclinado mancuernas", group: "Pecho", equipment: "Mancuerna", reps: "8-10", rest: 110, sets: 4 },
+      { name: "Fondos lastrados o asistidos", group: "Tríceps", equipment: "Peso corporal", reps: "8-12", rest: 90, sets: 3 },
+      { name: "Aperturas polea", group: "Pecho", equipment: "Polea", reps: "12-15", rest: 75, sets: 3 },
+      { name: "Extensión tríceps cuerda", group: "Tríceps", equipment: "Polea", reps: "10-12", rest: 75, sets: 3 },
+      { name: "Press francés", group: "Tríceps", equipment: "Barra", reps: "8-10", rest: 90, sets: 3 }
+    ]
+  },
+  {
+    dayNumber: 2,
+    title: "Espalda + bíceps",
+    focus: "Tirón completo",
+    cardio: 15,
+    optional: false,
+    exercises: [
+      { name: "Dominadas", group: "Espalda", equipment: "Peso corporal", reps: "6-8", rest: 120, sets: 4 },
+      { name: "Remo barra", group: "Espalda", equipment: "Barra", reps: "8-10", rest: 120, sets: 4 },
+      { name: "Jalón al pecho", group: "Espalda", equipment: "Polea", reps: "10-12", rest: 90, sets: 3 },
+      { name: "Remo en polea", group: "Espalda", equipment: "Polea", reps: "12", rest: 90, sets: 3 },
+      { name: "Curl barra", group: "Bíceps", equipment: "Barra", reps: "8-10", rest: 75, sets: 3 },
+      { name: "Curl inclinado", group: "Bíceps", equipment: "Mancuerna", reps: "10-12", rest: 75, sets: 3 }
+    ]
+  },
+  {
+    dayNumber: 3,
+    title: "Pierna completa (cuádriceps dominante)",
+    focus: "Tren inferior A",
+    cardio: 20,
+    optional: false,
+    exercises: [
+      { name: "Sentadilla libre", group: "Pierna", equipment: "Barra", reps: "6-8", rest: 120, sets: 4 },
+      { name: "Prensa", group: "Pierna", equipment: "Máquina", reps: "10", rest: 110, sets: 4 },
+      { name: "Extensión pierna", group: "Pierna", equipment: "Máquina", reps: "12-15", rest: 75, sets: 3 },
+      { name: "Curl femoral", group: "Femoral", equipment: "Máquina", reps: "10-12", rest: 90, sets: 3 },
+      { name: "Pantorrilla", group: "Pantorrilla", equipment: "Máquina", reps: "15", rest: 60, sets: 4 }
+    ]
+  },
+  {
+    dayNumber: 4,
+    title: "Pecho hipertrofia + hombro",
+    focus: "Volumen de torso anterior",
+    cardio: 20,
+    optional: false,
+    exercises: [
+      { name: "Press inclinado barra", group: "Pecho", equipment: "Barra", reps: "8-10", rest: 110, sets: 4 },
+      { name: "Press plano mancuernas", group: "Pecho", equipment: "Mancuerna", reps: "10-12", rest: 90, sets: 4 },
+      { name: "Aperturas máquina", group: "Pecho", equipment: "Máquina", reps: "12-15", rest: 75, sets: 3 },
+      { name: "Elevaciones laterales", group: "Hombro", equipment: "Mancuerna", reps: "12-15", rest: 60, sets: 4 },
+      { name: "Face pull", group: "Hombro", equipment: "Polea", reps: "12-15", rest: 60, sets: 3 },
+      { name: "Press militar", group: "Hombro", equipment: "Barra", reps: "8-10", rest: 100, sets: 3 }
+    ]
+  },
+  {
+    dayNumber: 5,
+    title: "Espalda + brazos volumen",
+    focus: "Técnica y bombeo",
+    cardio: 15,
+    optional: false,
+    exercises: [
+      { name: "Peso muerto técnico ligero", group: "Espalda", equipment: "Barra", reps: "5", rest: 120, sets: 3 },
+      { name: "Remo mancuerna", group: "Espalda", equipment: "Mancuerna", reps: "10", rest: 90, sets: 3 },
+      { name: "Jalón cerrado", group: "Espalda", equipment: "Polea", reps: "10-12", rest: 90, sets: 3 },
+      { name: "Curl predicador", group: "Bíceps", equipment: "Máquina", reps: "10-12", rest: 75, sets: 3 },
+      { name: "Extensión tríceps polea", group: "Tríceps", equipment: "Polea", reps: "12", rest: 75, sets: 3 }
+    ]
+  },
+  {
+    dayNumber: 6,
+    title: "Pierna posterior (opcional)",
+    focus: "Tren inferior B + core",
+    cardio: 25,
+    optional: true,
+    exercises: [
+      { name: "Peso muerto rumano", group: "Femoral", equipment: "Barra", reps: "8-10", rest: 120, sets: 4 },
+      { name: "Hip thrust", group: "Glúteo", equipment: "Barra", reps: "10", rest: 110, sets: 4 },
+      { name: "Curl femoral sentado", group: "Femoral", equipment: "Máquina", reps: "12", rest: 90, sets: 3 },
+      { name: "Pantorrilla", group: "Pantorrilla", equipment: "Máquina", reps: "15", rest: 60, sets: 4 },
+      { name: "Abdominales (3 ejercicios)", group: "Core", equipment: "Peso corporal", reps: "3 series", rest: 45, sets: 3 }
+    ]
+  }
+];
+
+const basePlans: PlanBlueprint[] = [
+  {
+    name: BEACH_PLAN_NAME,
+    code: "beach-8w",
+    kind: "BEACH",
+    description: "Plan flexible 5-6 días, cardio final y foco en recomposición para 8 semanas.",
+    days: beachDays
+  },
+  {
+    name: NORMAL_PLAN_NAME,
+    code: "normal-anual",
+    kind: "NORMAL",
+    description: "Rutina anual base del proyecto 2026, orientada a hipertrofia sostenida con cardio complementario.",
+    days: normalDays
+  }
+];
+
+const titlesSeed = [
+  { name: "Recluta", unlockType: "LEVEL", unlockValue: 1, description: "Inicio del camino de consistencia." },
+  { name: "Constante", unlockType: "LEVEL", unlockValue: 3, description: "Ya entrenas con disciplina semanal." },
+  { name: "Eres un crack", unlockType: "LEVEL", unlockValue: 5, description: "Progreso visible y ritmo estable." },
+  { name: "Destructor", unlockType: "LEVEL", unlockValue: 7, description: "Ritmo alto y sesiones completas." },
+  { name: "Bestia del GYM", unlockType: "LEVEL", unlockValue: 10, description: "Nivel avanzado de adherencia." },
+  { name: "Máquina", unlockType: "LEVEL", unlockValue: 12, description: "Consistencia sostenida y técnica sólida." },
+  { name: "Monstruo", unlockType: "LEVEL", unlockValue: 15, description: "Rendimiento superior en múltiples semanas." },
+  { name: "Sombra Ascendente", unlockType: "LEVEL", unlockValue: 20, description: "Máxima progresión del ranking personal." },
+  { name: "Imparable", unlockType: "ACHIEVEMENT", unlockValue: 7, description: "Alcanza 7 días de racha." },
+  { name: "Pulso de Hierro", unlockType: "ACHIEVEMENT", unlockValue: 4, description: "4 semanas con adherencia >=80%." },
+  { name: "No Falla", unlockType: "ACHIEVEMENT", unlockValue: 8, description: "Completa 8 semanas del plan playa." },
+  { name: "Disciplina", unlockType: "ACHIEVEMENT", unlockValue: 6, description: "6 check-ins semanales seguidos." }
+] as const;
+
+const badgesSeed = [
+  { name: "7 días seguidos", description: "Mantienes una racha de 7 días", iconKey: "streak_7" },
+  { name: "4 semanas 80%+", description: "Sostuviste adherencia alta durante 4 semanas", iconKey: "consistency_4w" },
+  { name: "Semana de 5 entrenos", description: "Cumpliste una semana intensa", iconKey: "week_5_sessions" },
+  { name: "Plan playa completado", description: "Cerraste el bloque de 8 semanas", iconKey: "beach_8w" },
+  { name: "Check-in maestro", description: "Hiciste 6 check-ins seguidos", iconKey: "checkin_6" }
+] as const;
+
+const questsSeed = [
+  {
+    type: "DAILY",
+    name: "Entrena hoy",
+    description: "Completa una sesión en el día actual.",
+    xpReward: 60,
+    criteriaJson: { metric: "sessions", target: 1, scope: "day", filter: "any" }
+  },
+  {
+    type: "DAILY",
+    name: "Cardio mínimo",
+    description: "Registra al menos 10 min de cardio hoy.",
+    xpReward: 35,
+    criteriaJson: { metric: "cardio_minutes", target: 10, scope: "day" }
+  },
+  {
+    type: "DAILY",
+    name: "Peso del día",
+    description: "Registra peso corporal hoy.",
+    xpReward: 20,
+    criteriaJson: { metric: "weight_logs", target: 1, scope: "day" }
+  },
+  {
+    type: "WEEKLY",
+    name: "Base semanal: 3 entrenos",
+    description: "Completa mínimo 3 sesiones esta semana.",
+    xpReward: 100,
+    criteriaJson: { metric: "sessions", target: 3, scope: "week", filter: "any" }
+  },
+  {
+    type: "WEEKLY",
+    name: "Semana intensa: 5 entrenos",
+    description: "Completa 5 sesiones o más en la semana.",
+    xpReward: 180,
+    criteriaJson: { metric: "sessions", target: 5, scope: "week", filter: "any" }
+  },
+  {
+    type: "WEEKLY",
+    name: "Frecuencia de pecho",
+    description: "Cumple 2 sesiones con foco en pecho.",
+    xpReward: 110,
+    criteriaJson: { metric: "sessions", target: 2, scope: "week", filter: "chest" }
+  },
+  {
+    type: "WEEKLY",
+    name: "Check-in semanal",
+    description: "Completa el check-in de la semana.",
+    xpReward: 60,
+    criteriaJson: { metric: "checkin", target: 1, scope: "week" }
+  },
+  {
+    type: "MONTHLY",
+    name: "Volumen mensual",
+    description: "Completa al menos 12 entrenos en el mes.",
+    xpReward: 220,
+    criteriaJson: { metric: "sessions", target: 12, scope: "month", filter: "any" }
+  },
+  {
+    type: "MONTHLY",
+    name: "PR en banca",
+    description: "Mejora tu mejor marca de press banca.",
+    xpReward: 250,
+    criteriaJson: { metric: "pr", target: 1, scope: "month", exerciseIncludes: "press banca" }
+  },
+  {
+    type: "MONTHLY",
+    name: "Control de peso",
+    description: "Registra peso al menos 12 veces en el mes.",
+    xpReward: 180,
+    criteriaJson: { metric: "weight_logs", target: 12, scope: "month" }
+  }
 ] as const;
 
 function hashPassword(password: string) {
   const salt = crypto.randomBytes(16).toString("hex");
   const digest = crypto.scryptSync(password, salt, 64).toString("hex");
   return `${salt}:${digest}`;
-}
-
-function validateLowerBodyRule() {
-  const lowerKeywords = ["pierna", "femoral", "glúteo", "tren inferior"];
-  const lowerDays = dayBlueprint.filter((day) => {
-    const focus = day.focus.toLowerCase();
-    const title = day.title.toLowerCase();
-    return lowerKeywords.some((word) => focus.includes(word) || title.includes(word));
-  });
-
-  if (lowerDays.length > 2) {
-    throw new Error(`La rutina base excede 2 días de tren inferior (${lowerDays.length}).`);
-  }
 }
 
 function dayKeyOffset(offsetDays: number) {
@@ -113,62 +330,113 @@ function dayKeyOffset(offsetDays: number) {
   return date;
 }
 
+function weekStartDate(base = new Date()) {
+  const date = new Date(Date.UTC(base.getUTCFullYear(), base.getUTCMonth(), base.getUTCDate()));
+  const day = date.getUTCDay();
+  const delta = day === 0 ? -6 : 1 - day;
+  date.setUTCDate(date.getUTCDate() + delta);
+  date.setUTCHours(0, 0, 0, 0);
+  return date;
+}
+
+function inferLowerDay(day: DayBlueprint) {
+  const probe = `${day.title} ${day.focus}`.toLowerCase();
+  return ["pierna", "femoral", "glúte", "tren inferior"].some((word) => probe.includes(word));
+}
+
+function exerciseCopy(name: string, equipment: string) {
+  return {
+    imageUrl: `https://placehold.co/800x520/png?text=${encodeURIComponent(name)}`,
+    instructions: `1) Ajusta ${equipment.toLowerCase()} y postura. 2) Mantén control excéntrico. 3) Busca rango completo sin dolor.`,
+    commonMistakes: "Subir peso demasiado pronto y recortar recorrido.",
+    tips: "Trabaja la mayoría de sets en 1-3 RIR y prioriza técnica estable.",
+    alternatives: "Alternativa sugerida: cambia a máquina/polea/mancuerna equivalente según disponibilidad."
+  };
+}
+
+function validateLowerBodyRule(plans: PlanBlueprint[]) {
+  for (const plan of plans) {
+    const lowerDays = plan.days.filter(inferLowerDay);
+    if (lowerDays.length > 2) {
+      throw new Error(`La rutina ${plan.name} excede 2 días de tren inferior (${lowerDays.length}).`);
+    }
+  }
+}
+
 async function seedExercises() {
   const uniqueExercises = new Map<string, { name: string; muscleGroup: string; equipment: string }>();
 
-  for (const day of dayBlueprint) {
-    for (const exercise of day.exercises) {
-      const key = `${exercise.name}|${exercise.equipment}`;
-      if (!uniqueExercises.has(key)) {
-        uniqueExercises.set(key, {
-          name: exercise.name,
-          muscleGroup: exercise.group,
-          equipment: exercise.equipment
-        });
+  for (const plan of basePlans) {
+    for (const day of plan.days) {
+      for (const exercise of day.exercises) {
+        const key = `${exercise.name}|${exercise.equipment}`;
+        if (!uniqueExercises.has(key)) {
+          uniqueExercises.set(key, {
+            name: exercise.name,
+            muscleGroup: exercise.group,
+            equipment: exercise.equipment
+          });
+        }
       }
     }
   }
 
   for (const exercise of uniqueExercises.values()) {
+    const content = exerciseCopy(exercise.name, exercise.equipment);
+
     await prisma.exercise.upsert({
       where: { name_equipment: { name: exercise.name, equipment: exercise.equipment } },
       update: {
-        muscleGroup: exercise.muscleGroup
+        muscleGroup: exercise.muscleGroup,
+        instructions: content.instructions,
+        commonMistakes: content.commonMistakes,
+        tips: content.tips,
+        alternatives: content.alternatives,
+        imageUrl: content.imageUrl
       },
       create: {
         name: exercise.name,
         muscleGroup: exercise.muscleGroup,
         equipment: exercise.equipment,
-        imageUrl: `https://placehold.co/800x520/png?text=${encodeURIComponent(exercise.name)}`,
-        instructions: "1) Ajusta la máquina o postura. 2) Controla la fase excéntrica. 3) Mantén rango completo.",
-        commonMistakes: "Cargar demasiado y perder control técnico.",
-        tips: "Trabaja a 1-3 RIR en la mayoría de sets para progresión sostenible.",
-        alternatives: "Alternativa: versión en máquina, polea o mancuerna equivalente según disponibilidad."
+        ...content
       }
     });
   }
 }
 
-async function seedPlan() {
+async function seedBasePlan(planBlueprint: PlanBlueprint) {
   const plan = await prisma.workoutPlan.upsert({
-    where: { name: PLAN_NAME },
+    where: { name: planBlueprint.name },
     update: {
-      description: "Plan flexible 5-6 días, cardio final y foco en recomposición para 8 semanas.",
+      code: planBlueprint.code,
+      description: planBlueprint.description,
+      kind: planBlueprint.kind,
       isActive: true
     },
     create: {
-      name: PLAN_NAME,
-      description: "Plan flexible 5-6 días, cardio final y foco en recomposición para 8 semanas.",
+      code: planBlueprint.code,
+      name: planBlueprint.name,
+      description: planBlueprint.description,
+      kind: planBlueprint.kind,
       isActive: true
     }
   });
 
-  await prisma.dayExercise.deleteMany({ where: { workoutDay: { workoutPlanId: plan.id } } });
-  await prisma.workoutDay.deleteMany({ where: { workoutPlanId: plan.id } });
-
-  for (const day of dayBlueprint) {
-    const workoutDay = await prisma.workoutDay.create({
-      data: {
+  for (const day of planBlueprint.days) {
+    const workoutDay = await prisma.workoutDay.upsert({
+      where: {
+        workoutPlanId_dayNumber: {
+          workoutPlanId: plan.id,
+          dayNumber: day.dayNumber
+        }
+      },
+      update: {
+        title: day.title,
+        focus: day.focus,
+        isOptional: day.optional,
+        cardioDefault: day.cardio
+      },
+      create: {
         workoutPlanId: plan.id,
         dayNumber: day.dayNumber,
         title: day.title,
@@ -177,6 +445,8 @@ async function seedPlan() {
         cardioDefault: day.cardio
       }
     });
+
+    await prisma.dayExercise.deleteMany({ where: { workoutDayId: workoutDay.id } });
 
     for (const [idx, exercise] of day.exercises.entries()) {
       const dbExercise = await prisma.exercise.findUniqueOrThrow({
@@ -199,7 +469,129 @@ async function seedPlan() {
   return plan;
 }
 
-async function seedUser(planId: string) {
+async function seedCatalog() {
+  for (const title of titlesSeed) {
+    await prisma.title.upsert({
+      where: { name: title.name },
+      update: {
+        unlockType: title.unlockType,
+        unlockValue: title.unlockValue,
+        description: title.description
+      },
+      create: {
+        name: title.name,
+        unlockType: title.unlockType,
+        unlockValue: title.unlockValue,
+        description: title.description
+      }
+    });
+  }
+
+  for (const badge of badgesSeed) {
+    await prisma.badge.upsert({
+      where: { name: badge.name },
+      update: {
+        description: badge.description,
+        iconKey: badge.iconKey
+      },
+      create: {
+        name: badge.name,
+        description: badge.description,
+        iconKey: badge.iconKey
+      }
+    });
+  }
+
+  for (const quest of questsSeed) {
+    await prisma.quest.upsert({
+      where: { name: quest.name },
+      update: {
+        type: quest.type,
+        description: quest.description,
+        xpReward: quest.xpReward,
+        criteriaJson: quest.criteriaJson,
+        isActive: true
+      },
+      create: {
+        type: quest.type,
+        name: quest.name,
+        description: quest.description,
+        xpReward: quest.xpReward,
+        criteriaJson: quest.criteriaJson,
+        isActive: true
+      }
+    });
+  }
+}
+
+async function seedDemoCustomPlan(userId: string, sourcePlanId: string) {
+  const existing = await prisma.customWorkoutPlan.findFirst({
+    where: { userId, name: "Mi Rutina Personal" },
+    include: { customWorkoutDays: true }
+  });
+
+  const customPlan =
+    existing ??
+    (await prisma.customWorkoutPlan.create({
+      data: {
+        userId,
+        name: "Mi Rutina Personal",
+        description: "Plantilla editable para ajustar días y ejercicios",
+        isActive: false,
+        isArchived: false
+      }
+    }));
+
+  if (existing?.customWorkoutDays.length) {
+    return customPlan;
+  }
+
+  const sourceDays = await prisma.workoutDay.findMany({
+    where: {
+      workoutPlanId: sourcePlanId,
+      dayNumber: { in: [1, 2, 4, 5] }
+    },
+    orderBy: { dayNumber: "asc" },
+    include: {
+      dayExercises: {
+        orderBy: { order: "asc" }
+      }
+    }
+  });
+
+  let order = 1;
+  for (const source of sourceDays) {
+    const day = await prisma.customWorkoutDay.create({
+      data: {
+        planId: customPlan.id,
+        name: source.title,
+        focus: source.focus,
+        order,
+        isOptional: false,
+        cardioDefault: source.cardioDefault
+      }
+    });
+
+    for (const entry of source.dayExercises) {
+      await prisma.customWorkoutExercise.create({
+        data: {
+          dayId: day.id,
+          exerciseId: entry.exerciseId,
+          order: entry.order,
+          sets: entry.suggestedSets,
+          reps: entry.suggestedReps,
+          restSeconds: entry.suggestedRestSec
+        }
+      });
+    }
+
+    order += 1;
+  }
+
+  return customPlan;
+}
+
+async function seedUser(beachPlanId: string, normalPlanId: string) {
   const user = await prisma.user.upsert({
     where: { email: "demo@transformacion.app" },
     update: {},
@@ -222,7 +614,10 @@ async function seedUser(planId: string) {
       goal: PROFILE_GOAL,
       trainingDays: 5,
       availableHours: 2,
-      beachGoalDate: dayKeyOffset(56)
+      beachGoalDate: dayKeyOffset(56),
+      activePlanType: "BASE",
+      activeBasePlanId: beachPlanId,
+      activeCustomPlanId: null
     },
     create: {
       userId: user.id,
@@ -233,21 +628,24 @@ async function seedUser(planId: string) {
       goal: PROFILE_GOAL,
       trainingDays: 5,
       availableHours: 2,
-      beachGoalDate: dayKeyOffset(56)
+      beachGoalDate: dayKeyOffset(56),
+      activePlanType: "BASE",
+      activeBasePlanId: beachPlanId,
+      activeCustomPlanId: null
     }
   });
 
-  for (let i = 0; i < 8; i += 1) {
+  for (let i = 0; i < 10; i += 1) {
     const date = dayKeyOffset(-i * 7);
     await prisma.bodyWeightLog.upsert({
       where: { userId_date: { userId: user.id, date } },
-      update: { weightKg: 80 - i * 0.35 },
-      create: { userId: user.id, date, weightKg: 80 - i * 0.35 }
+      update: { weightKg: 80 - i * 0.32 },
+      create: { userId: user.id, date, weightKg: 80 - i * 0.32 }
     });
   }
 
   const firstDay = await prisma.workoutDay.findFirstOrThrow({
-    where: { workoutPlanId: planId, dayNumber: 1 }
+    where: { workoutPlanId: beachPlanId, dayNumber: 1 }
   });
 
   const sessionDate = dayKeyOffset(-1);
@@ -259,6 +657,8 @@ async function seedUser(planId: string) {
     const session = await prisma.workoutSession.create({
       data: {
         userId: user.id,
+        planType: "BASE",
+        basePlanId: beachPlanId,
         workoutDayId: firstDay.id,
         date: sessionDate,
         status: "DONE",
@@ -296,14 +696,88 @@ async function seedUser(planId: string) {
     });
   }
 
+  const monday = weekStartDate(dayKeyOffset(0));
+  const sunday = new Date(monday);
+  sunday.setUTCDate(sunday.getUTCDate() + 6);
+
+  await prisma.weeklyCheckin.upsert({
+    where: { userId_weekStartDate: { userId: user.id, weekStartDate: monday } },
+    update: {
+      weekEndDate: sunday,
+      effortScore: 6,
+      fatigueFlag: false
+    },
+    create: {
+      userId: user.id,
+      weekStartDate: monday,
+      weekEndDate: sunday,
+      effortScore: 6,
+      fatigueFlag: false
+    }
+  });
+
+  await prisma.weeklyRecommendation.upsert({
+    where: { userId_weekStartDate: { userId: user.id, weekStartDate: monday } },
+    update: {
+      compoundIncreasePct: 2.5,
+      accessoryIncreasePct: 2.5,
+      message: "Semana consistente: sube 2.5% en compuestos y 1-2 kg en aislados si mantienes técnica."
+    },
+    create: {
+      userId: user.id,
+      weekStartDate: monday,
+      compoundIncreasePct: 2.5,
+      accessoryIncreasePct: 2.5,
+      message: "Semana consistente: sube 2.5% en compuestos y 1-2 kg en aislados si mantienes técnica."
+    }
+  });
+
+  const recruiter = await prisma.title.findUnique({ where: { name: "Recluta" } });
+  await prisma.userStats.upsert({
+    where: { userId: user.id },
+    update: {
+      xpTotal: 0,
+      level: 1,
+      streakCount: 0,
+      currentTitleId: recruiter?.id
+    },
+    create: {
+      userId: user.id,
+      xpTotal: 0,
+      level: 1,
+      streakCount: 0,
+      currentTitleId: recruiter?.id
+    }
+  });
+
+  if (recruiter) {
+    await prisma.userTitle.upsert({
+      where: { userId_titleId: { userId: user.id, titleId: recruiter.id } },
+      update: {},
+      create: {
+        userId: user.id,
+        titleId: recruiter.id
+      }
+    });
+  }
+
+  await seedDemoCustomPlan(user.id, normalPlanId);
+
   return user;
 }
 
 async function main() {
-  validateLowerBodyRule();
+  validateLowerBodyRule(basePlans);
   await seedExercises();
-  const plan = await seedPlan();
-  await seedUser(plan.id);
+
+  const [beachPlan, normalPlan] = await Promise.all([
+    seedBasePlan(basePlans[0]),
+    seedBasePlan(basePlans[1])
+  ]);
+
+  await seedCatalog();
+  await seedUser(beachPlan.id, normalPlan.id);
+
   console.log("Seed completado");
 }
 

@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     const trainingDays = (auth.profile.trainingDays === 6 ? 6 : 5) as 5 | 6;
     const source = await resolveAssignment(auth.user.id, parsed.fromDate, trainingDays);
 
-    if (source.isRest || !source.workoutDayId) {
+    if (source.isRest || (!source.workoutDayId && !source.customWorkoutDayId)) {
       return badRequest("No hay entrenamiento para reprogramar en esa fecha");
     }
 
@@ -39,12 +39,19 @@ export async function POST(req: Request) {
         },
         update: {
           isRest: true,
-          workoutDayId: null
+          planType: source.planType,
+          basePlanId: source.basePlanId,
+          customPlanId: source.customPlanId,
+          workoutDayId: null,
+          customWorkoutDayId: null
         },
         create: {
           userId: auth.user.id,
           date: fromDateKey(parsed.fromDate),
-          isRest: true
+          isRest: true,
+          planType: source.planType,
+          basePlanId: source.basePlanId,
+          customPlanId: source.customPlanId
         }
       });
 
@@ -56,15 +63,23 @@ export async function POST(req: Request) {
           }
         },
         update: {
+          planType: source.planType,
+          basePlanId: source.basePlanId,
+          customPlanId: source.customPlanId,
           isRest: false,
           workoutDayId: source.workoutDayId,
+          customWorkoutDayId: source.customWorkoutDayId,
           movedFromDate: fromDateKey(parsed.fromDate)
         },
         create: {
           userId: auth.user.id,
           date: targetDate,
+          planType: source.planType,
+          basePlanId: source.basePlanId,
+          customPlanId: source.customPlanId,
           isRest: false,
           workoutDayId: source.workoutDayId,
+          customWorkoutDayId: source.customWorkoutDayId,
           movedFromDate: fromDateKey(parsed.fromDate)
         }
       });

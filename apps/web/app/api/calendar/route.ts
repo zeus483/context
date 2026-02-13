@@ -3,7 +3,14 @@ import { getAuthContext } from "../../../lib/auth";
 import { unauthorized } from "../../../lib/http";
 import { addDays, formatLongDate, fromDateKey, monthBounds, todayKey, toDateKey } from "../../../lib/dates";
 import { prisma } from "../../../lib/prisma";
-import { listAssignments, statusFromSessions, statusLabel, summarizeDailyStatus } from "../../../lib/workout";
+import {
+  assignmentMeta,
+  getActivePlanForUser,
+  listAssignments,
+  statusFromSessions,
+  statusLabel,
+  summarizeDailyStatus
+} from "../../../lib/workout";
 
 export async function GET(req: Request) {
   const auth = await getAuthContext();
@@ -18,7 +25,8 @@ export async function GET(req: Request) {
 
   const { startKey, endKey } = monthBounds(month);
   const totalDays = Math.max(1, Number(endKey.slice(8, 10)));
-  const assignments = await listAssignments(auth.user.id, startKey, totalDays, trainingDays);
+  const activePlan = await getActivePlanForUser(auth.user.id);
+  const assignments = await listAssignments(auth.user.id, startKey, totalDays, trainingDays, activePlan);
 
   const sessions = await prisma.workoutSession.findMany({
     where: {
@@ -28,7 +36,7 @@ export async function GET(req: Request) {
         lte: fromDateKey(endKey)
       }
     },
-    include: { workoutDay: true, cardioEntry: true }
+    include: { workoutDay: true, customWorkoutDay: true, cardioEntry: true }
   });
 
   const summaryByDate = summarizeDailyStatus(
@@ -50,11 +58,14 @@ export async function GET(req: Request) {
       hasSessionPartial: summary?.partial ?? false
     });
 
+    const meta = assignmentMeta(assignment);
+
     return {
       date: key,
       dayOfMonth: Number(key.slice(8, 10)),
-      title: assignment.workoutDay?.title ?? "Descanso",
-      dayId: assignment.workoutDayId,
+      title: meta.title,
+      dayId: meta.dayId,
+      planType: assignment.customWorkoutDayId ? "CUSTOM" : "BASE",
       status,
       statusLabel: statusLabel(status)
     };
@@ -69,6 +80,7 @@ export async function GET(req: Request) {
       },
       include: {
         workoutDay: true,
+        customWorkoutDay: true,
         cardioEntry: true,
         sets: {
           include: { exercise: true },
@@ -80,11 +92,30 @@ export async function GET(req: Request) {
     details = {
       date: selectedDate,
       label: formatLongDate(selectedDate),
-      sessions: detailSessions
+      sessions: detailSessions.map((session) => ({
+        id: session.id,
+        status: session.status,
+        notes: session.notes,
+        planType: session.planType,
+        dayId: session.planType === "BASE" ? session.workoutDayId : session.customWorkoutDayId,
+        dayTitle: session.workoutDay?.title ?? session.customWorkoutDay?.name ?? "Sesión",
+        cardioEntry: session.cardioEntry,
+        sets: session.sets
+      }))
     };
   }
 
   const upcoming = cells.filter((cell) => cell.date >= nowKey).slice(0, 7);
+  const recentSessions = await prisma.workoutSession.findMany({
+    where: { userId: auth.user.id },
+    orderBy: { date: "desc" },
+    take: 12,
+    include: {
+      workoutDay: true,
+      customWorkoutDay: true,
+      cardioEntry: true
+    }
+  });
 
   return NextResponse.json({
     month,
@@ -93,6 +124,15 @@ export async function GET(req: Request) {
     cells,
     details,
     upcoming,
+    recentSessions: recentSessions.map((session) => ({
+      id: session.id,
+      date: toDateKey(session.date),
+      status: session.status,
+      planType: session.planType,
+      dayId: session.planType === "BASE" ? session.workoutDayId : session.customWorkoutDayId,
+      title: session.workoutDay?.title ?? session.customWorkoutDay?.name ?? "Sesión",
+      cardioMinutes: session.cardioEntry?.minutes ?? 0
+    })),
     quickRange: {
       today: nowKey,
       tomorrow: addDays(nowKey, 1)

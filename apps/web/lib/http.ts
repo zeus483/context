@@ -38,14 +38,23 @@ export function zodToResponse(error: unknown) {
 }
 
 export function databaseErrorToResponse(error: unknown) {
-  const message = String((error as { message?: string } | null)?.message ?? "");
+  const normalized = error as { message?: string; code?: string; name?: string } | null;
+  const message = String(normalized?.message ?? "");
+  const code = String(normalized?.code ?? "");
+  const name = String(normalized?.name ?? "");
 
   // Prisma initialization/connectivity failures (credentials, host, TLS, missing env)
   if (
+    code === "P1000" ||
+    code === "P1001" ||
+    code === "P1002" ||
+    code === "P1017" ||
+    name === "PrismaClientInitializationError" ||
     message.includes("PrismaClientInitializationError") ||
     message.includes("Can't reach database server") ||
     message.includes("Authentication failed") ||
-    message.includes("Environment variable not found")
+    message.includes("Environment variable not found") ||
+    message.includes("Missing URL environment variable")
   ) {
     return NextResponse.json(
       { error: "No se pudo conectar a la base de datos. Revisa DATABASE_URL en Vercel." },
@@ -55,9 +64,12 @@ export function databaseErrorToResponse(error: unknown) {
 
   // Schema not applied yet in production database
   if (
+    code === "P2021" ||
+    code === "P2022" ||
+    message.includes("The column") ||
     message.includes("does not exist") ||
     message.includes("The table") ||
-    message.includes("relation") && message.includes("does not exist")
+    (message.includes("relation") && message.includes("does not exist"))
   ) {
     return NextResponse.json(
       { error: "La base de datos no tiene el esquema aplicado. Ejecuta db push contra Supabase." },

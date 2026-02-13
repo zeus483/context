@@ -69,8 +69,11 @@ const cardioSchema = z
 
 export const upsertSessionSchema = z.object({
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-  workoutDayId: z.string().min(1),
+  planType: z.union([z.literal("BASE"), z.literal("CUSTOM")]),
+  planId: z.string().min(1),
+  dayId: z.string().min(1),
   notes: z.string().trim().max(600).optional(),
+  durationMinutes: z.number().int().min(0).max(600).optional(),
   finalize: z.boolean().optional(),
   sets: z.array(setSchema).min(1),
   cardio: cardioSchema
@@ -92,4 +95,54 @@ export const photoSchema = z.object({
 export const reprogramSchema = z.object({
   fromDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   toDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/)
+});
+
+const planTypeSchema = z.union([z.literal("BASE"), z.literal("CUSTOM")]);
+
+export const sessionPlanTypeSchema = planTypeSchema;
+
+const customExerciseSchema = z.object({
+  exerciseId: z.string().min(1),
+  sets: z.number().int().min(1).max(12),
+  reps: z.string().trim().min(1).max(30),
+  restSeconds: z.number().int().min(15).max(300)
+});
+
+const customDaySchema = z.object({
+  name: z.string().trim().min(2).max(80),
+  focus: z.string().trim().min(2).max(120),
+  cardioDefault: z.number().int().min(0).max(60),
+  isOptional: z.boolean().optional().default(false),
+  exercises: z.array(customExerciseSchema).min(1).max(20)
+});
+
+export const customPlanSchema = z.object({
+  id: z.string().optional(),
+  name: z.string().trim().min(2).max(80),
+  description: z.string().trim().max(220).optional(),
+  days: z.array(customDaySchema).min(1).max(7)
+});
+
+export const planActionSchema = z.discriminatedUnion("action", [
+  z.object({
+    action: z.literal("switch"),
+    planType: planTypeSchema,
+    planId: z.string().min(1)
+  }),
+  z.object({
+    action: z.literal("duplicate"),
+    sourcePlanType: planTypeSchema,
+    sourcePlanId: z.string().min(1),
+    name: z.string().trim().max(80).optional()
+  })
+]);
+
+export const weeklyCheckinSchema = z.object({
+  weekStartDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+  effortScore: z.number().int().min(1).max(10),
+  fatigueFlag: z.boolean().optional().default(false)
+});
+
+export const activeTitleSchema = z.object({
+  titleId: z.string().min(1)
 });

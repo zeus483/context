@@ -9,7 +9,8 @@ export function csvFromSessions(
   sessions: {
     date: Date;
     status: string;
-    workoutDay: { title: string };
+    workoutDay: { title: string } | null;
+    customWorkoutDay?: { name: string } | null;
     notes: string | null;
     cardioEntry: { cardioType: string; minutes: number } | null;
   }[]
@@ -17,11 +18,15 @@ export function csvFromSessions(
   const header = "date,status,statusLabel,day,cardioType,cardioMinutes,notes";
   const rows = sessions.map((session) => {
     const notes = (session.notes ?? "").replace(/"/g, '""');
+    const statusForLabel =
+      session.status === "DONE" || session.status === "PARTIAL" || session.status === "REST" || session.status === "MISSED"
+        ? session.status
+        : "PENDING";
     return [
       session.date.toISOString(),
       session.status,
-      statusLabel(session.status as any),
-      session.workoutDay.title,
+      statusLabel(statusForLabel),
+      session.workoutDay?.title ?? session.customWorkoutDay?.name ?? "Sesión",
       session.cardioEntry?.cardioType ?? "",
       session.cardioEntry?.minutes ?? "",
       `"${notes}"`

@@ -55,22 +55,33 @@ export default function LoginPage() {
             }
           };
 
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(body)
-    });
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(body)
+      });
 
-    const payload = await response.json().catch(() => ({}));
+      const contentType = response.headers.get("content-type") ?? "";
+      const payload = contentType.includes("application/json")
+        ? ((await response.json().catch(() => null)) as Record<string, unknown> | null)
+        : null;
+      const raw = payload ? "" : await response.text().catch(() => "");
 
-    if (!response.ok) {
-      setError(payload.error ?? "No se pudo completar la solicitud");
+      if (!response.ok) {
+        const fromPayload = typeof payload?.error === "string" ? payload.error : typeof payload?.message === "string" ? payload.message : "";
+        const fallback = raw ? raw.slice(0, 180) : `No se pudo completar la solicitud (${response.status})`;
+        setError(fromPayload || fallback);
+        return;
+      }
+
+      router.replace("/today");
+      router.refresh();
+    } catch {
+      setError("No se pudo conectar con el servidor");
+    } finally {
       setBusy(false);
-      return;
     }
-
-    router.replace("/today");
-    router.refresh();
   }
 
   return (

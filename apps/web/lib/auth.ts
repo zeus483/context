@@ -36,6 +36,15 @@ export async function registerUser(input: {
     return { ok: false, message: "El email ya está registrado" } as const;
   }
 
+  const [defaultBasePlan, recruiterTitle] = await Promise.all([
+    prisma.workoutPlan.findFirst({
+      where: { isActive: true },
+      orderBy: [{ kind: "asc" }, { name: "asc" }],
+      select: { id: true }
+    }),
+    prisma.title.findUnique({ where: { name: "Recluta" } })
+  ]);
+
   const user = await prisma.user.create({
     data: {
       email: input.email,
@@ -49,7 +58,9 @@ export async function registerUser(input: {
           goal: "Hipertrofia + recomposición",
           trainingDays: input.profile?.trainingDays ?? 5,
           availableHours: input.profile?.availableHours ?? 2,
-          beachGoalDate: fromDateKey(input.profile?.beachGoalDate ?? todayKey())
+          beachGoalDate: fromDateKey(input.profile?.beachGoalDate ?? todayKey()),
+          activePlanType: "BASE",
+          activeBasePlanId: defaultBasePlan?.id ?? null
         }
       },
       bodyWeightLogs: {
@@ -57,10 +68,29 @@ export async function registerUser(input: {
           date: fromDateKey(todayKey()),
           weightKg: input.profile?.weightKg ?? 80
         }
+      },
+      userStats: {
+        create: {
+          xpTotal: 0,
+          level: 1,
+          streakCount: 0,
+          currentTitleId: recruiterTitle?.id
+        }
       }
     },
     include: { profile: true }
   });
+
+  if (recruiterTitle) {
+    await prisma.userTitle.upsert({
+      where: { userId_titleId: { userId: user.id, titleId: recruiterTitle.id } },
+      update: {},
+      create: {
+        userId: user.id,
+        titleId: recruiterTitle.id
+      }
+    });
+  }
 
   await createSession(user.id);
 

@@ -7,10 +7,12 @@ import {
   beachStats,
   compliancePercent,
   computeStreak,
+  getActivePlanForUser,
   listAssignments,
   statusFromSessions,
   summarizeDailyStatus
 } from "../../../lib/workout";
+import { ensureRecentRecommendation, refreshGamification } from "../../../lib/gamification";
 
 const PR_GROUPS = [
   { key: "pressBanca", label: "Press banca", matches: ["press banca"] },
@@ -29,8 +31,10 @@ export async function GET() {
   const now = todayKey();
   const fourteenDaysAgo = addDays(now, -13);
   const weekAgo = addDays(now, -6);
+  const trainingDays = (auth.profile.trainingDays === 6 ? 6 : 5) as 5 | 6;
 
-  const [weightLogs, sessionsLast14, sessionsLast56, photos, recentAssignments] = await Promise.all([
+  const [activePlan, weightLogs, sessionsLast14, sessionsLast56, photos, gamification, recommendation, recentCheckins] = await Promise.all([
+    getActivePlanForUser(auth.user.id),
     prisma.bodyWeightLog.findMany({
       where: { userId: auth.user.id },
       orderBy: { date: "asc" }
@@ -59,8 +63,16 @@ export async function GET() {
       orderBy: { date: "desc" },
       take: 12
     }),
-    listAssignments(auth.user.id, fourteenDaysAgo, 14, (auth.profile.trainingDays === 6 ? 6 : 5) as 5 | 6)
+    refreshGamification(auth.user.id),
+    ensureRecentRecommendation(auth.user.id),
+    prisma.weeklyCheckin.findMany({
+      where: { userId: auth.user.id },
+      orderBy: { weekStartDate: "desc" },
+      take: 8
+    })
   ]);
+
+  const recentAssignments = await listAssignments(auth.user.id, fourteenDaysAgo, 14, trainingDays, activePlan);
 
   const summary = summarizeDailyStatus(sessionsLast14);
   const dailyStatuses = recentAssignments
@@ -132,6 +144,22 @@ export async function GET() {
       date: toDateKey(photo.date),
       imageUrl: photo.imageUrl,
       privacyNote: photo.privacyNote
-    }))
+    })),
+    weeklyRecommendation: recommendation
+      ? {
+          weekStartDate: toDateKey(recommendation.weekStartDate),
+          compoundIncreasePct: recommendation.compoundIncreasePct,
+          accessoryIncreasePct: recommendation.accessoryIncreasePct,
+          message: recommendation.message
+        }
+      : null,
+    weeklyCheckins: recentCheckins.map((checkin) => ({
+      id: checkin.id,
+      weekStartDate: toDateKey(checkin.weekStartDate),
+      weekEndDate: toDateKey(checkin.weekEndDate),
+      effortScore: checkin.effortScore,
+      fatigueFlag: checkin.fatigueFlag
+    })),
+    gamification
   });
 }
