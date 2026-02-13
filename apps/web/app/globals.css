@@ -26,10 +26,14 @@ body {
     radial-gradient(circle at 10% -10%, rgba(27, 228, 143, 0.22), transparent 36%),
     radial-gradient(circle at 90% 0%, rgba(249, 178, 51, 0.14), transparent 26%),
     linear-gradient(160deg, #04070d 0%, #070b12 40%, #05070c 100%);
+  overscroll-behavior-y: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 main {
-  @apply mx-auto w-full max-w-xl px-4 pb-36 pt-4;
+  @apply mx-auto w-full max-w-xl px-4;
+  padding-top: calc(1rem + env(safe-area-inset-top));
+  padding-bottom: calc(9rem + env(safe-area-inset-bottom));
 }
 
 .card {

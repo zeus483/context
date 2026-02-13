@@ -1,1 +1,130 @@
-if(!self.define){let e,s={};const n=(n,a)=>(n=new URL(n+".js",a).href,s[n]||new Promise(s=>{if("document"in self){const e=document.createElement("script");e.src=n,e.onload=s,document.head.appendChild(e)}else e=n,importScripts(n),s()}).then(()=>{let e=s[n];if(!e)throw new Error(`Module ${n} didn’t register its module`);return e}));self.define=(a,i)=>{const t=e||("document"in self?document.currentScript.src:"")||location.href;if(s[t])return;let c={};const o=e=>n(e,t),r={module:{uri:t},exports:c,require:o};s[t]=Promise.all(a.map(e=>r[e]||o(e))).then(e=>(i(...e),c))}}define(["./workbox-01fd22c6"],function(e){"use strict";importScripts(),self.skipWaiting(),e.clientsClaim(),e.precacheAndRoute([{url:"/_next/app-build-manifest.json",revision:"a5a58042c0820ef4c5d0184c3a331b50"},{url:"/_next/static/5Ugd_gky9IVu3giNnFqOH/_buildManifest.js",revision:"43125ba2f18bf622d6245f7069f0bc73"},{url:"/_next/static/5Ugd_gky9IVu3giNnFqOH/_ssgManifest.js",revision:"b6652df95db52feb4daf4eca35380933"},{url:"/_next/static/chunks/08e58b90-95a6ed2d0923b380.js",revision:"5Ugd_gky9IVu3giNnFqOH"},{url:"/_next/static/chunks/751-fd58f4286689c5d6.js",revision:"5Ugd_gky9IVu3giNnFqOH"},{url:"/_next/static/chunks/app/_not-found/page-5d33935ed149d067.js",revision:"5Ugd_gky9IVu3giNnFqOH"},{url:"/_next/static/chunks/app/layout-3800714f781c4a23.js",revision:"5Ugd_gky9IVu3giNnFqOH"},{url:"/_next/static/chunks/app/page-ab74b8aee0685a70.js",revision:"5Ugd_gky9IVu3giNnFqOH"},{url:"/_next/static/chunks/framework-bef83a85c94ff7de.js",revision:"5Ugd_gky9IVu3giNnFqOH"},{url:"/_next/static/chunks/main-71d0df192245234f.js",revision:"5Ugd_gky9IVu3giNnFqOH"},{url:"/_next/static/chunks/main-app-f6dd75a69ef31987.js",revision:"5Ugd_gky9IVu3giNnFqOH"},{url:"/_next/static/chunks/pages/_app-838aeb6770f5fcab.js",revision:"5Ugd_gky9IVu3giNnFqOH"},{url:"/_next/static/chunks/pages/_error-8efde0a54967dce8.js",revision:"5Ugd_gky9IVu3giNnFqOH"},{url:"/_next/static/chunks/polyfills-78c92fac7aa8fdd8.js",revision:"79330112775102f91e1010318bae2bd3"},{url:"/_next/static/chunks/webpack-19133e5918f4a9d6.js",revision:"5Ugd_gky9IVu3giNnFqOH"},{url:"/_next/static/css/dac84eeef1c4f376.css",revision:"dac84eeef1c4f376"},{url:"/_next/static/media/1d4eaed977255102-s.woff2",revision:"b2ac789bfd3a250ecb1f0d1bc8002cb6"},{url:"/_next/static/media/36966cca54120369-s.p.woff2",revision:"25ea4a783c12103f175f5b157b7d96aa"},{url:"/_next/static/media/b7387a63dd068245-s.woff2",revision:"dea099b7d5a5ea45bd4367f8aeff62ab"},{url:"/_next/static/media/e1aab0933260df4d-s.woff2",revision:"207f8e9f3761dbd724063a177d906a99"},{url:"/_next/static/media/f3f7e95f2dbc4fe4-s.p.woff2",revision:"26b4b6557e9db18aab82adad3e2df080"},{url:"/icon-192.png",revision:"df66de4e49dcf811ed1389bb33e56bb9"},{url:"/icon-512.png",revision:"f88f6b6b608958310cd2b222fe4243cb"},{url:"/manifest.webmanifest",revision:"45dfccb475731e4d1ec297e15159c11e"}],{ignoreURLParametersMatching:[]}),e.cleanupOutdatedCaches(),e.registerRoute("/",new e.NetworkFirst({cacheName:"start-url",plugins:[{cacheWillUpdate:async({request:e,response:s,event:n,state:a})=>s&&"opaqueredirect"===s.type?new Response(s.body,{status:200,statusText:"OK",headers:s.headers}):s}]}),"GET"),e.registerRoute(/^https:\/\/fonts\.(?:gstatic)\.com\/.*/i,new e.CacheFirst({cacheName:"google-fonts-webfonts",plugins:[new e.ExpirationPlugin({maxEntries:4,maxAgeSeconds:31536e3})]}),"GET"),e.registerRoute(/^https:\/\/fonts\.(?:googleapis)\.com\/.*/i,new e.StaleWhileRevalidate({cacheName:"google-fonts-stylesheets",plugins:[new e.ExpirationPlugin({maxEntries:4,maxAgeSeconds:604800})]}),"GET"),e.registerRoute(/\.(?:eot|otf|ttc|ttf|woff|woff2|font.css)$/i,new e.StaleWhileRevalidate({cacheName:"static-font-assets",plugins:[new e.ExpirationPlugin({maxEntries:4,maxAgeSeconds:604800})]}),"GET"),e.registerRoute(/\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,new e.StaleWhileRevalidate({cacheName:"static-image-assets",plugins:[new e.ExpirationPlugin({maxEntries:64,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(/\/_next\/image\?url=.+$/i,new e.StaleWhileRevalidate({cacheName:"next-image",plugins:[new e.ExpirationPlugin({maxEntries:64,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(/\.(?:mp3|wav|ogg)$/i,new e.CacheFirst({cacheName:"static-audio-assets",plugins:[new e.RangeRequestsPlugin,new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(/\.(?:mp4)$/i,new e.CacheFirst({cacheName:"static-video-assets",plugins:[new e.RangeRequestsPlugin,new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(/\.(?:js)$/i,new e.StaleWhileRevalidate({cacheName:"static-js-assets",plugins:[new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(/\.(?:css|less)$/i,new e.StaleWhileRevalidate({cacheName:"static-style-assets",plugins:[new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(/\/_next\/data\/.+\/.+\.json$/i,new e.StaleWhileRevalidate({cacheName:"next-data",plugins:[new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(/\.(?:json|xml|csv)$/i,new e.NetworkFirst({cacheName:"static-data-assets",plugins:[new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(({url:e})=>{if(!(self.origin===e.origin))return!1;const s=e.pathname;return!s.startsWith("/api/auth/")&&!!s.startsWith("/api/")},new e.NetworkFirst({cacheName:"apis",networkTimeoutSeconds:10,plugins:[new e.ExpirationPlugin({maxEntries:16,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(({url:e})=>{if(!(self.origin===e.origin))return!1;return!e.pathname.startsWith("/api/")},new e.NetworkFirst({cacheName:"others",networkTimeoutSeconds:10,plugins:[new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(({url:e})=>!(self.origin===e.origin),new e.NetworkFirst({cacheName:"cross-origin",networkTimeoutSeconds:10,plugins:[new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:3600})]}),"GET")});
+const STATIC_CACHE = "t26-static-v1";
+const RUNTIME_CACHE = "t26-runtime-v1";
+const OFFLINE_URL = "/offline.html";
+
+const STATIC_ASSETS = [
+  "/",
+  "/today",
+  "/login",
+  "/manifest.json",
+  "/icon-180.png",
+  "/icon-192.png",
+  "/icon-512.png",
+  OFFLINE_URL
+];
+
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches
+      .open(STATIC_CACHE)
+      .then((cache) => cache.addAll(STATIC_ASSETS))
+      .then(() => self.skipWaiting())
+  );
+});
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(
+        keys
+          .filter((key) => key !== STATIC_CACHE && key !== RUNTIME_CACHE)
+          .map((key) => caches.delete(key))
+      )
+    )
+  );
+  self.clients.claim();
+});
+
+self.addEventListener("fetch", (event) => {
+  const { request } = event;
+
+  if (request.method !== "GET") {
+    return;
+  }
+
+  const url = new URL(request.url);
+  if (url.origin !== self.location.origin) {
+    return;
+  }
+
+  if (request.mode === "navigate") {
+    event.respondWith(handleNavigation(request));
+    return;
+  }
+
+  const isStaticAsset = /\.(?:js|css|png|jpg|jpeg|svg|ico|webp|woff|woff2)$/i.test(url.pathname);
+  if (isStaticAsset) {
+    event.respondWith(cacheFirst(request));
+    return;
+  }
+
+  event.respondWith(networkFirst(request));
+});
+
+async function handleNavigation(request) {
+  try {
+    const network = await fetch(request);
+    const cache = await caches.open(RUNTIME_CACHE);
+    cache.put(request, network.clone());
+    return network;
+  } catch {
+    const cachedPage = await caches.match(request);
+    if (cachedPage) {
+      return cachedPage;
+    }
+
+    const offlinePage = await caches.match(OFFLINE_URL);
+    if (offlinePage) {
+      return offlinePage;
+    }
+
+    return new Response("Sin conexión", {
+      status: 503,
+      statusText: "Offline"
+    });
+  }
+}
+
+async function cacheFirst(request) {
+  const cached = await caches.match(request);
+  if (cached) {
+    return cached;
+  }
+
+  try {
+    const network = await fetch(request);
+    if (network.ok) {
+      const cache = await caches.open(RUNTIME_CACHE);
+      cache.put(request, network.clone());
+    }
+    return network;
+  } catch {
+    return new Response("Recurso no disponible sin conexión", {
+      status: 503,
+      statusText: "Offline"
+    });
+  }
+}
+
+async function networkFirst(request) {
+  try {
+    const network = await fetch(request);
+
+    if (network.ok && !request.url.includes("/api/auth/")) {
+      const cache = await caches.open(RUNTIME_CACHE);
+      cache.put(request, network.clone());
+    }
+
+    return network;
+  } catch {
+    const cached = await caches.match(request);
+    if (cached) {
+      return cached;
+    }
+
+    return new Response("Sin conexión", {
+      status: 503,
+      statusText: "Offline"
+    });
+  }
+}

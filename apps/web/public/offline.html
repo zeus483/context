@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <title>Transformación 2026 · Offline</title>
+    <style>
+      :root {
+        --bg: #06090f;
+        --surface: #0d111a;
+        --border: #222c3f;
+        --text: #f2f5fa;
+        --muted: #9ca8bf;
+        --accent: #1be48f;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100%;
+        background: var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      .wrap {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+      }
+      .card {
+        width: min(420px, 100%);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: var(--surface);
+        padding: 20px;
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-size: 24px;
+      }
+      p {
+        margin: 0;
+        color: var(--muted);
+      }
+      .dot {
+        color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section class="card">
+        <h1>Estás sin conexión <span class="dot">●</span></h1>
+        <p>Puedes seguir usando las pantallas en caché. Cuando vuelva internet, la app se actualizará automáticamente.</p>
+      </section>
+    </main>
+  </body>
+</html>
