@@ -4,12 +4,17 @@
   "packageManager": "pnpm@9.15.0",
   "scripts": {
     "dev": "pnpm --filter @cc/web dev",
+    "prebuild": "pnpm db:generate",
     "build": "pnpm --filter @cc/web build",
     "start": "pnpm --filter @cc/web start",
     "test": "pnpm --filter @cc/web test",
     "test:e2e": "pnpm --filter @cc/web test:e2e",
-    "db:generate": "pnpm --filter @cc/web exec prisma generate --schema ../../prisma/schema.prisma",
-    "db:push": "DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@localhost:5432/transformacion} pnpm --filter @cc/web exec prisma db push --schema ../../prisma/schema.prisma",
+    "db:generate": "PRISMA_GENERATE_SKIP_AUTOINSTALL=1 pnpm exec prisma generate --schema prisma/schema.prisma",
+    "db:push": "DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@localhost:5432/transformacion} PRISMA_GENERATE_SKIP_AUTOINSTALL=1 pnpm exec prisma db push --schema prisma/schema.prisma",
     "db:seed": "DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@localhost:5432/transformacion} pnpm --filter @cc/api exec tsx ../../prisma/seed.ts"
+  },
+  "devDependencies": {
+    "@prisma/client": "^5.22.0",
+    "prisma": "^5.22.0"
   }
 }
