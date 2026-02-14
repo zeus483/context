@@ -344,13 +344,58 @@ function inferLowerDay(day: DayBlueprint) {
   return ["pierna", "femoral", "glúte", "tren inferior"].some((word) => probe.includes(word));
 }
 
-function exerciseCopy(name: string, equipment: string) {
+const exercisePhotoByKeyword: Array<{ keyword: string; imageUrl: string }> = [
+  { keyword: "press banca", imageUrl: "https://images.pexels.com/photos/949126/pexels-photo-949126.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  { keyword: "press inclinado", imageUrl: "https://images.pexels.com/photos/2261477/pexels-photo-2261477.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  { keyword: "fondos", imageUrl: "https://images.pexels.com/photos/6550859/pexels-photo-6550859.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  { keyword: "tríceps", imageUrl: "https://images.pexels.com/photos/4162492/pexels-photo-4162492.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  { keyword: "dominadas", imageUrl: "https://images.pexels.com/photos/6740059/pexels-photo-6740059.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  { keyword: "jalón", imageUrl: "https://images.pexels.com/photos/414029/pexels-photo-414029.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  { keyword: "remo", imageUrl: "https://images.pexels.com/photos/3076516/pexels-photo-3076516.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  { keyword: "curl", imageUrl: "https://images.pexels.com/photos/3837757/pexels-photo-3837757.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  { keyword: "sentadilla", imageUrl: "https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  { keyword: "prensa", imageUrl: "https://images.pexels.com/photos/1552249/pexels-photo-1552249.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  { keyword: "cuádriceps", imageUrl: "https://images.pexels.com/photos/1309222/pexels-photo-1309222.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  { keyword: "pantorrilla", imageUrl: "https://images.pexels.com/photos/4473616/pexels-photo-4473616.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  { keyword: "peso muerto", imageUrl: "https://images.pexels.com/photos/4803702/pexels-photo-4803702.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  { keyword: "hip thrust", imageUrl: "https://images.pexels.com/photos/6456148/pexels-photo-6456148.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  { keyword: "plancha", imageUrl: "https://images.pexels.com/photos/6456213/pexels-photo-6456213.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  { keyword: "hombro", imageUrl: "https://images.pexels.com/photos/3838389/pexels-photo-3838389.jpeg?auto=compress&cs=tinysrgb&w=1200" }
+];
+
+const exerciseGoalByGroup: Record<string, string> = {
+  pecho: "mejorar fuerza de empuje y volumen en el torso",
+  espalda: "ganar densidad dorsal y estabilidad escapular",
+  bíceps: "sumar tensión efectiva en el tirón y mejorar el pico",
+  tríceps: "potenciar el bloqueo y el empuje final",
+  hombro: "dar anchura al torso y estabilidad al press",
+  pierna: "construir una base fuerte y estable",
+  femoral: "reforzar cadena posterior y proteger rodilla/cadera",
+  glúteo: "mejorar potencia y estabilidad pélvica",
+  pantorrilla: "ganar resistencia y fuerza en el apoyo",
+  core: "mejorar control del tronco en todos los levantamientos"
+};
+
+function resolveExercisePhoto(name: string, muscleGroup: string) {
+  const probe = `${name} ${muscleGroup}`.toLowerCase();
+  const match = exercisePhotoByKeyword.find((entry) => probe.includes(entry.keyword));
+  if (match) {
+    return match.imageUrl;
+  }
+
+  return "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=1200";
+}
+
+function exerciseCopy(name: string, equipment: string, muscleGroup: string) {
+  const groupKey = muscleGroup.toLowerCase();
+  const goal = exerciseGoalByGroup[groupKey] ?? "mejorar técnica y consistencia semana a semana";
+
   return {
-    imageUrl: `https://placehold.co/800x520/png?text=${encodeURIComponent(name)}`,
-    instructions: `1) Ajusta ${equipment.toLowerCase()} y postura. 2) Mantén control excéntrico. 3) Busca rango completo sin dolor.`,
-    commonMistakes: "Subir peso demasiado pronto y recortar recorrido.",
-    tips: "Trabaja la mayoría de sets en 1-3 RIR y prioriza técnica estable.",
-    alternatives: "Alternativa sugerida: cambia a máquina/polea/mancuerna equivalente según disponibilidad."
+    imageUrl: resolveExercisePhoto(name, muscleGroup),
+    instructions: `Enfócate en ${goal}. Inicia con setup sólido en ${equipment.toLowerCase()}, controla la bajada 2-3 segundos y busca rango completo con técnica limpia antes de subir carga.`,
+    commonMistakes: `Error típico en ${name}: acelerar la fase excéntrica y compensar con espalda/cuello. Mantén core activo y evita recortar el recorrido por mover más peso.`,
+    tips: `Tip práctico para ${name}: trabaja entre 1 y 3 RIR, graba una serie top para revisar técnica y aplica progresión pequeña cada semana (+1-2 reps o +2,5 kg).`,
+    alternatives: `Si no tienes ${equipment.toLowerCase()}, usa una variante equivalente de ${muscleGroup.toLowerCase()} (máquina, polea o mancuerna) manteniendo el mismo patrón de movimiento.`
   };
 }
 
@@ -382,7 +427,7 @@ async function seedExercises() {
   }
 
   for (const exercise of uniqueExercises.values()) {
-    const content = exerciseCopy(exercise.name, exercise.equipment);
+    const content = exerciseCopy(exercise.name, exercise.equipment, exercise.muscleGroup);
 
     await prisma.exercise.upsert({
       where: { name_equipment: { name: exercise.name, equipment: exercise.equipment } },
